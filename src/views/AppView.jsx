@@ -11,7 +11,7 @@ function AppView({ toSignUp }) {
   return (
     <div className="App">
       <header className="App-header">Mini project</header>
-      <h2>Front page</h2>
+      <h2>App view (front page)</h2>
 
       <Button variant="contained" onClick={onToSignUpClicked}>
         Go to sign-up form
