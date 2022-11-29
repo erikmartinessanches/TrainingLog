@@ -46,12 +46,12 @@ function SignUpView({
           required
           id="outlined-required"
           label="Email"
-          defaultValue="Your email"
           value={email}
           disabled={status === "submitting"}
           onChange={handleEmailChange}
         />
         <TextField
+          required
           id="outlined-password-input"
           label="Password"
           value={password}

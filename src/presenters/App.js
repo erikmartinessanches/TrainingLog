@@ -7,7 +7,7 @@ function App() {
     console.log("To sign up view, use react-router-dom...");
   }
 
-  return <AppView toSignUp={toSignUp}></AppView>;
+  return <AppView /*toSignUp={toSignUp}*/></AppView>;
 }
 
 export default App;

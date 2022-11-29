@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./presenters/App";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
-import ErrorPage from "./views/ErrorPage";
+import ErrorView from "./views/ErrorView";
+import SignUpPresenter from "./presenters/SignUpPresenter";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -14,7 +15,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorView />,
+  },
+  {
+    path: "/signup",
+    element: <SignUpPresenter />,
   },
 ]);
 

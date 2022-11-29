@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import SignUpView from "../views/SignUpView";
 
 function SignUpPresenter() {
@@ -6,6 +6,18 @@ function SignUpPresenter() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null); //The last error
+
+  /** useEffect here depends on the state and sets the status only when email
+   * or password has changed and they are not empty strings!
+   */
+  useEffect(() => {
+    if (email !== "" && password !== "") {
+      setStatus("typing");
+    } else {
+      setStatus("empty");
+    }
+    return () => {};
+  }, [email, password]);
 
   function onSignUp(e) {
     console.log("Here we want to sign the user up.");
@@ -16,7 +28,15 @@ function SignUpPresenter() {
   }
 
   return (
-    <SignUpView onSignUp status error setEmail setPassword email password />
+    <SignUpView
+      onSignUp={onSignUp}
+      status={status}
+      error={error}
+      setEmail={setEmail}
+      setPassword={setPassword}
+      email={email}
+      password={password}
+    />
   );
 }
 
