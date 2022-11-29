@@ -1,13 +1,13 @@
 import "./App.css";
 import { app, database } from "../persistence/Persistence";
+import AppView from "../views/AppView";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">Mini project</header>
-      <div></div>
-    </div>
-  );
+  function toSignUp(params) {
+    console.log("To sign up view, use react-router-dom...");
+  }
+
+  return <AppView toSignUp={toSignUp}></AppView>;
 }
 
 export default App;
