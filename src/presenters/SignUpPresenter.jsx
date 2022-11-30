@@ -13,7 +13,7 @@ function SignUpPresenter() {
     data: results,
     error,
     loading,
-  } = useSelector((state) => state.signUpResults || {});
+  } = useSelector((state) => state.user || {});
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ function SignUpPresenter() {
     return () => {};
   }, [email, password]);
 
-  function onSignUp(e) {
+  function onSignUp() {
     console.log("Here we want to sign the user up.");
     setStatus("submitting");
     dispatch({ type: "SIGNUP", payload: { email: email, password: password } });

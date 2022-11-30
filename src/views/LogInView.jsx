@@ -2,20 +2,10 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function SignUpView({
-  loading,
-  onSignUp,
-  status,
-  error,
-  setEmail,
-  setPassword,
-  email,
-  password,
-  results,
-}) {
-  function onSignUpClicked(e) {
+function LogInView({ loggedIn, loading, setEmail, setPassword }) {
+  function onLogInClicked(e) {
     e.preventDefault();
-    onSignUp();
+    loggedIn();
   }
 
   function handleEmailChange(e) {
@@ -26,40 +16,24 @@ function SignUpView({
     setPassword(e.target.value);
   }
 
-  if (results) {
-    return <h1>You signed up!</h1>;
-  }
-
-  if (error) {
-    return (
-      <React.Fragment>
-        <h1>There was an error, how unfortunate.</h1>
-        {error !== null && (
-          <p>
-            {error.name}: {error.customData._tokenResponse.error.message}
-          </p>
-        )}
-      </React.Fragment>
-    );
-  }
-
   return (
-    <React.Fragment>
-      <h2>Sign Up</h2>
-      <form onSubmit={onSignUpClicked}>
+    <div>
+      <h2>Log In</h2>
+      <form onSubmit={onLogInClicked}>
         <TextField
           required
           id="outlined-required"
           label="Email"
-          value={email}
+          //value={email}
           disabled={loading}
           onChange={handleEmailChange}
+          //autoComplete="current-email"
         />
         <TextField
           required
           id="outlined-password-input"
           label="Password"
-          value={password}
+          //value={password}
           type="password"
           autoComplete="current-password"
           disabled={loading}
@@ -67,14 +41,15 @@ function SignUpView({
         />
         <Button
           variant="contained"
-          onClick={onSignUpClicked}
-          disabled={loading || status === "empty"}
+          //onClick={onSignUpClicked}
+          type="submit"
+          disabled={loading}
         >
-          Sign Up
+          Log In
         </Button>
       </form>
-    </React.Fragment>
+    </div>
   );
 }
 
-export default SignUpView;
+export default LogInView;

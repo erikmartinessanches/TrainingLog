@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 function App() {
   const navigate = useNavigate();
 
-  function toSignUp(params) {
+  function toSignUp() {
     navigate("/signup");
   }
 
-  return <AppView toSignUp={toSignUp}></AppView>;
+  function toLogIn() {
+    navigate("/login");
+  }
+
+  return <AppView toSignUp={toSignUp} toLogIn={toLogIn}></AppView>;
 }
 
 export default App;

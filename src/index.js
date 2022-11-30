@@ -5,6 +5,7 @@ import App from "./presenters/App";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import ErrorView from "./views/ErrorView";
 import SignUpPresenter from "./presenters/SignUpPresenter";
+import LogInPresenter from "./presenters/LogInPresenter";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -26,6 +27,12 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUpPresenter />,
+    errorElement: <ErrorView />,
+  },
+  {
+    path: "/login",
+    element: <LogInPresenter />,
+    errorElement: <ErrorView />,
   },
 ]);
 
