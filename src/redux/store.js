@@ -5,5 +5,5 @@ import { reducer } from "./reducers";
 export const store = configureStore({
   reducer: reducer,
   middleware: [fbMiddleware],
-  preloadedState: {}, //Starting with empty...
+  preloadedState: {}, //Starting with an empty store...
 });

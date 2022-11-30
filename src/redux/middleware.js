@@ -21,20 +21,27 @@ export const fbMiddleware = (store) => (next) => (action) => {
         auth,
         inputUserData.email,
         inputUserData.password
-      ).then((userCredential) => {
-        //Logged in at this point!
-        const user = userCredential.user;
-        store.dispatch({
-          type: "SIGNUP_RESULTS",
-          payload: {
-            loading: false,
-            error: null,
-            data: user,
-          },
+      )
+        .then((userCredential) => {
+          //Logged in at this point!
+          const user = userCredential.user;
+          store.dispatch({
+            type: "SIGNUP_RESULTS",
+            payload: {
+              loading: false,
+              error: null,
+              data: user,
+            },
+          });
+          //examples https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-middleware-to-enable-async-logic
+        })
+        .catch((err) => {
+          //Perhaps double-check that the catch works...
+          store.dispatch({
+            type: "SIGNUP_RESULTS",
+            payload: { loading: false, error: err, data: null },
+          });
         });
-        //Interestingly, no .catch here in the Redux middleware
-        //examples https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-middleware-to-enable-async-logic
-      });
     }
   }
 
