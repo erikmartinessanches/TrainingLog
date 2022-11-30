@@ -12,7 +12,7 @@ import "@fontsource/roboto/700.css";
 //import { fbMiddleware } from "./redux/middleware";
 //import { reducer } from "./redux/reducers";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { store } from "./models/store";
 //import reportWebVitals from './reportWebVitals';
 
 //const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
