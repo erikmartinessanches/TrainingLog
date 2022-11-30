@@ -1,7 +1,6 @@
-import React from "react";
 import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+//import { getAnalytics } from "firebase/analytics";
 import { getDatabase } from "firebase/database";
 
 /* Initialize Firebase. A Firebase App is a container-like object that stores 

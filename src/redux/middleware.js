@@ -1,4 +1,3 @@
-import React from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 /**We can think of the signature as a function that receives a store, an action

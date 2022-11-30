@@ -9,7 +9,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { fbMiddleware } from "./redux/middleware";
+//import { fbMiddleware } from "./redux/middleware";
 //import { reducer } from "./redux/reducers";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";

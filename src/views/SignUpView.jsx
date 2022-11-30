@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 function SignUpView({
+  loading,
   onSignUp,
   status,
   error,
@@ -10,6 +11,7 @@ function SignUpView({
   setPassword,
   email,
   password,
+  results,
 }) {
   function onSignUpClicked(e) {
     e.preventDefault();
@@ -25,11 +27,11 @@ function SignUpView({
     setPassword(e.target.value);
   }
 
-  if (status === "success") {
+  if (results) {
     return <h1>You signed up!</h1>;
   }
 
-  if (status === "error") {
+  if (error) {
     return (
       <React.Fragment>
         <h1>There was an error, how unfortunate.</h1>
@@ -47,7 +49,7 @@ function SignUpView({
           id="outlined-required"
           label="Email"
           value={email}
-          disabled={status === "submitting"}
+          disabled={loading}
           onChange={handleEmailChange}
         />
         <TextField
@@ -57,13 +59,13 @@ function SignUpView({
           value={password}
           type="password"
           autoComplete="current-password"
-          disabled={status === "submitting"}
+          disabled={loading}
           onChange={handlePasswordChange}
         />
         <Button
           variant="contained"
           onClick={onSignUpClicked}
-          disabled={status === "submitting" || status === "empty"}
+          disabled={loading || status === "empty"}
         >
           Sign Up
         </Button>
