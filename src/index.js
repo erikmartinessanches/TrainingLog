@@ -9,7 +9,13 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import { fbMiddleware } from "./redux/middleware";
+//import { reducer } from "./redux/reducers";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 //import reportWebVitals from './reportWebVitals';
+
+//const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
 
 const router = createBrowserRouter([
   {
@@ -26,7 +32,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
