@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { auth } from "../persistence/Persistence";
 
 /**We can think of the signature as a function that receives a store, an action
  * and a 'next' function that can forward actions on to the rest of redux.
@@ -21,7 +22,7 @@ export const fbMiddleware = (store) => (next) => (action) => {
           error: null,
         },
       });
-      const auth = getAuth();
+      //const auth = getAuth(app);
       createUserWithEmailAndPassword(
         auth,
         inputUserData.email,
@@ -59,7 +60,7 @@ export const fbMiddleware = (store) => (next) => (action) => {
           error: null,
         },
       });
-      const auth = getAuth();
+      //const auth = getAuth(app);
       signInWithEmailAndPassword(
         auth,
         inputUserData.email,
@@ -93,7 +94,7 @@ export const fbMiddleware = (store) => (next) => (action) => {
         error: null,
       },
     });
-    const auth = getAuth();
+    //const auth = getAuth(app);
     signOut(auth)
       .then(() => {
         //Logged out here!

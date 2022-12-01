@@ -15,7 +15,7 @@ function DashboardPresenter() {
 
   function logOut() {
     console.log("Log the user out.");
-    //dispatch({ type: "LOGOUT" });
+    dispatch({ type: "LOGOUT" });
   }
 
   useEffect(() => {
