@@ -2,6 +2,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 /**We can think of the signature as a function that receives a store, an action
@@ -48,7 +49,6 @@ export const fbMiddleware = (store) => (next) => (action) => {
         });
     }
   } else if (action.type === "LOGIN") {
-    //Sign up
     const inputUserData = action.payload;
     if (inputUserData) {
       store.dispatch({
@@ -76,17 +76,43 @@ export const fbMiddleware = (store) => (next) => (action) => {
               data: user,
             },
           });
-          //examples https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-middleware-to-enable-async-logic
         })
         .catch((err) => {
-          //Perhaps double-check that the catch works...
           store.dispatch({
             type: "LOGIN_RESULTS",
             payload: { loading: false, error: err, data: null },
           });
         });
     }
+  } else if (action.type === "LOGOUT") {
+    store.dispatch({
+      type: "LOGOUT_RESULTS",
+      payload: {
+        loading: true,
+        data: null,
+        error: null,
+      },
+    });
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        //Logged out here!
+        store.dispatch({
+          type: "LOGOUT_RESULTS",
+          payload: {
+            loading: false,
+            error: null,
+            data: null,
+          },
+        });
+      })
+      .catch((err) => {
+        store.dispatch({
+          type: "LOGOUT_RESULTS",
+          payload: { loading: false, error: err, data: null },
+        });
+      });
   }
 
-  return next(action); //Don't sign up.
+  return next(action); //Pass the action to the next function in the middleware chain.
 };

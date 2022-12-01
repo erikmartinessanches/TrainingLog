@@ -2,7 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./presenters/App";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider /*, Route*/,
+} from "react-router-dom";
 import ErrorView from "./views/ErrorView";
 import SignUpPresenter from "./presenters/SignUpPresenter";
 import LogInPresenter from "./presenters/LogInPresenter";

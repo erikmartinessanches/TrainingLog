@@ -3,6 +3,8 @@ export const reducer = (state, action) => {
     return { ...state, user: { ...action.payload } };
   } else if (action.type === "LOGIN_RESULTS") {
     return { ...state, user: { ...action.payload } };
+  } else if (action.type === "LOGOUT_RESULTS") {
+    return { ...state, user: null };
   }
   return { ...state };
 };

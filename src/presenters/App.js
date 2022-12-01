@@ -1,5 +1,5 @@
 import "./App.css";
-import { app, database } from "../persistence/Persistence";
+//import { app, database } from "../persistence/Persistence";
 import AppView from "../views/AppView";
 import { useNavigate } from "react-router-dom";
 
