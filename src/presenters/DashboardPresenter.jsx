@@ -18,6 +18,10 @@ function DashboardPresenter() {
     dispatch({ type: "LOGOUT" });
   }
 
+  /**This useEffect effectively guards against going to /dashboard unless we
+   * have a user set in redux. If there is not user in redux (no logged in),
+   * we'll be navigated to /. But this may be fishy...
+   */
   useEffect(() => {
     if (!results && !error && !loading) {
       navigate("/");
