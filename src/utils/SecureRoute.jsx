@@ -6,10 +6,10 @@ import LogInPresenter from "../presenters/LogInPresenter";
 import { Navigate, Outlet } from "react-router-dom";
 import useSecurity from "./useSecurity";
 
-const SecureRoute = () => {
+const SecureRoute = (props) => {
   const { loggedIn } = useSecurity();
   /**If we're logged in, return an Outlet that will render the children. */
-  return loggedIn ? <Outlet /> : <Navigate to="login" />;
+  return loggedIn ? props.children : <Navigate to="/login" />;
 };
 
 export default SecureRoute;
