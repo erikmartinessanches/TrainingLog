@@ -34,11 +34,7 @@ function SignUpView({
     return (
       <React.Fragment>
         <h1>There was an error, how unfortunate.</h1>
-        {error !== null && (
-          <p>
-            {error.name}: {error.customData._tokenResponse.error.message}
-          </p>
-        )}
+        {error !== null && <p>{error?.message}</p>}
       </React.Fragment>
     );
   }
