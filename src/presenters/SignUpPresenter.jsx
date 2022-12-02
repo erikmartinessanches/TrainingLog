@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import SignUpView from "../views/SignUpView";
 import { useDispatch, useSelector } from "react-redux";
+import useSecurity from "../utils/useSecurity";
 
 function SignUpPresenter() {
   const [status, setStatus] = useState("empty");
@@ -8,14 +9,14 @@ function SignUpPresenter() {
   const [password, setPassword] = useState("");
   //const [error, setError] = useState(null); //The last error
 
-  const {
-    //We could use the current data in redux if we had a need for it in the view.
-    data: results,
-    error,
-    loading,
-  } = useSelector((state) => state.user || {});
-
-  const dispatch = useDispatch();
+  // const {
+  //   //We could use the current data in redux if we had a need for it in the view.
+  //   data: results,
+  //   error,
+  //   loading,
+  // } = useSelector((state) => state.user || {});
+  const { signUp, loggedIn, loading, error } = useSecurity();
+  //const dispatch = useDispatch();
 
   /** useEffect here depends on the state and sets the status only when email
    * or password has changed and they are not empty strings!
@@ -30,10 +31,10 @@ function SignUpPresenter() {
   }, [email, password]);
 
   function onSignUp() {
-    console.log("Here we want to sign the user up.");
+    console.log("Sign the user up.");
     setStatus("submitting");
-    dispatch({ type: "SIGNUP", payload: { email: email, password: password } });
-
+    //dispatch({ type: "SIGNUP", payload: { email: email, password: password } });
+    signUp(email, password);
     // Here we want to try/catch submitting the form and set status and error accordingly,
     // see https://beta.reactjs.org/learn/reacting-to-input-with-state#step-5-connect-the-event-handlers-to-set-state
   }
@@ -48,7 +49,7 @@ function SignUpPresenter() {
       setPassword={setPassword}
       email={email}
       password={password}
-      results={results}
+      results={loggedIn}
     />
   );
 }
