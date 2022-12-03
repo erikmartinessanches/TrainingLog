@@ -1,9 +1,13 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-function DashboardView({ logOut, loading }) {
+function DashboardView({ logOut, loading, createNewACB }) {
   function onLogOutClicked() {
     logOut();
+  }
+
+  function onCreateNewRecord() {
+    createNewACB();
   }
 
   return (
@@ -16,6 +20,14 @@ function DashboardView({ logOut, loading }) {
         disabled={loading}
       >
         Log out
+      </Button>
+      <Button
+        variant="contained"
+        onClick={onCreateNewRecord}
+        type="submit"
+        disabled={loading}
+      >
+        Create new record
       </Button>
     </div>
   );

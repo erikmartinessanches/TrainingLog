@@ -12,13 +12,17 @@ function DashboardPresenter() {
   //   loading,
   // } = useSelector((state) => state.user || {});
   //const dispatch = useDispatch();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const { logOut, loggedIn, loading, error } = useSecurity();
 
   function logOutACB() {
     console.log("Log the user out.");
     //dispatch({ type: "LOGOUT" });
     logOut();
+  }
+
+  function createNewACB() {
+    navigate("/dashboard/create-record");
   }
 
   /**This useEffect effectively guards against going to /dashboard unless we
@@ -32,7 +36,13 @@ function DashboardPresenter() {
   //   return () => {};
   // }, [loggedIn, error, loading, navigate]);
 
-  return <DashboardView logOut={logOutACB} loading={loading} />;
+  return (
+    <DashboardView
+      logOut={logOutACB}
+      loading={loading}
+      createNewACB={createNewACB}
+    />
+  );
 }
 
 export default DashboardPresenter;

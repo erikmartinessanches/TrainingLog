@@ -21,6 +21,7 @@ import { store } from "./models/store";
 //import reportWebVitals from './reportWebVitals';
 import SecureRoute from "./utils/SecureRoute";
 import SecurityProvider from "./utils/SecurityProvider";
+import CreateRecordPresenter from "./presenters/CreateRecordPresenter";
 
 //const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
 
@@ -45,6 +46,15 @@ const router = createBrowserRouter([
     element: (
       <SecureRoute>
         <DashboardPresenter />
+      </SecureRoute>
+    ),
+    errorElement: <ErrorView />,
+  },
+  {
+    path: "/dashboard/create-record",
+    element: (
+      <SecureRoute>
+        <CreateRecordPresenter />
       </SecureRoute>
     ),
     errorElement: <ErrorView />,
