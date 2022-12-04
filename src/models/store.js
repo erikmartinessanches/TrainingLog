@@ -3,16 +3,18 @@ import { fbMiddleware } from "./middleware";
 import { reducer } from "./reducers";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { SaveNewRecord } from "./ThunkFunctions";
 
-//const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
-const store = configureStore({
-  reducer: reducer,
-  middleware: [SaveNewRecord, fbMiddleware],
-  preloadedState: { user: null, records: [] },
-  //enhancers: [composedEnhancer],
-});
+// const store = configureStore({
+//   reducer: reducer,
+//   middleware: [SaveNewRecord, fbMiddleware],
+//   preloadedState: { user: null, records: [] },
+//   //enhancers: [composedEnhancer],
+// });
+
+const store = createStore(reducer, composedEnhancer);
 
 export default store;

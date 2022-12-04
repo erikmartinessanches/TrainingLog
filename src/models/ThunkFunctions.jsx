@@ -6,15 +6,17 @@ export function SaveNewRecord(text) {
   //We want to return the async thunk function.
 
   return async function SaveNewRecordThunk(dispatch, getState) {
-    // debugger;
+    const yo = getState();
+    debugger;
     console.log("inside thunk");
     const db = getDatabase();
     const REF = "users";
-    const initialRecord = { text };
+    const initialRecord = { text: text };
     //    const response = await database
     //      .ref(REF + "/user/records")
     //      .set({ record: initialRecord });
-    const response = await set(ref(db, "records"), { record: initialRecord });
-    dispatch({ type: "RECORD_CREATED", payload: response.record });
+    await set(ref(database, "records"), { record: initialRecord });
+    //debugger;
+    dispatch({ type: "RECORD_CREATED", payload: initialRecord });
   };
 }
