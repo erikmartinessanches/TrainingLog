@@ -17,11 +17,12 @@ import "@fontsource/roboto/700.css";
 //import { fbMiddleware } from "./redux/middleware";
 //import { reducer } from "./redux/reducers";
 import { Provider } from "react-redux";
-import { store } from "./models/store";
+import store from "./models/store";
 //import reportWebVitals from './reportWebVitals';
 import SecureRoute from "./utils/SecureRoute";
 import SecurityProvider from "./utils/SecurityProvider";
 import CreateRecordPresenter from "./presenters/CreateRecordPresenter";
+import ReactRoot from "./presenters/ReactRoot";
 
 //const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
 

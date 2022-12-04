@@ -6,8 +6,8 @@ function CreateRecordView({ saveRecordTextACB, record, recordRef }) {
   const tempRef = useRef();
 
   function onSubmitACB(e) {
-    saveRecordTextACB(recordRef.current.value);
     e.preventDefault();
+    saveRecordTextACB(recordRef.current.value);
   }
 
   return (
