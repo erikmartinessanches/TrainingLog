@@ -20,7 +20,6 @@ function CreateRecordPresenter() {
   function saveRecordTextACB(recordText) {
     console.log(`Save record text: ${recordText}`);
     dispatch(SaveNewRecord(recordText));
-    //SaveNewRecord(recordText);
   }
 
   /**“Rendering” means that React is calling your component, which is a
