@@ -7,6 +7,9 @@ export function SaveNewRecord(text) {
 
   return async function SaveNewRecordThunk(dispatch, getState) {
     const userId = getState().user.data.uid;
+    /**TODO See this link about how to get a new record key from firebase.
+     * https://github.com/firebase/quickstart-js/blob/master/database/scripts/main.js
+    */
     const newRecordId = uuidv4();
     const REF = `users/${userId}/records/${newRecordId}`;
     const initialRecord = { text: text };
