@@ -3,6 +3,7 @@ import CreateRecordView from "../views/CreateRecordView";
 import { SaveNewRecord } from "../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 
+
 function CreateRecordPresenter() {
   /**State behaves more like a snapshot. Setting it does not change the state
    * variable you already have, but instead triggers a re-render. */
