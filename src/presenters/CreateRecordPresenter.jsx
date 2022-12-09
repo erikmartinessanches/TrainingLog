@@ -2,6 +2,7 @@ import { React, useState, useRef } from "react";
 import CreateRecordView from "../views/CreateRecordView";
 import { SaveNewRecord } from "../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 function CreateRecordPresenter() {
@@ -10,7 +11,7 @@ function CreateRecordPresenter() {
   const [record, setRecord] = useState({ recordText: "" });
   const recordRef = useRef(""); //For uncontrolled inputs.
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   /**In React, side effects usually belong inside event handlers. Even though
    * event handlers are defined inside your component, they don’t run during
    * rendering! So event handlers don’t need to be pure.
@@ -21,6 +22,7 @@ function CreateRecordPresenter() {
   function saveRecordTextACB(recordText) {
     console.log(`Save record text: ${recordText}`);
     dispatch(SaveNewRecord(recordText));
+    navigate("/dashboard")
   }
 
   /**“Rendering” means that React is calling your component, which is a
