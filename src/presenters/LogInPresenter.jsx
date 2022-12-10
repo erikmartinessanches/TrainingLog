@@ -29,7 +29,7 @@ function LogInPresenter() {
 
   useEffect(() => {
     if (loggedIn && !error && !loading) {
-      console.log(loggedIn);
+      //console.log(loggedIn);
       updateModelFromFirebase(dispatch, loggedIn.uid);
       //FirebaseModel();
       navigate("/dashboard");

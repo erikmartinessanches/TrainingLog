@@ -72,6 +72,9 @@ export function updateModelFromFirebase(dispatch, userId) {
       payload: { text: recordText, recordId: internalId },
     });
   });
+  /*TODO Check that a record is not already in redux store in order to avoid 
+  double entry into redux store. */
+
   //dispatch({ type: "HI", payload: "Yo." });
 
   // firebase
