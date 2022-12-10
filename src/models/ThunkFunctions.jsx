@@ -13,16 +13,22 @@ export function SaveNewRecord(text) {
      * if we don't provide a value, as seen here, nothing will be written to the
      * db and the child remains empty. We can use the reference to the child to,
      * for example, get the new key. */
-    const newRecordId = push(ref(database, REF)).key;
-    debugger;
+    //const newRecordId = push(ref(database, REF)).key;
+
     //push(ref(database, REF), initialRecord);
     /* Using set() overwrites data at the specified location, including any child 
     nodes. See if this data organization makes sense. */
-    await set(ref(database, `${REF}/${newRecordId}`), newRecord);
 
+    /**There's a shorter way to do the above. Basically, push() will add on to
+     * the list at the reference provided. The returned object can be used to
+     * get at the newly created key. We'll use this newly created key by putting
+     * they key in redux store.
+     */
+    const newRecordReturned = await push(ref(database, `${REF}`), newRecord);
+    //debugger;
     dispatch({
       type: "RECORD_CREATED",
-      payload: { ...newRecord, recordId: newRecordId },
+      payload: { ...newRecord, recordId: newRecordReturned.key },
     });
   };
 }
