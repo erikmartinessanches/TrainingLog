@@ -4,7 +4,7 @@ export const reducer = (state, action) => {
   } else if (action.type === "LOGIN_RESULTS") {
     return { ...state, user: { ...action.payload } };
   } else if (action.type === "LOGOUT_RESULTS") {
-    return { user: null, records: []};
+    return { user: null, records: [] };
   } else if (action.type === "RECORD_CREATED") {
     return { ...state, records: [...state.records, action.payload] };
   }

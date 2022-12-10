@@ -3,6 +3,7 @@ import DashboardView from "../views/DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSecurity from "../utils/useSecurity";
+//import { updateModelFromFirebase } from "../persistence/firebaseModel";
 
 function DashboardPresenter() {
   // const {
@@ -20,6 +21,11 @@ function DashboardPresenter() {
     //dispatch({ type: "LOGOUT" });
     logOut();
   }
+
+  // useEffect(() => {
+  //   updateModelFromFirebase();
+  //   //rerender?
+  // }, []);
 
   function createNewACB() {
     navigate("/dashboard/create-record");

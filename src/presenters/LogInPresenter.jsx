@@ -3,11 +3,12 @@ import LogInView from "../views/LogInView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSecurity from "../utils/useSecurity";
+import { updateModelFromFirebase } from "../persistence/firebaseModel";
 
 function LogInPresenter() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // const {
@@ -23,10 +24,14 @@ function LogInPresenter() {
     console.log(`Log the user in with ${email} and ${password}.`);
     //dispatch({ type: "LOGIN", payload: { email: email, password: password } });
     logIn(email, password);
+    //FirebaseModel();
   }
 
   useEffect(() => {
     if (loggedIn && !error && !loading) {
+      console.log(loggedIn);
+      updateModelFromFirebase(dispatch, loggedIn.uid);
+      //FirebaseModel();
       navigate("/dashboard");
     }
     return () => {};

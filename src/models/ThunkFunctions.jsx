@@ -29,3 +29,5 @@ export function SaveNewRecord(text) {
     });
   };
 }
+
+//Children can be updated through the update() method.
