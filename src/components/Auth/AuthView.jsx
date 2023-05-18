@@ -55,6 +55,7 @@ export default function AuthView(props) {
         <Link to={props.isSignup ? "/login" : "/signup"}>
           {!props.isSignup ? "Sign-up" : "Log in"}
         </Link>
+        {!props.isSignup && <Link to="/forgot-password">Forgot password?</Link>}
       </form>
     </React.Fragment>
   );

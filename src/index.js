@@ -25,6 +25,7 @@ import SecurityProvider from "./utils/SecurityProvider";
 import CreateRecordPresenter from "./components/CreateRecord/CreateRecordPresenter";
 import ReactRoot from "./presenters/ReactRoot";
 import AuthPresenter from "./components/Auth/AuthPresenter";
+import PasswordForgetPresenter from "./components/PasswordForget/PasswordForgetPresenter";
 
 //const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
 
@@ -70,6 +71,15 @@ const router = createBrowserRouter([
     element: (
       <SecureRoute>
         <CreateRecordPresenter />
+      </SecureRoute>
+    ),
+    errorElement: <ErrorView />,
+  },
+  {
+    path: "/forgot-password",
+    element: (
+      <SecureRoute>
+        <PasswordForgetPresenter />
       </SecureRoute>
     ),
     errorElement: <ErrorView />,
