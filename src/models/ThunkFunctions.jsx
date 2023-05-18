@@ -1,12 +1,12 @@
 import { set, ref, push } from "firebase/database";
-import { database } from "../persistence/Persistence";
+//import { database } from "../persistence/Persistence";
 
 export function SaveNewRecord(text) {
   //We want to return the async thunk function.
 
   return async function SaveNewRecordThunk(dispatch, getState) {
-    const userId = getState().user.data.uid;
-    const REF = `users/${userId}/records`;
+    //const userId = getState().user.data.uid;
+   // const REF = `users/${userId}/records`;
     const newRecord = { text: text };
     /**We're obtaining the new id or 'key' for the next inserted item from
      * firebase. Here we essentially say: Push() to the reference provided, but
@@ -21,12 +21,12 @@ export function SaveNewRecord(text) {
      * get at the newly created key. We'll use this newly created key by putting
      * they key in redux store together with the new record.
      */
-    const newRecordReturned = await push(ref(database, `${REF}`), newRecord);
+    //const newRecordReturned = await push(ref(database, `${REF}`), newRecord);
     //debugger;
-    dispatch({
-      type: "RECORD_CREATED",
-      payload: { ...newRecord, recordId: newRecordReturned.key },
-    });
+    //dispatch({
+    //  type: "RECORD_CREATED",
+    //  payload: { ...newRecord, recordId: newRecordReturned.key },
+    //});
   };
 }
 

@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./presenters/App";
+import store from "./models/store";
+import LandingPagePresenter from "./components/LandingPage/LandingPagePresenter";
 import {
   createBrowserRouter,
   RouterProvider /*, Route*/,
 } from "react-router-dom";
 import ErrorView from "./views/ErrorView";
-import SignUpPresenter from "./presenters/SignUpPresenter";
-import LogInPresenter from "./presenters/LogInPresenter";
-import DashboardPresenter from "./presenters/DashboardPresenter";
+//import SignUpPresenter from "./presenters/SignUpPresenter";
+//import LogInPresenter from "./presenters/LogInPresenter";
+import DashboardPresenter from "./components/Dashboard/DashboardPresenter";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -17,29 +18,42 @@ import "@fontsource/roboto/700.css";
 //import { fbMiddleware } from "./redux/middleware";
 //import { reducer } from "./redux/reducers";
 import { Provider } from "react-redux";
-import store from "./models/store";
+
 //import reportWebVitals from './reportWebVitals';
 import SecureRoute from "./utils/SecureRoute";
 import SecurityProvider from "./utils/SecurityProvider";
-import CreateRecordPresenter from "./presenters/CreateRecordPresenter";
+import CreateRecordPresenter from "./components/CreateRecord/CreateRecordPresenter";
 import ReactRoot from "./presenters/ReactRoot";
+import AuthPresenter from "./components/Auth/AuthPresenter";
 
 //const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <SecureRoute>
+        <LandingPagePresenter />
+      </SecureRoute>
+    ),
     errorElement: <ErrorView />,
   },
   {
     path: "/signup",
-    element: <SignUpPresenter />,
+    element: (
+      <SecureRoute>
+        <AuthPresenter />
+      </SecureRoute>
+    ),
     errorElement: <ErrorView />,
   },
   {
     path: "/login",
-    element: <LogInPresenter />,
+    element: (
+      <SecureRoute loggedIn>
+        <AuthPresenter />
+      </SecureRoute>
+    ),
     errorElement: <ErrorView />,
   },
   {
@@ -66,9 +80,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <SecurityProvider>
-        <RouterProvider router={router} />
-      </SecurityProvider>
+      {/* <SecurityProvider> */}
+      <RouterProvider router={router} />
+      {/* </SecurityProvider> */}
     </Provider>
   </React.StrictMode>
 );

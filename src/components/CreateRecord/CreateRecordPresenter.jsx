@@ -1,6 +1,6 @@
 import { React, useState, useRef } from "react";
-import CreateRecordView from "../views/CreateRecordView";
-import { SaveNewRecord } from "../models/ThunkFunctions";
+import CreateRecordView from "./CreateRecordView";
+import { SaveNewRecord } from "../../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";

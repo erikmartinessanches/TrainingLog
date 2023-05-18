@@ -1,8 +1,8 @@
 import { React, useEffect } from "react";
-import DashboardView from "../views/DashboardView";
+import DashboardView from "./DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useSecurity from "../utils/useSecurity";
+import useSecurity from "../../utils/useSecurity";
 //import { updateModelFromFirebase } from "../persistence/firebaseModel";
 
 function DashboardPresenter() {
@@ -14,12 +14,12 @@ function DashboardPresenter() {
   // } = useSelector((state) => state.user || {});
   //const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { logOut, loggedIn, loading, error } = useSecurity();
+  //const { logOut, loggedIn, loading, error } = useSecurity();
 
   function logOutACB() {
-    console.log("Log the user out.");
+  //  console.log("Log the user out.");
     //dispatch({ type: "LOGOUT" });
-    logOut();
+  //  logOut();
   }
 
   // useEffect(() => {
@@ -45,7 +45,7 @@ function DashboardPresenter() {
   return (
     <DashboardView
       logOut={logOutACB}
-      loading={loading}
+      //loading={loading}
       createNewACB={createNewACB}
     />
   );

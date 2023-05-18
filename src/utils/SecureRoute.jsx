@@ -1,16 +1,27 @@
-/**SecureRoute gets current logged in status from SecurityCOntext using useSecurity
- * custom hook.
+/**SecureRoute gets current logged in status.
  */
-import React from "react";
-import LogInPresenter from "../presenters/LogInPresenter";
-import { Navigate, Outlet } from "react-router-dom";
-import useSecurity from "./useSecurity";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { selectFirebaseAuthReady, selectUser } from "../models/userSlice";
+import { LoadingIconView } from "../views/LoadingIcon";
 
-const SecureRoute = (props) => {
-  const { loggedIn } = useSecurity(); //the real deal
-  //const loggedIn = true; //Temp during dev.
-  /**If we're logged in, return an Outlet that will render the children. */
-  return loggedIn ? props.children : <Navigate to="/" />;
+const SecureRoute = ({ loggedIn = false, children }) => {
+  const firebaseAuthReady = useSelector(selectFirebaseAuthReady);
+  const user = useSelector(selectUser);
+
+  // if (!firebaseAuthReady) {
+  //   return <LoadingIconView />;
+  // }
+
+  if (loggedIn && user.uid !== null) {
+    return <Navigate replace to="/dashboard" />;
+  }
+
+  // if (!loggedIn && user.uid === null) {
+  //   return <Navigate replace to="/login" />;
+  // }
+
+  return children;
 };
 
 export default SecureRoute;

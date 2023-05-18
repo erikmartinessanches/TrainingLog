@@ -1,51 +1,47 @@
-import firebaseConfig from "../firebaseConfig";
-import { database } from "../persistence/Persistence";
+//import firebaseConfig from "../firebaseConfig";
+import { initializeApp } from "firebase/app";
 import { useDispatch, useSelector } from "react-redux";
-import { ref, onChildAdded } from "firebase/database";
-//import { isDishInMenu } from "./utilities"; //We could perhaps re-use this one.
+import { ref, onChildAdded, getDatabase } from "firebase/database";
+import { getAuth } from "firebase/auth";
+import {
+  setFirebaseReady,
+  setRegistrationCompletedStatus,
+} from "../models/userSlice";
+//import usersPersister from "./persisters/usersPersister";
 
-// export function firebaseModelPromise() {
-//   return firebase
-//     .database()
-//     .ref(REF /* <-- note! Whole object! */)
-//     .once("value") //Pretty sure this accesses FB and then gives the result to makeBigPromiseACB.
-//     .then(makeBigPromiseACB);
-// }
+export const persistence = function name(store, fireBaseApp) {
+  let previousState = store.getState();
+  const dispatch = store.dispatch;
+  const firebaseDb = getDatabase(fireBaseApp);
 
-// function makeBigPromiseACB(firebaseData) {
-//   //Return records instead of the DinnerModel.
-//   if (firebaseData.val() === undefined || firebaseData.val() === {}) {
-//     return {records: []}; //empty records[] since there is no model in FB.
-//   }
+  store.subscribe(() => {
+    const state = store.getState();
+    // const userId = state.auth.user.id;
+    // const previousUserId = previousState.auth.user.id;
+    // const registrationCompleted = state.auth.registrationCompleted;
 
-//   function createModelACB(dishes) {
-//     return new DinnerModel(firebaseData.val().numberOfGuests, dishes);
-//   }
-//   function makeDishPromiseCB(dishId) {
-//     //return getDishDetails(dishId); //This returns a Promise.
-//   }
-//   let dishPromiseArray = [];
-//   if (firebaseData.val().dishes !== undefined) {
-//     /* Remember that map() returns a new array (it does not modify the array
-//         it is invoked on) containing the values returned by the callback. */
-//     dishPromiseArray = Object.keys(firebaseData.val().dishes).map(
-//       makeDishPromiseCB
-//     );
-//   }
-//   /* So dishPromiseArray is an array of promisees that we resolve (getting their
-//      dish details) before we create the model. */
-//   return Promise.all(dishPromiseArray).then(createModelACB);
-// }
+    // if (userId && state.auth.firebaseReady) {
+    //   usersPersister.toFirebase(firebaseDb, state, previousState);
+    // }
 
-import React from "react";
+    // if (registrationCompleted) {
+    //   usersPersister.toFirebase(firebaseDb, state, previousState);
+    //   dispatch(setRegistrationCompletedStatus(false));
+    // }
+  });
 
-function FirebaseModel() {
-  const dispatch = useDispatch();
-  console.log("Inside FirebaseModel");
-  return <div>firebaseModel</div>;
-}
+  previousState = store.getState();
+};
 
-export default FirebaseModel;
+//const app = initializeApp(firebaseConfig);
+//const database = getDatabase(app);
+//export const auth = getAuth(app);
+
+const REF = "dinnerModel200-test3";
+//const rf= ref(database, REF);
+const firebaseNotify = "firebase_notify";
+
+function firebaseModelPromise() {}
 
 export function updateModelFromFirebase(dispatch, userId) {
   // firebase
@@ -54,14 +50,13 @@ export function updateModelFromFirebase(dispatch, userId) {
   //   .on("value", function guestsChangedInFirebaseACB(firebaseData) {
   //     model.setNumberOfGuests(firebaseData.val());
   //   });
-
   // firebase
   //   .database()
   //   .ref(REF + "/currentDish")
   //   .on("value", function currentDishChangedInFirebaseACB(firebaseData) {
   //     model.setCurrentDish(firebaseData.val());
   //   });
-  console.log("Inside updateModelFromFirebase");
+  /*   console.log("Inside updateModelFromFirebase");
   const recordsRef = ref(database, `users/${userId}/records`);
   onChildAdded(recordsRef, (data) => {
     const internalId = data.key;
@@ -71,12 +66,10 @@ export function updateModelFromFirebase(dispatch, userId) {
       type: "RECORD_CREATED",
       payload: { text: recordText, recordId: internalId },
     });
-  });
+  }); */
   /*TODO Check that a record is not already in redux store in order to avoid 
   double entry into redux store. */
-
   //dispatch({ type: "HI", payload: "Yo." });
-
   // firebase
   //   .database()
   //   .ref(REF + "/dishes")
@@ -86,7 +79,6 @@ export function updateModelFromFirebase(dispatch, userId) {
   //       payload: { ...newRecord, recordId: newRecordReturned.key },
   //     });
   //   });
-
   // firebase
   //   .database()
   //   .ref(REF + "/dishes")
@@ -94,6 +86,7 @@ export function updateModelFromFirebase(dispatch, userId) {
   //     model.removeFromMenu({ id: +firebaseData.key });
   //   });
 }
+export function updateFirebaseFromModel() {}
 
 // Remember to uncomment the following line:
 // export {observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase};
