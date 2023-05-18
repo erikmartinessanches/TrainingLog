@@ -51,7 +51,7 @@ export default function AuthView(props) {
           {props.isSignup ? "Sign up" : "Sign in"}
         </Button>
         {" or "}
-        <a href="#/auth" onClick={() => props.toggleType(!props.isSignup)}>
+        <a href="#/" onClick={() => props.toggleType(!props.isSignup)}>
           {!props.isSignup ? "sign up" : "sign in"}
         </a>
       </form>
