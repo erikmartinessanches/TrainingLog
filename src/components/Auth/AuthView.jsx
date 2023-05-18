@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 export default function AuthView(props) {
@@ -21,7 +22,7 @@ export default function AuthView(props) {
 
   return (
     <React.Fragment>
-      <h2>{props.isSignup ? "Sign up" : "Sign in"}</h2>
+      <h2>{props.isSignup ? "Sign-up" : "Log in"}</h2>
       <form onSubmit={handleSubmitACB}>
         <TextField
           required
@@ -48,12 +49,12 @@ export default function AuthView(props) {
           //onClick={onSignUpClicked}
           //disabled={loading || status === "empty"}
         >
-          {props.isSignup ? "Sign up" : "Sign in"}
+          {props.isSignup ? "Sign-up" : "Log in"}
         </Button>
         {" or "}
-        <a href="#/" onClick={() => props.toggleType(!props.isSignup)}>
-          {!props.isSignup ? "sign up" : "sign in"}
-        </a>
+        <Link to={props.isSignup ? "/login" : "/signup"}>
+          {!props.isSignup ? "Sign-up" : "Log in"}
+        </Link>
       </form>
     </React.Fragment>
   );

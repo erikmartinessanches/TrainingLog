@@ -50,7 +50,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <SecureRoute loggedIn>
+      <SecureRoute>
         <AuthPresenter />
       </SecureRoute>
     ),
