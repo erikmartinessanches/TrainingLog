@@ -2,12 +2,16 @@
 import { initializeApp } from "firebase/app";
 import { useDispatch, useSelector } from "react-redux";
 import { ref, onChildAdded, getDatabase } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   setFirebaseReady,
   setRegistrationCompletedStatus,
 } from "../models/userSlice";
 //import usersPersister from "./persisters/usersPersister";
+import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
+import { firebaseApp } from "../models/store";
+
+
 
 export const persistence = function name(store, fireBaseApp) {
   let previousState = store.getState();

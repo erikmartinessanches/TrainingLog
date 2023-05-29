@@ -24,6 +24,7 @@ export default function AuthView(props) {
           required
           id="outlined-required"
           label="Email"
+          //value={props.email}
           //{...(props.isSignup ? { value: "" } : {})}
           //value={props.isSignup ? "" : null}
           //disabled={loading}
@@ -34,6 +35,7 @@ export default function AuthView(props) {
           id="outlined-password-input"
           label="Password"
           //value={props.isSignup ? "" : undefined}
+          //value={props.password}
           type="password"
           // {...(!props.isSignup ? { autoComplete: "current-password" } : {})}
           autoComplete="current-password"
