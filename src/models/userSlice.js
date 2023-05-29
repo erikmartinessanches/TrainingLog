@@ -71,7 +71,7 @@ export const user = createSlice({
 
 export const authenticate = createAsyncThunk(
   "auth/authenticate",
-  async ({ name, email, password, usingAsSignUp }) => {
+  async ({ usingAsSignUp, email, password }) => {
     //Do we need the name for authentication?
     const auth = getAuth(firebaseApp);
     let authenticatedUserCredentials;
@@ -99,14 +99,14 @@ export const authenticate = createAsyncThunk(
         uid: authenticatedUserCredentials.user.uid,
         email: authenticatedUserCredentials.user.email,
         usingAsSignUp: usingAsSignUp,
-        name: name,
+        // name: name,
       };
 
     return {
       uid: authenticatedUserCredentials.user.uid,
       email: authenticatedUserCredentials.user.email,
       usingAsSignUp: usingAsSignUp,
-      name: name,
+      //name: name,
     };
   }
 );

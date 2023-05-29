@@ -5,6 +5,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticate } from "../../models/userSlice";
 
 function successACB() {
   console.log("Signed in.");
@@ -17,28 +19,36 @@ export default function AuthPresenter(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     location.pathname === "/login" ? setSignup(false) : setSignup(true);
   }, [location]);
 
-  function signUpACB() {
-    createUserWithEmailAndPassword(props.auth, email, password)
-      .then(successACB)
-      .then(failureACB);
+  function onSubmitACB() {
+    dispatch(
+      authenticate({
+        usingAsSignUp: signup,
+        email,
+        password,
+      })
+    );
+    // createUserWithEmailAndPassword(props.auth, email, password)
+    //   .then(successACB)
+    //   .then(failureACB);
   }
 
-  function signInACB() {
+  /*   function signInACB() {
     signInWithEmailAndPassword(props.auth, email, password)
       .then(successACB)
       .catch(failureACB);
-  }
+  } */
 
   return (
     <AuthView
       isSignup={signup}
-      signUp={signUpACB}
-      signIn={signInACB}
+      onSubmitACB={onSubmitACB}
+      //signIn={signInACB}
       setEmail={setEmail}
       setPassword={setPassword}
       toggleType={setSignup}

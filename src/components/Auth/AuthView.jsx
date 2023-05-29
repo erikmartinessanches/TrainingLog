@@ -13,11 +13,7 @@ export default function AuthView(props) {
 
   function handleSubmitACB(event) {
     event.preventDefault();
-    if (props.isSignup) {
-      props.signUp();
-    } else {
-      props.signIn();
-    }
+    props.onSubmitACB();
   }
 
   return (
@@ -28,7 +24,8 @@ export default function AuthView(props) {
           required
           id="outlined-required"
           label="Email"
-          //value={email}
+          //{...(props.isSignup ? { value: "" } : {})}
+          //value={props.isSignup ? "" : null}
           //disabled={loading}
           onChange={setEmailACB}
         />
@@ -36,8 +33,9 @@ export default function AuthView(props) {
           required
           id="outlined-password-input"
           label="Password"
-          // value={password}
+          //value={props.isSignup ? "" : undefined}
           type="password"
+          // {...(!props.isSignup ? { autoComplete: "current-password" } : {})}
           autoComplete="current-password"
           //  disabled={loading}
           onChange={setPasswordACB}
