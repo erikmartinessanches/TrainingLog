@@ -137,6 +137,8 @@ export const listenToAuthChanges = () => (dispatch, _) => {
   const auth = getAuth(firebaseApp);
   onAuthStateChanged(auth, (user) => {
     if (user) {
+    // User is signed in, see https://firebase.google.com/docs/auth/web/start
+    // and https://firebase.google.com/docs/auth/web/manage-users.
       dispatch (setLoggedInUser({uid: user.uid, email: user.email}));
     }
     dispatch(setFirebaseAuthReady());
