@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <SecureRoute>
+      <SecureRoute forwardLoggedInUser>
         <LandingPagePresenter />
       </SecureRoute>
     ),
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: (
-      <SecureRoute>
+      <SecureRoute forwardLoggedInUser>
         <AuthPresenter />
       </SecureRoute>
     ),
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <SecureRoute>
+      <SecureRoute forwardLoggedInUser>
         <AuthPresenter />
       </SecureRoute>
     ),

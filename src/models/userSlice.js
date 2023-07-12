@@ -2,15 +2,18 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
+  createAction,
 } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  //onAuthStateChanged,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
-  //signOut,
+  signOut,
 } from "firebase/auth";
 import { firebaseApp } from "./store";
+
+const logoutAction = createAction("logoutAction");
 
 const initialState = {
   user: {
@@ -48,11 +51,25 @@ export const user = createSlice({
     setName: (state, action) => {
       state.user.name = action.payload;
     },
+    setLoggedInUser: (state, action) => {
+      state.user.uid = action.payload.uid;
+      state.user.email = action.payload.email;
+    },
+/*     setAuthFulfilled: (state, action) => { //This may not be necessary
+      //debugger;
+      state.user.uid = action.payload.uid;
+      // state.user.name = action.payload.name;
+      state.user.email = action.payload.email;
+      if (action.payload.usingAsSignUp) {
+        state.registrationCompleted = true;
+      }
+      state.authenticate.status = "FULFILLED";
+    }, */
   },
   extraReducers: (builder) => {
     builder.addCase(authenticate.fulfilled, (state, action) => {
       state.user.uid = action.payload.uid;
-      state.user.name = action.payload.name;
+     // state.user.name = action.payload.name;
       state.user.email = action.payload.email;
       if (action.payload.usingAsSignUp) {
         state.registrationCompleted = true;
@@ -66,6 +83,11 @@ export const user = createSlice({
       state.authenticate.status = "REJECTED";
       state.authenticate.error = action.payload.error.code;
     });
+    builder.addCase(logoutAction, () => {
+      //debugger;
+      return initialState;
+    });
+    //builder.addDefaultCase((state, action) => {});
   },
 });
 
@@ -111,6 +133,16 @@ export const authenticate = createAsyncThunk(
   }
 );
 
+export const listenToAuthChanges = () => (dispatch, _) => {
+  const auth = getAuth(firebaseApp);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch (setLoggedInUser({uid: user.uid, email: user.email}));
+    }
+    dispatch(setFirebaseAuthReady());
+  })
+}
+
 //Interestingly, it is possible to create my own selectors.
 
 //export default user.reducer;
@@ -122,10 +154,18 @@ export const selectFirebaseAuthReady = createSelector(
   (data) => data.firebaseAuthReady
 );
 
+export const logoutNow = (state) => (dispatch, _) => {
+  dispatch(logoutAction());
+  signOut(getAuth(firebaseApp));
+}
+
+
 export const {
   setName,
   setFirebaseAuthReady,
   setFirebaseReady,
   setRegistrationCompletedStatus,
   createRecord,
+  setAuthFulfilled,
+  setLoggedInUser
 } = user.actions;

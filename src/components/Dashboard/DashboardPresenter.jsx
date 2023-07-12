@@ -3,6 +3,8 @@ import DashboardView from "./DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSecurity from "../../utils/useSecurity";
+import {logoutNow} from "../../models/userSlice";
+import { firebaseApi } from "../../persistence/apiSlices";
 //import { updateModelFromFirebase } from "../persistence/firebaseModel";
 
 function DashboardPresenter() {
@@ -12,13 +14,29 @@ function DashboardPresenter() {
   //   error,
   //   loading,
   // } = useSelector((state) => state.user || {});
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   //const { logOut, loggedIn, loading, error } = useSecurity();
+  //const [shouldLogout, setShouldLogout] = useState(false);
+  
+  // useEffect(() => {
+  //   if(shouldLogout)  {
+  //     navigate("/");
+  //     //dispatch(logoutNow());
+  //   }
+  // }, [shouldLogout])
+  
 
   function logOutACB() {
   //  console.log("Log the user out.");
-    //dispatch({ type: "LOGOUT" });
+    
+    //debugger;
+   // dispatch(firebaseApi.util.invalidateTags(['Auth']));
+    //dispatch(firebaseApi.util.resetApiState()); //This could possibly be called from elsewhere.
+    //setShouldLogout(true);
+    dispatch(logoutNow());
+    //navigate("/");
+    
   //  logOut();
   }
 
