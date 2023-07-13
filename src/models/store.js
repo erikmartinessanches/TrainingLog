@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 //import { fbMiddleware } from "./middleware";
 import { initializeApp } from "firebase/app";
 //import { reducer } from "./reducers";
-//import thunkMiddleware from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import { firebaseConfig } from "../firebaseConfig";
 import { user, listenToAuthChanges } from "./userSlice";
 import { persistence } from "../persistence/firebaseModel";
@@ -16,9 +16,9 @@ const store = configureStore({
     auth: user.reducer,
     //[firebaseApi.reducerPath]: firebaseApi.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()/* .concat(firebaseApi.middleware) */,
-  //middleware: [fbMiddleware, thunkMiddleware],
+ // middleware: [thunkMiddleware, (getDefaultMiddleware) =>
+   // getDefaultMiddleware()]/* .concat(firebaseApi.middleware) */,
+  //middleware: [ fbMiddleware,  thunkMiddleware],
   //preloadedState: { user: null, records: [] }, //Probably don't need to init these...
   //enhancers: [composedEnhancer],
   devTools: true,
