@@ -1,5 +1,6 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 function SignUpView({
@@ -41,33 +42,35 @@ function SignUpView({
 
   return (
     <React.Fragment>
-      <h2>Sign Up</h2>
+      <h2>Sign Up!</h2>
       <form onSubmit={onSignUpClicked}>
-        <TextField
-          required
-          id="outlined-required"
-          label="Email"
-          value={email}
-          disabled={loading}
-          onChange={handleEmailChange}
-        />
-        <TextField
-          required
-          id="outlined-password-input"
-          label="Password"
-          value={password}
-          type="password"
-          autoComplete="current-password"
-          disabled={loading}
-          onChange={handlePasswordChange}
-        />
-        <Button
-          variant="contained"
-          onClick={onSignUpClicked}
-          disabled={loading || status === "empty"}
-        >
-          Sign Up
-        </Button>
+        <Stack spacing={2} direction="row">
+          <TextField
+            required
+            id="outlined-required"
+            label="Email"
+            value={email}
+            disabled={loading}
+            onChange={handleEmailChange}
+          />
+          <TextField
+            required
+            id="outlined-password-input"
+            label="Password"
+            value={password}
+            type="password"
+            autoComplete="current-password"
+            disabled={loading}
+            onChange={handlePasswordChange}
+          />
+          <Button
+            variant="text"
+            onClick={onSignUpClicked}
+            //disabled={loading || status === "empty"}
+          >
+            Sign Up
+          </Button>
+        </Stack>
       </form>
     </React.Fragment>
   );

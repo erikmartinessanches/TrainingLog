@@ -1,6 +1,6 @@
 import "./App.css";
 //import { app, database } from "../persistence/Persistence";
-import AppView from "../views/AppView";
+import LandingPageView from "./LandingPageView";
 import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
     navigate("/login");
   }
 
-  return <AppView toSignUp={toSignUp} toLogIn={toLogIn}></AppView>;
+  return <LandingPageView toSignUp={toSignUp} toLogIn={toLogIn}></LandingPageView>;
 }
 
 export default App;

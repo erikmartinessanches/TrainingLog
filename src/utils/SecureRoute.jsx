@@ -1,16 +1,34 @@
-/**SecureRoute gets current logged in status from SecurityCOntext using useSecurity
- * custom hook.
+/**SecureRoute gets current logged in status.
  */
-import React from "react";
-import LogInPresenter from "../presenters/LogInPresenter";
-import { Navigate, Outlet } from "react-router-dom";
-import useSecurity from "./useSecurity";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { selectFirebaseAuthReady, selectUser } from "../models/userSlice";
+import { LoadingIconView } from "../views/LoadingIcon";
 
-const SecureRoute = (props) => {
-  const { loggedIn } = useSecurity(); //the real deal
-  //const loggedIn = true; //Temp during dev.
-  /**If we're logged in, return an Outlet that will render the children. */
-  return loggedIn ? props.children : <Navigate to="/" />;
+/** 'forwardLoggedInUser' in allows us to say that fo certain routes (children
+ * of this component), we should navigate a logged-in user to the dashboard (if 
+ * the uid is not null). 
+ */
+const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
+  const firebaseAuthReady = useSelector(selectFirebaseAuthReady);
+  const user = useSelector(selectUser);
+
+   if (!firebaseAuthReady) {
+     return <LoadingIconView />;
+   }
+
+  if (forwardLoggedInUser && user.uid !== null) {
+     return <Navigate replace to="/dashboard" />;
+  }
+  /**This 'protects' the child if the uid is null. For the routes (children) we 
+   * want to protect and not forward to a page if logged in, we simply omit 
+   * setting forwardLoggedInUser to true.
+   */
+  if (!forwardLoggedInUser && user.uid === null) {
+    //debugger;
+    return <Navigate replace to="/login"/>;
+  }
+  return children;
 };
 
 export default SecureRoute;

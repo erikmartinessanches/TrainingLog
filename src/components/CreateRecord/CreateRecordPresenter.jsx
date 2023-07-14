@@ -1,6 +1,6 @@
 import { React, useState, useRef } from "react";
-import CreateRecordView from "../views/CreateRecordView";
-import { SaveNewRecord } from "../models/ThunkFunctions";
+import CreateRecordView from "./CreateRecordView";
+import { SaveNewRecord } from "../../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
@@ -21,14 +21,14 @@ function CreateRecordPresenter() {
 
   function saveRecordTextACB(recordText) {
     console.log(`Save record text: ${recordText}`);
-    //dispatch(SaveNewRecord(recordText));
+    dispatch(SaveNewRecord(recordText));
 
     //Creates a record with a temporary id. This id will be replaced by the id
     //from the db when the record is saved in the persistence layer.
-    dispatch({
+/*     dispatch({
       type: "RECORD_CREATED",
       payload: { recordId: uuidv4(), text: recordText },
-    });
+    }); */
     navigate("/dashboard");
   }
 

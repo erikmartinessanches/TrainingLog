@@ -3,13 +3,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { auth } from "../persistence/Persistence";
+//import { auth } from "../persistence/Persistence";
 
 /**We can think of the signature as a function that receives a store, an action
  * and a 'next' function that can forward actions on to the rest of redux.
  */
 export const fbMiddleware = (store) => (next) => (action) => {
-  if (action.type === "SIGNUP") {
+/*   if (action.type === "SIGNUP") {
     //Sign up
     const inputUserData = action.payload;
     if (inputUserData) {
@@ -112,7 +112,7 @@ export const fbMiddleware = (store) => (next) => (action) => {
           payload: { loading: false, error: err, data: null },
         });
       });
-  }
+  } */
 
   return next(action); //Pass the action to the next function in the middleware chain.
 };
