@@ -11,7 +11,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { firebaseApp } from "./store";
+import { firebaseApp } from "../persistence/firebaseModel";
 
 const logoutAction = createAction("logoutAction");
 
@@ -23,7 +23,10 @@ const initialState = {
     records: [],
   },
   firebaseAuthReady: false,
-  firebaseReady: false,
+  firebaseReady: false, 
+  // Whether the model is ready to be used/observed. Save to persistance only if
+  //the model is ready.
+  modelReady: false, 
   registrationCompleted: false,
   authenticate: {
     status: "IDLE", //(IDLE, PENDING, REJECTED or FULFILLED)
@@ -42,11 +45,17 @@ export const user = createSlice({
     setFirebaseReady: (state, action) => {
       state.firebaseReady = true;
     },
+    setModelReady: (state, action) => {
+      state.modelReady = action.payload;
+    },
     setRegistrationCompletedStatus: (state, action) => {
       state.registrationCompleted = action.payload;
     },
     createRecord: (state, action) => {
       state.user.records.push(action.payload);
+    },
+    setRecords: (state, action) => {
+      state.user.records = action.payload;
     },
     setName: (state, action) => {
       state.user.name = action.payload;
@@ -133,6 +142,7 @@ export const authenticate = createAsyncThunk(
   }
 );
 
+//Model should not really know about persistence, move?
 export const listenToAuthChanges = () => (dispatch, _) => {
   const auth = getAuth(firebaseApp);
   onAuthStateChanged(auth, (user) => {
@@ -140,8 +150,17 @@ export const listenToAuthChanges = () => (dispatch, _) => {
     // User is signed in, see https://firebase.google.com/docs/auth/web/start
     // and https://firebase.google.com/docs/auth/web/manage-users.
       dispatch (setLoggedInUser({uid: user.uid, email: user.email}));
+      //See if we can use the existing extra reducer instead of setLoggedInUser?
+    } else {
+      //debugger;
+      //We're logging out (or not logged in) and may set initial state here.
+      //However, this causes logoutAction to be called on login.
+      //dispatch (setLoggedInUser({uid: null, email: null, records: []}));
+      //Remove firebase listeners (that change the model when FB notifies).
+      dispatch(logoutAction());
     }
     dispatch(setFirebaseAuthReady());
+    
   })
 }
 
@@ -155,9 +174,14 @@ export const selectFirebaseAuthReady = createSelector(
   selectAuth,
   (data) => data.firebaseAuthReady
 );
+export const selectModelReady = createSelector(
+  selectAuth,
+  (data) => data.modelReady
+);
 
 export const logoutNow = (state) => (dispatch, _) => {
-  dispatch(logoutAction());
+  //Perhaps prefer it here after all, in order to avoid calling this in login.
+  //dispatch(logoutAction()); 
   signOut(getAuth(firebaseApp));
 }
 
@@ -169,5 +193,7 @@ export const {
   setRegistrationCompletedStatus,
   createRecord,
   setAuthFulfilled,
-  setLoggedInUser
+  setLoggedInUser,
+  setModelReady,
+  setRecords,
 } = user.actions;

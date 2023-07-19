@@ -3,8 +3,9 @@ import DashboardView from "./DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSecurity from "../../utils/useSecurity";
-import {logoutNow} from "../../models/userSlice";
-import { firebaseApi } from "../../persistence/apiSlices";
+import {logoutNow, selectModelReady} from "../../models/userSlice";
+import { LoadingIconView } from "../../views/LoadingIcon";
+//import { firebaseApi } from "../../persistence/apiSlices";
 //import { updateModelFromFirebase } from "../persistence/firebaseModel";
 
 function DashboardPresenter() {
@@ -14,6 +15,7 @@ function DashboardPresenter() {
   //   error,
   //   loading,
   // } = useSelector((state) => state.user || {});
+  const modelReady = useSelector(selectModelReady);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //const { logOut, loggedIn, loading, error } = useSecurity();
@@ -60,6 +62,9 @@ function DashboardPresenter() {
   //   return () => {};
   // }, [loggedIn, error, loading, navigate]);
 
+  if (!modelReady) {
+    return <LoadingIconView />;
+  }
   return (
     <DashboardView
       logOut={logOutACB}

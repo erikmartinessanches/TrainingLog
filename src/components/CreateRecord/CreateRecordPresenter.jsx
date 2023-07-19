@@ -22,7 +22,7 @@ function CreateRecordPresenter() {
 
   function saveRecordTextACB(recordText) {
     console.log(`Save record text: ${recordText}`);
-    //dispatch(SaveNewRecord(recordText));
+    //dispatch(SaveNewRecord(recordText)); //Saves in persistence via Thunk.
     dispatch(createRecord({ recordId: uuidv4(), text: recordText }))
     //Creates a record with a temporary id. This id will be replaced by the id
     //from the db when the record is saved in the persistence layer.

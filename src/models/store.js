@@ -5,11 +5,11 @@ import { initializeApp } from "firebase/app";
 import thunkMiddleware from "redux-thunk";
 import { firebaseConfig } from "../firebaseConfig";
 import { user, listenToAuthChanges } from "./userSlice";
-import { persistence } from "../persistence/firebaseModel";
+import { Persistence } from "../persistence/firebaseModel";
 //import { setupListeners } from "@reduxjs/toolkit/query";
 //import { firebaseApi } from "../persistence/apiSlices";
 
-export const firebaseApp = initializeApp(firebaseConfig);
+//export const firebaseApp = initializeApp(firebaseConfig);
 
 const store = configureStore({
   reducer: {
@@ -27,7 +27,9 @@ const store = configureStore({
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 //setupListeners(store.dispatch);
+
+//This can perhaps be moved to FirebaseModel -> connectModelToFirebase.
 store.dispatch(listenToAuthChanges());
 
-persistence(store, firebaseApp);
+Persistence(store/* , firebaseApp */);
 export default store;

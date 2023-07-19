@@ -1,5 +1,5 @@
 import { set, ref, push, getDatabase } from "firebase/database";
-import { firebaseApp } from "../models/store";
+import { firebaseApp } from "../persistence/firebaseModel";
 
 export function SaveNewRecord(text) {
   //We want to return the async thunk function.
