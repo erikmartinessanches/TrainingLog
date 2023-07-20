@@ -32,20 +32,27 @@ export const Persistence = function name(store) {
   store.subscribe(() => {
     const state = store.getState();
     const userId = state?.auth.user.uid;
-    const registrationCompleted = state.auth.registrationCompleted;
+    const registrationCompleted = state?.auth.registrationCompleted;
 
-    if (userId && state?.auth?.firebaseReady){
-      
+    if (userId && registrationCompleted &&
+      (state?.auth?.authenticate?.status === "FULFILLED")){ //Just registered.
+      //debugger;
+      //Now store a new user in persistence with the relevant data. 
+      //We should persist, for example, first name and last name.
+
+      //We should eventually setModelReady(true) once done.
     }
 
     if (!userId) {
       unsubsriptions.forEach(unsubscription => unsubscription());
     }
 
-    if (userId && !registrationCompleted) { //We logged in a registered user
+    if (userId && !registrationCompleted && 
+      (state?.auth?.authenticate?.status === "FULFILLED")) { //We logged in a registered user
       if (!state?.auth.firebaseReady) {
         //TODO link docs
         dispatch(setFirebaseReady(true));
+        //debugger;
         ReadFromFirebaseWithUser(state, dispatch);
       }
         
@@ -103,14 +110,14 @@ function connectModelToFirebase(params) {
 function PersistenceToModel(data, dispatch) {
   //const dispatch = useDispatch();
   //const records = await 
-  debugger;
+  //debugger;
   dispatch(setRecords(data?.records))
 }
 
  async function ReadFromFirebase(state,  dispatch) {
   //const dispatch = useDispatch();
   dispatch(setModelReady(false));
-  debugger;
+  //debugger;
   //const user = useSelector(selectUser);
   const snapshot = await get(child(ref(firebaseDb, "users"), state?.auth?.user?.uid))
   PersistenceToModel(snapshot.val(), dispatch);
@@ -173,7 +180,7 @@ function ReadFromFirebaseWithUser(state, dispatch) {
   //debugger;
   //if (state?.auth.firebaseReady) {dispatch(setFirebaseReady(false));}
   
-  debugger;
+  //debugger;
   if (state?.auth?.firebaseAuthReady && state?.auth?.user?.uid !== null) {
     ReadFromFirebase(state, dispatch);
   } else {

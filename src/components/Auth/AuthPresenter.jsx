@@ -18,6 +18,8 @@ function failureACB(e) {
 export default function AuthPresenter(props) {
   const [signup, setSignup] = useState(true);
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const location = useLocation();
   const dispatch = useDispatch();
@@ -80,6 +82,8 @@ export default function AuthPresenter(props) {
       setEmail={setEmail}
       setPassword={setPassword}
       toggleType={setSignup}
+      setFirstName={setFirstName}
+      setLastName={setLastName}
       //  email={email}
       //   password={password}
     />
