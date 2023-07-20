@@ -25,7 +25,7 @@ const initialState = {
   firebaseAuthReady: false,
   firebaseReady: false, 
   // Whether the model is ready to be used/observed. Save to persistance only if
-  //the model is ready.
+  //the model is ready:
   modelReady: false, 
   registrationCompleted: false,
   authenticate: {
@@ -43,7 +43,7 @@ export const user = createSlice({
       state.firebaseAuthReady = true;
     },
     setFirebaseReady: (state, action) => {
-      state.firebaseReady = true;
+      state.firebaseReady = action.payload;
     },
     setModelReady: (state, action) => {
       state.modelReady = action.payload;

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import store from "./models/store";
+
 import LandingPagePresenter from "./components/LandingPage/LandingPagePresenter";
 import {
   createBrowserRouter,
@@ -26,7 +26,7 @@ import CreateRecordPresenter from "./components/CreateRecord/CreateRecordPresent
 import ReactRoot from "./presenters/ReactRoot";
 import AuthPresenter from "./components/Auth/AuthPresenter";
 import PasswordResetPresenter from "./components/PasswordReset/PasswordResetPresenter";
-
+import store from "./models/store";
 //const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
 
 const router = createBrowserRouter([

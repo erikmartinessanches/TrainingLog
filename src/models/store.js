@@ -1,15 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 //import { fbMiddleware } from "./middleware";
-import { initializeApp } from "firebase/app";
 //import { reducer } from "./reducers";
 import thunkMiddleware from "redux-thunk";
-import { firebaseConfig } from "../firebaseConfig";
 import { user, listenToAuthChanges } from "./userSlice";
 import { Persistence } from "../persistence/firebaseModel";
 //import { setupListeners } from "@reduxjs/toolkit/query";
 //import { firebaseApi } from "../persistence/apiSlices";
 
-//export const firebaseApp = initializeApp(firebaseConfig);
 
 const store = configureStore({
   reducer: {
@@ -31,5 +28,5 @@ const store = configureStore({
 //This can perhaps be moved to FirebaseModel -> connectModelToFirebase.
 store.dispatch(listenToAuthChanges());
 
-Persistence(store/* , firebaseApp */);
+Persistence(store);
 export default store;
