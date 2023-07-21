@@ -1,7 +1,7 @@
 //import firebaseConfig from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { useDispatch, useSelector } from "react-redux";
-import { ref, onChildAdded, getDatabase, get, child } from "firebase/database";
+import { ref, onChildAdded, getDatabase, get, set, child, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   setFirebaseReady,
@@ -19,10 +19,11 @@ import { firebaseConfig } from "../firebaseConfig";
 // import { firebaseApp } from "../models/store";
 
 const firebaseNotify = "firebase_notify";
-
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
+const REF = "dinnerModel200-test3";
+//const rf= ref(database, REF);
 
 export const Persistence = function name(store) {
   let previousState = store.getState();
@@ -41,6 +42,10 @@ export const Persistence = function name(store) {
       //We should persist, for example, first name and last name.
 
       //We should eventually setModelReady(true) once done.
+      //Perhaps also registrationCompleted to false?
+      //dispatch(setModelReady(true));
+      saveToFirebase(state);
+      dispatch(setRegistrationCompletedStatus(false));
     }
 
     if (!userId) {
@@ -55,12 +60,9 @@ export const Persistence = function name(store) {
         //debugger;
         ReadFromFirebaseWithUser(state, dispatch);
       }
-        
         //dispatch(setFirebaseReady(true));
         //unsubsriptions = [];
-      
     }
-
     // const previousUserId = previousState.auth.user.id;
     // const registrationCompleted = state.auth.registrationCompleted;
 
@@ -73,17 +75,8 @@ export const Persistence = function name(store) {
     //   dispatch(setRegistrationCompletedStatus(false));
     // }
   });
-
   previousState = store.getState();
 };
-
-//const app = initializeApp(firebaseConfig);
-//const database = getDatabase(app);
-//export const auth = getAuth(app);
-
-const REF = "dinnerModel200-test3";
-//const rf= ref(database, REF);
-
 
 function FirebaseModelPromise() {
   //Set model ready to false.
@@ -100,29 +93,36 @@ function FirebaseModelPromise() {
   //the observer may save to persistence.)
 }
 
-/**Tell FB we're going to have this model persisted. */
-function connectModelToFirebase(params) {
-  //addObserver
+function modelToPersistence(state) {
+  //debugger; //TODO return actually useful stuff to put into persistence from model.
+  return {
+    //records: state?.auth.user.records,
+    records: "hi"
+  }
+}
 
-  //If model is ready then write to persistance.
+function saveToFirebase(state) {
+  //debugger;
+  //if (state?.auth.modelReady && state?.auth.user) {
+    set(child(ref(firebaseDb, "users"), state.auth.user.uid), modelToPersistence(state));
+    // set(ref(firebaseDb, 'users/' + state.auth.user.uid), {
+    //   yolo: "hiyo"
+    // });
+ // }
 }
 
 function PersistenceToModel(data, dispatch) {
-  //const dispatch = useDispatch();
-  //const records = await 
   //debugger;
-  dispatch(setRecords(data?.records))
+  //We may not need this check if we set the records prop first thing on signup.
+  if(data?.records !== null) dispatch(setRecords(data?.records)); 
 }
 
  async function ReadFromFirebase(state,  dispatch) {
-  //const dispatch = useDispatch();
   dispatch(setModelReady(false));
   //debugger;
-  //const user = useSelector(selectUser);
   const snapshot = await get(child(ref(firebaseDb, "users"), state?.auth?.user?.uid))
   PersistenceToModel(snapshot.val(), dispatch);
   dispatch(setModelReady(true));
-
 
   // TODO: Live update here.
 
@@ -169,26 +169,16 @@ function PersistenceToModel(data, dispatch) {
   //   });
 }
 
- async function UpdateFirebaseFromModel() {
-
- }
-
  //TODO: Call this function somewhere!
 function ReadFromFirebaseWithUser(state, dispatch) {
-  //const firebaseAuthReady = useSelector(selectFirebaseAuthReady);
-  //const state = store?.getState();
-  //debugger;
-  //if (state?.auth.firebaseReady) {dispatch(setFirebaseReady(false));}
-  
   //debugger;
   if (state?.auth?.firebaseAuthReady && state?.auth?.user?.uid !== null) {
     ReadFromFirebase(state, dispatch);
   } else {
-    //cancel live update
+    //TODO cancel live update
   }
-  
  }
 
 // Remember to uncomment the following line:
- export {FirebaseModelPromise, UpdateFirebaseFromModel, ReadFromFirebase, 
+ export {FirebaseModelPromise, modelToPersistence, ReadFromFirebase, 
   ReadFromFirebaseWithUser, auth, firebaseApp};

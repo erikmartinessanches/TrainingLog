@@ -20,7 +20,7 @@ const initialState = {
     uid: null,
     name: null,
     email: null,
-    records: [],
+    records: null,
   },
   firebaseAuthReady: false,
   firebaseReady: false, 
