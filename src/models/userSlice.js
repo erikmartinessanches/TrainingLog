@@ -18,7 +18,8 @@ const logoutAction = createAction("logoutAction");
 const initialState = {
   user: {
     uid: null,
-    name: null,
+    firstName: null,
+    lastName: null,
     email: null,
     records: null,
   },
@@ -57,8 +58,11 @@ export const user = createSlice({
     setRecords: (state, action) => {
       state.user.records = action.payload;
     },
-    setName: (state, action) => {
-      state.user.name = action.payload;
+    setFirstName: (state, action) => {
+      state.user.firstName = action.payload;
+    },
+    setLastName: (state, action) => {
+      state.user.lastName = action.payload;
     },
     setLoggedInUser: (state, action) => {
       state.user.uid = action.payload.uid;
@@ -83,6 +87,12 @@ export const user = createSlice({
       if (action.payload.usingAsSignUp) {
         state.registrationCompleted = true;
       }
+      if (action.payload.firstName) {
+        state.user.firstName = action.payload.firstName;
+      }
+      if (action.payload.lastName) {
+        state.user.lastName = action.payload.lastName;
+      }
       state.authenticate.status = "FULFILLED";
     });
     builder.addCase(authenticate.pending, (state) => {
@@ -102,7 +112,7 @@ export const user = createSlice({
 
 export const authenticate = createAsyncThunk(
   "auth/authenticate",
-  async ({ usingAsSignUp, email, password }) => {
+  async ({ usingAsSignUp, email, password, firstName, lastName }) => {
     //Do we need the name for authentication?
     const auth = getAuth(firebaseApp);
     let authenticatedUserCredentials;
@@ -130,14 +140,16 @@ export const authenticate = createAsyncThunk(
         uid: authenticatedUserCredentials.user.uid,
         email: authenticatedUserCredentials.user.email,
         usingAsSignUp: usingAsSignUp,
-        // name: name,
+        firstName: firstName,
+        lastName: lastName,
       };
 
     return {
       uid: authenticatedUserCredentials.user.uid,
       email: authenticatedUserCredentials.user.email,
       usingAsSignUp: usingAsSignUp,
-      //name: name,
+      firstName: firstName,
+      lastName: lastName,
     };
   }
 );
@@ -187,7 +199,8 @@ export const logoutNow = (state) => (dispatch, _) => {
 
 
 export const {
-  setName,
+  setFirstName,
+  setLastName,
   setFirebaseAuthReady,
   setFirebaseReady,
   setRegistrationCompletedStatus,

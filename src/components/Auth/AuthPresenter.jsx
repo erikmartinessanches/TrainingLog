@@ -44,6 +44,8 @@ export default function AuthPresenter(props) {
          usingAsSignUp: signup,
          email,
          password,
+         firstName,
+         lastName,
        })
      );
     // createUserWithEmailAndPassword(props.auth, email, password)

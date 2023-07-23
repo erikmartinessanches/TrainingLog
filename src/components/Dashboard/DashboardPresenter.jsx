@@ -3,7 +3,7 @@ import DashboardView from "./DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSecurity from "../../utils/useSecurity";
-import {logoutNow, selectModelReady} from "../../models/userSlice";
+import {logoutNow, selectModelReady, selectUser} from "../../models/userSlice";
 import { LoadingIconView } from "../../views/LoadingIcon";
 //import { firebaseApi } from "../../persistence/apiSlices";
 //import { updateModelFromFirebase } from "../persistence/firebaseModel";
@@ -16,6 +16,7 @@ function DashboardPresenter() {
   //   loading,
   // } = useSelector((state) => state.user || {});
   const modelReady = useSelector(selectModelReady);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //const { logOut, loggedIn, loading, error } = useSecurity();
@@ -70,6 +71,7 @@ function DashboardPresenter() {
       logOut={logOutACB}
       //loading={loading}
       createNewACB={createNewACB}
+      user={user}
     />
   );
 }

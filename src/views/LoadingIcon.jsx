@@ -1,7 +1,8 @@
 //import loadingIcon from "../../Images/Loading_icon.gif"
-import HourglassTopIcon from '@mui/icons-material/HourglassTop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 export const LoadingIconView = function () {
     return(
-        <HourglassTopIcon />
+        <CircularProgress />
     )
 }

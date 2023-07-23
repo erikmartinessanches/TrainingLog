@@ -12,6 +12,8 @@ import {
   selectUser,
   createRecord,
   setRecords,
+  setFirstName,
+  setLastName,
 } from "../models/userSlice";
 //import usersPersister from "./persisters/usersPersister";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -44,8 +46,9 @@ export const Persistence = function name(store) {
       //We should eventually setModelReady(true) once done.
       //Perhaps also registrationCompleted to false?
       //dispatch(setModelReady(true));
-      saveToFirebase(state);
+      saveUserToFirebase(state);
       dispatch(setRegistrationCompletedStatus(false));
+      //dispatch(setFirebaseReady(true));
     }
 
     if (!userId) {
@@ -95,13 +98,14 @@ function FirebaseModelPromise() {
 
 function modelToPersistence(state) {
   //debugger; //TODO return actually useful stuff to put into persistence from model.
-  return {
-    //records: state?.auth.user.records,
-    records: "hi"
-  }
+    return {
+      //records: state?.auth.user.records,
+      firstName: state.auth.user?.firstName,
+      lastName: state.auth.user?.lastName,
+    }
 }
 
-function saveToFirebase(state) {
+function saveUserToFirebase(state) {
   //debugger;
   //if (state?.auth.modelReady && state?.auth.user) {
     set(child(ref(firebaseDb, "users"), state.auth.user.uid), modelToPersistence(state));
@@ -115,6 +119,8 @@ function PersistenceToModel(data, dispatch) {
   //debugger;
   //We may not need this check if we set the records prop first thing on signup.
   if(data?.records !== null) dispatch(setRecords(data?.records)); 
+  if(data?.firstName !== null) dispatch(setFirstName(data?.firstName)); 
+  if(data?.lastName !== null) dispatch(setLastName(data?.lastName)); 
 }
 
  async function ReadFromFirebase(state,  dispatch) {
