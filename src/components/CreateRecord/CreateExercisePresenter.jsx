@@ -4,7 +4,7 @@ import { SaveNewRecord } from "../../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
-import { createRecord } from "../../models/userSlice";
+import { createExercise } from "../../models/userSlice";
 
 function CreateRecordPresenter() {
   /**State behaves more like a snapshot. Setting it does not change the state
@@ -24,8 +24,11 @@ function CreateRecordPresenter() {
 
   function saveExerciseACB() {
     console.log(`Save exercise name: ${exerciseName}, type: ${exerciseType}`);
-    // Use this one or the next? dispatch(createRecord({ recordId: uuidv4(), text: recordText }))
+    // Use this one or the next? 
+    dispatch(createExercise({ exerciseName, exerciseType }))
     //dispatch(SaveNewRecord(recordText)); //Saves in persistence via Thunk.
+    //I think we need to just set the exercise in the model first.
+
 
     //Creates a record with a temporary id. This id will be replaced by the id
     //from the db when the record is saved in the persistence layer.
