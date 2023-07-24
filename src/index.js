@@ -22,7 +22,7 @@ import { Provider } from "react-redux";
 //import reportWebVitals from './reportWebVitals';
 import SecureRoute from "./utils/SecureRoute";
 import SecurityProvider from "./utils/SecurityProvider";
-import CreateRecordPresenter from "./components/CreateRecord/CreateRecordPresenter";
+import CreateRecordPresenter from "./components/CreateRecord/CreateExercisePresenter";
 import ReactRoot from "./presenters/ReactRoot";
 import AuthPresenter from "./components/Auth/AuthPresenter";
 import PasswordResetPresenter from "./components/PasswordReset/PasswordResetPresenter";
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorView />,
   },
   {
-    path: "/dashboard/create-record",
+    path: "/dashboard/create-exercise",
     element: (
       <SecureRoute>
         <CreateRecordPresenter />

@@ -49,7 +49,7 @@ function DashboardPresenter() {
   // }, []);
 
   function createNewACB() {
-    navigate("/dashboard/create-record");
+    navigate("/dashboard/create-exercise");
   }
 
   /**This useEffect effectively guards against going to /dashboard unless we

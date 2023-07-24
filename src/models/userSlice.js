@@ -68,16 +68,6 @@ export const user = createSlice({
       state.user.uid = action.payload.uid;
       state.user.email = action.payload.email;
     },
-/*     setAuthFulfilled: (state, action) => { //This may not be necessary
-      //debugger;
-      state.user.uid = action.payload.uid;
-      // state.user.name = action.payload.name;
-      state.user.email = action.payload.email;
-      if (action.payload.usingAsSignUp) {
-        state.registrationCompleted = true;
-      }
-      state.authenticate.status = "FULFILLED";
-    }, */
   },
   extraReducers: (builder) => {
     builder.addCase(authenticate.fulfilled, (state, action) => {
@@ -113,7 +103,6 @@ export const user = createSlice({
 export const authenticate = createAsyncThunk(
   "auth/authenticate",
   async ({ usingAsSignUp, email, password, firstName, lastName }) => {
-    //Do we need the name for authentication?
     const auth = getAuth(firebaseApp);
     let authenticatedUserCredentials;
 

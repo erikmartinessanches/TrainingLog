@@ -28,7 +28,7 @@ function DashboardView({ logOut, loading, createNewACB, user }) {
         type="submit"
         disabled={loading}
       >
-        Create new record
+        Create new exercise
       </Button>
     </div>
   );
