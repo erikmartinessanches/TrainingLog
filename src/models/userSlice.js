@@ -21,7 +21,8 @@ const initialState = {
     firstName: null,
     lastName: null,
     email: null,
-    exercises: [],
+    resistanceExercises: [],
+    //cardioExercises: [],
   },
   firebaseAuthReady: false,
   firebaseReady: false, 
@@ -50,10 +51,10 @@ export const user = createSlice({
       state.modelReady = action.payload;
     },
     setRegistrationCompletedStatus: (state, action) => {
-      state.registrationCompleted = action.payload;
+      state.registrationCompleted = action.payload.ex;
     },
-    createExercise: (state, action) => {
-      state.user.exercises.push(action.payload);
+    createResistanceExercise: (state, action) => {
+        state.user.resistanceExercises.push({exerciseName: action.payload.exerciseName});
     },
     setRecords: (state, action) => {
       state.user.records = action.payload;
@@ -193,7 +194,7 @@ export const {
   setFirebaseAuthReady,
   setFirebaseReady,
   setRegistrationCompletedStatus,
-  createExercise,
+  createResistanceExercise,
   setAuthFulfilled,
   setLoggedInUser,
   setModelReady,

@@ -59,8 +59,10 @@ export const Persistence = function name(store) {
       (state?.auth?.authenticate?.status === "FULFILLED")) { //We logged in a registered user
       if (!state?.auth.firebaseReady) {
         //TODO link docs
+        debugger;
         dispatch(setFirebaseReady(true));
-        //debugger;
+      
+        PersistExercise(state, previousState);
         ReadFromFirebaseWithUser(state, dispatch);
       }
         //dispatch(setFirebaseReady(true));
@@ -80,6 +82,14 @@ export const Persistence = function name(store) {
   });
   previousState = store.getState();
 };
+function PersistExercise(state, previousState) {
+  debugger;
+  if (state.auth.user.exercises !== previousState.auth.user.exercises) {
+    debugger;
+    console.log("different")
+  }
+}
+
 
 function FirebaseModelPromise() {
   //Set model ready to false.
@@ -99,7 +109,7 @@ function FirebaseModelPromise() {
 function modelToPersistence(state) {
   //debugger; //TODO return actually useful stuff to put into persistence from model.
     return {
-      //records: state?.auth.user.records,
+      exercises: state?.auth.user.exercises,
       firstName: state.auth.user?.firstName,
       lastName: state.auth.user?.lastName,
     }
@@ -118,7 +128,7 @@ function saveUserToFirebase(state) {
 function PersistenceToModel(data, dispatch) {
   //debugger;
   //We may not need this check if we set the records prop first thing on signup.
-  if(data?.records !== null) dispatch(setRecords(data?.records)); 
+  if(data?.exercises) dispatch(setRecords(data?.exercises)); 
   if(data?.firstName !== null) dispatch(setFirstName(data?.firstName)); 
   if(data?.lastName !== null) dispatch(setLastName(data?.lastName)); 
 }

@@ -4,7 +4,7 @@ import { SaveNewRecord } from "../../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
-import { createExercise } from "../../models/userSlice";
+import { createResistanceExercise } from "../../models/userSlice";
 
 function CreateRecordPresenter() {
   /**State behaves more like a snapshot. Setting it does not change the state
@@ -25,7 +25,7 @@ function CreateRecordPresenter() {
   function saveExerciseACB() {
     console.log(`Save exercise name: ${exerciseName}, type: ${exerciseType}`);
     // Use this one or the next? 
-    dispatch(createExercise({ exerciseName, exerciseType }))
+    dispatch(createResistanceExercise({ exerciseName, exerciseType }))
     //dispatch(SaveNewRecord(recordText)); //Saves in persistence via Thunk.
     //I think we need to just set the exercise in the model first.
 
