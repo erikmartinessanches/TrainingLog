@@ -30,7 +30,7 @@ const REF = "dinnerModel200-test3";
 export const Persistence = function name(store) {
   let previousState = store.getState();
   const dispatch = store.dispatch;
-  let unsubsriptions = [];
+  // let unsubsriptions = [];
 
   store.subscribe(() => {
     const state = store.getState();
@@ -51,13 +51,15 @@ export const Persistence = function name(store) {
       //dispatch(setFirebaseReady(true));
     }
 
-    if (!userId) {
+/*     if (!userId) {
       unsubsriptions.forEach(unsubscription => unsubscription());
-    }
+    } */
 
     if (userId && !registrationCompleted && 
       (state?.auth?.authenticate?.status === "FULFILLED")) { //We logged in a registered user
-      if (!state?.auth.firebaseReady) {
+      debugger;
+      
+        if (!state?.auth.firebaseReady) {
         //TODO link docs
         debugger;
         dispatch(setFirebaseReady(true));
@@ -84,7 +86,7 @@ export const Persistence = function name(store) {
 };
 function PersistExercise(state, previousState) {
   debugger;
-  if (state.auth.user.exercises !== previousState.auth.user.exercises) {
+  if (state.auth.user.resistanceExercises !== previousState.auth.user.resistanceExercises) {
     debugger;
     console.log("different")
   }

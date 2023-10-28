@@ -21,7 +21,7 @@ const initialState = {
     firstName: null,
     lastName: null,
     email: null,
-    resistanceExercises: [],
+    exercises: {},
     //cardioExercises: [],
   },
   firebaseAuthReady: false,
@@ -54,7 +54,8 @@ export const user = createSlice({
       state.registrationCompleted = action.payload.ex;
     },
     createResistanceExercise: (state, action) => {
-        state.user.resistanceExercises.push({exerciseName: action.payload.exerciseName});
+        //state.user.resistanceExercises = {...state.user.resistanceExercises, ...action.payload};
+      state.user.resistanceExercises.push({name: action.payload.exerciseName})
     },
     setRecords: (state, action) => {
       state.user.records = action.payload;

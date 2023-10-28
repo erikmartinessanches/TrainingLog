@@ -1,14 +1,14 @@
 import { set, ref, push, getDatabase } from "firebase/database";
 import { firebaseApp } from "../persistence/firebaseModel";
 
-export function SaveNewRecord(text) {
+export function SaveNewRecord({exerciseName, exerciseType}) {
   //We want to return the async thunk function.
 
   return async function SaveNewRecordThunk(dispatch, getState) {
     //debugger;
     const userId = getState().auth.user.uid;
-    const REF = `users/${userId}/records`;
-    const newRecord = { text: text };
+    const REF = `users/${userId}/exercises`;
+    const newRecord = { exerciseName, exerciseType };
     const database = getDatabase(firebaseApp);
     /**We're obtaining the new id or 'key' for the next inserted item from
      * firebase. Here we essentially say: Push() to the reference provided, but
