@@ -173,7 +173,7 @@ export const listenToAuthChanges = () => (dispatch, _) => {
 //Interestingly, it is possible to create my own selectors.
 
 //export default user.reducer;
-const selectAuth = (state) => state.auth;
+export const selectAuth = (state) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
 
 export const selectFirebaseAuthReady = createSelector(

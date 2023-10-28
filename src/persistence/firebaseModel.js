@@ -14,6 +14,7 @@ import {
   setRecords,
   setFirstName,
   setLastName,
+  selectAuth,
 } from "../models/userSlice";
 //import usersPersister from "./persisters/usersPersister";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -67,6 +68,15 @@ export const Persistence = function name(store) {
         PersistExercise(state, previousState);
         ReadFromFirebaseWithUser(state, dispatch);
       }
+      if (userId && state?.auth?.authenticate?.status === "FULFILLED" && state?.auth?.modelReady) {
+        console.log("model ready I think... add observer?")
+        debugger;
+        //This should change the store eventually.
+        onChildAdded(ref(firebaseDb, `users/${state?.auth?.user?.uid}/exercises`), 
+        (data) => {console.log(`Saw that child data changed. data: ${data.val().exerciseName}`)})
+        //Getting really close, now I'm reacting here to child added in firebase!
+        //Now it's just a matter of updating the store from here.
+      }
         //dispatch(setFirebaseReady(true));
         //unsubsriptions = [];
     }
@@ -106,6 +116,7 @@ function FirebaseModelPromise() {
   //After we get the data for the model, we can add an observer to observe 
   //persistence. (Do not add the observer before model is ready. If we notify too
   //the observer may save to persistence.)
+
 }
 
 function modelToPersistence(state) {
@@ -142,16 +153,8 @@ function PersistenceToModel(data, dispatch) {
   PersistenceToModel(snapshot.val(), dispatch);
   dispatch(setModelReady(true));
 
-  //Now it's just a matter of placing the firebase observer in the right place,
-  //Move this where to make it work?
-  if (state?.auth?.modelReady) {
-    console.log("model ready I think... add observer?")
-    debugger;
-    //firebaseDb().ref(`users/${state?.auth?.user?.uid}/exercises`)
-    onChildAdded(ref(firebaseDb, `users/${state?.auth?.user?.uid}/exercises`), 
-    (data) => {console.log(`Saw that child data changed. data: ${data}`)})
-  }
-  // TODO: Live update here.
+
+  // todo: Live update here.
 
   // firebase
   //   .database()
@@ -201,7 +204,13 @@ function ReadFromFirebaseWithUser(state, dispatch) {
   //debugger;
   if (state?.auth?.firebaseAuthReady && state?.auth?.user?.uid !== null) {
     ReadFromFirebase(state, dispatch);
-  } else {
+        //TODO: Now it's just a matter of placing the firebase observer in the right place,
+  //Move this where to make it work?
+
+    
+  } 
+
+  else {
     //TODO cancel live update
   }
  }
