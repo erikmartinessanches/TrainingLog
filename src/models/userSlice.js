@@ -53,12 +53,15 @@ export const user = createSlice({
     setRegistrationCompletedStatus: (state, action) => {
       state.registrationCompleted = action.payload.ex;
     },
+    createExercise: (state, action) => {
+      state.user.exercises = state.user.exercises[action.payload.exerciseId] = action.payload.newRecord;
+    },
     createResistanceExercise: (state, action) => {
         //state.user.resistanceExercises = {...state.user.resistanceExercises, ...action.payload};
       state.user.resistanceExercises.push({name: action.payload.exerciseName})
     },
     setRecords: (state, action) => {
-      state.user.records = action.payload;
+      state.user.exercises = action.payload;
     },
     setFirstName: (state, action) => {
       state.user.firstName = action.payload;
@@ -200,4 +203,5 @@ export const {
   setLoggedInUser,
   setModelReady,
   setRecords,
+  createExercise,
 } = user.actions;

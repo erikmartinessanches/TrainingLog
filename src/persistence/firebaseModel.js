@@ -57,11 +57,11 @@ export const Persistence = function name(store) {
 
     if (userId && !registrationCompleted && 
       (state?.auth?.authenticate?.status === "FULFILLED")) { //We logged in a registered user
-      debugger;
+      //debugger;
       
         if (!state?.auth.firebaseReady) {
         //TODO link docs
-        debugger;
+        //debugger;
         dispatch(setFirebaseReady(true));
       
         PersistExercise(state, previousState);
@@ -85,9 +85,9 @@ export const Persistence = function name(store) {
   previousState = store.getState();
 };
 function PersistExercise(state, previousState) {
-  debugger;
-  if (state.auth.user.resistanceExercises !== previousState.auth.user.resistanceExercises) {
-    debugger;
+  //debugger;
+  if (state.auth.user.exercises !== previousState.auth.user.exercises) {
+    //debugger;
     console.log("different")
   }
 }
@@ -142,6 +142,15 @@ function PersistenceToModel(data, dispatch) {
   PersistenceToModel(snapshot.val(), dispatch);
   dispatch(setModelReady(true));
 
+  //Now it's just a matter of placing the firebase observer in the right place,
+  //Move this where to make it work?
+  if (state?.auth?.modelReady) {
+    console.log("model ready I think... add observer?")
+    debugger;
+    //firebaseDb().ref(`users/${state?.auth?.user?.uid}/exercises`)
+    onChildAdded(ref(firebaseDb, `users/${state?.auth?.user?.uid}/exercises`), 
+    (data) => {console.log(`Saw that child data changed. data: ${data}`)})
+  }
   // TODO: Live update here.
 
   // firebase
