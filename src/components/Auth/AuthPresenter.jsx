@@ -6,7 +6,7 @@ import AuthView from "./AuthView";
 //} from "firebase/auth";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authenticate, setAuthFulfilled } from "../../models/userSlice";
+import { registerOrLogIn, setAuthFulfilled } from "../../models/userSlice";
 //import { useAuthenticateWithFirebaseMutation } from "../../persistence/apiSlices";
 
 function successACB() {
@@ -27,27 +27,27 @@ export default function AuthPresenter(props) {
   //const auth = getAuth(firebaseApp);
   //const [authenticateNow, mutationResult] = useAuthenticateWithFirebaseMutation({fixedCacheKey: "logindata"});
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     location.pathname === "/login" ? setSignup(false) : setSignup(true);
   }, [] ); */
   useEffect(() => {
     location.pathname === "/login" ? setSignup(false) : setSignup(true);
-  }, [location.pathname] );
+  }, [location.pathname]);
 
   async function onSubmitACB() {
     //debugger;
     //const yo = await authenticateNow({ email, password, usingAsSignUp: signup });
     //const you = services;
     //debugger;
-     dispatch(
-       authenticate({
-         usingAsSignUp: signup,
-         email,
-         password,
-         firstName,
-         lastName,
-       })
-     );
+    dispatch(
+      registerOrLogIn({
+        email,
+        password,
+        signUpOption: signup,
+        firstName,
+        lastName,
+      })
+    );
     // createUserWithEmailAndPassword(props.auth, email, password)
     //   .then(successACB)
     //   .then(failureACB);
@@ -58,7 +58,7 @@ export default function AuthPresenter(props) {
       .then(successACB)
       .catch(failureACB);
   } */
- //debugger
+  //debugger
   // useEffect(() => mutationResult.requestId && console.log(mutationResult.data,"OUTSIDE CALLBACK ( isLoading and other data working ):",JSON.parse(JSON.stringify(mutationResult)))
   // ,[mutationResult])
 
@@ -66,7 +66,7 @@ export default function AuthPresenter(props) {
    * provides convenient hooks. I use useEffects below to set redux state. If I
    * had done this with thunks, I would only dispatch the thunk once and it would
    * eventually call the appropriate reducers in extra reducers in the state slice.
-  */
+   */
   // useEffect(() => {
   //   if (mutationResult.isSuccess &&  mutationResult.status==="fulfilled"){
   //     console.log(mutationResult);
@@ -74,7 +74,7 @@ export default function AuthPresenter(props) {
   //   }
   // }
   // ,[dispatch, mutationResult])
-  //TODO: rejected and loading states. 
+  //TODO: rejected and loading states.
 
   return (
     <AuthView

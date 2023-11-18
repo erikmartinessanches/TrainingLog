@@ -32,54 +32,32 @@ import store from "./models/store";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <SecureRoute forwardLoggedInUser>
-        <LandingPagePresenter />
-      </SecureRoute>
-    ),
+    element: <LandingPagePresenter />,
     errorElement: <ErrorView />,
   },
   {
     path: "/signup",
-    element: (
-      <SecureRoute forwardLoggedInUser>
-        <AuthPresenter />
-      </SecureRoute>
-    ),
+    element: <AuthPresenter />,
     errorElement: <ErrorView />,
   },
   {
     path: "/login",
-    element: (
-      <SecureRoute forwardLoggedInUser>
-        <AuthPresenter />
-      </SecureRoute>
-    ),
+    element: <AuthPresenter />,
     errorElement: <ErrorView />,
   },
   {
     path: "/dashboard",
-    element: (
-      <SecureRoute>
-        <DashboardPresenter />
-      </SecureRoute>
-    ),
+    element: <DashboardPresenter />,
     errorElement: <ErrorView />,
   },
   {
     path: "/dashboard/create-exercise",
-    element: (
-      <SecureRoute>
-        <CreateRecordPresenter />
-      </SecureRoute>
-    ),
+    element: <CreateRecordPresenter />,
     errorElement: <ErrorView />,
   },
   {
     path: "/password-reset",
-    element: (
-        <PasswordResetPresenter />
-    ),
+    element: <PasswordResetPresenter />,
     errorElement: <ErrorView />,
   },
 ]);

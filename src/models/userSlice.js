@@ -10,6 +10,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { firebaseApp } from "../persistence/firebaseModel";
 
@@ -22,19 +23,17 @@ const initialState = {
     lastName: null,
     email: null,
     exercises: {},
-    //cardioExercises: [],
   },
-  firebaseAuthReady: false,
-  firebaseReady: false, 
+  //firebaseAuthReady: false,
+  //firebaseReady: false,
   // Whether the model is ready to be used/observed. Save to persistance only if
   //the model is ready:
-  modelReady: false, 
+  modelReady: false,
   registrationCompleted: false,
-  authenticate: {
-    status: "IDLE", //(IDLE, PENDING, REJECTED or FULFILLED)
-    requestId: null,
-    error: "",
-  },
+
+  firebaseAuthStatus: "IDLE", //(IDLE, PENDING, REJECTED or FULFILLED)
+  //   requestId: null,
+  firebaseAuthError: "",
 };
 
 export const user = createSlice({
@@ -44,21 +43,24 @@ export const user = createSlice({
     setFirebaseAuthReady(state, action) {
       state.firebaseAuthReady = true;
     },
-    setFirebaseReady: (state, action) => {
-      state.firebaseReady = action.payload;
-    },
+    // setFirebaseReady: (state, action) => {
+    //   state.firebaseReady = action.payload;
+    // },
     setModelReady: (state, action) => {
       state.modelReady = action.payload;
     },
-    setRegistrationCompletedStatus: (state, action) => {
-      state.registrationCompleted = action.payload.ex;
+    registrationCompleted: (state, action) => {
+      //state.registrationCompleted = action.payload;
     },
     createExercise: (state, action) => {
-      state.user.exercises = state.user.exercises[action.payload.exerciseId] = action.payload.newRecord;
+      state.user.exercises = state.user.exercises[action.payload.exerciseId] =
+        action.payload.newRecord;
     },
     createResistanceExercise: (state, action) => {
-        //state.user.resistanceExercises = {...state.user.resistanceExercises, ...action.payload};
-      state.user.resistanceExercises.push({name: action.payload.exerciseName})
+      //state.user.resistanceExercises = {...state.user.resistanceExercises, ...action.payload};
+      state.user.resistanceExercises.push({
+        name: action.payload.exerciseName,
+      });
     },
     setRecords: (state, action) => {
       state.user.exercises = action.payload;
@@ -75,27 +77,28 @@ export const user = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(authenticate.fulfilled, (state, action) => {
-      state.user.uid = action.payload.uid;
-     // state.user.name = action.payload.name;
-      state.user.email = action.payload.email;
-      if (action.payload.usingAsSignUp) {
-        state.registrationCompleted = true;
+    builder.addCase(registerOrLogIn.fulfilled, (state, action) => {
+      state.user.uid = action.payload?.uid;
+      // state.user.name = action.payload.name;
+      state.user.email = action.payload?.email;
+      //state.firebaseAuthReady = true;
+      if (action.payload?.usingAsSignUp) {
+        //state.registrationCompleted = true;
       }
-      if (action.payload.firstName) {
-        state.user.firstName = action.payload.firstName;
+      if (action.payload?.firstName) {
+        state.user.firstName = action.payload?.firstName;
       }
-      if (action.payload.lastName) {
-        state.user.lastName = action.payload.lastName;
+      if (action.payload?.lastName) {
+        state.user.lastName = action.payload?.lastName;
       }
-      state.authenticate.status = "FULFILLED";
+      state.firebaseAuthStatus = "FULFILLED";
     });
-    builder.addCase(authenticate.pending, (state) => {
-      state.authenticate.status = "PENDING";
+    builder.addCase(registerOrLogIn.pending, (state) => {
+      state.firebaseAuthStatus = "PENDING";
     });
-    builder.addCase(authenticate.rejected, (state, action) => {
-      state.authenticate.status = "REJECTED";
-      state.authenticate.error = action.payload.error.code;
+    builder.addCase(registerOrLogIn.rejected, (state, action) => {
+      state.firebaseAuthStatus = "REJECTED";
+      state.firebaseAuthError = action.error.code;
     });
     builder.addCase(logoutAction, () => {
       //debugger;
@@ -105,46 +108,60 @@ export const user = createSlice({
   },
 });
 
-export const authenticate = createAsyncThunk(
-  "auth/authenticate",
-  async ({ usingAsSignUp, email, password, firstName, lastName }) => {
-    const auth = getAuth(firebaseApp);
-    let authenticatedUserCredentials;
-
+//Consider moving this to the Persistence layer.
+export const registerOrLogIn = createAsyncThunk(
+  "auth/authenticateWithFirebase",
+  async (
+    { email, password, signUpOption, firstName, lastName },
+    { dispatch }
+  ) => {
     try {
-      if (usingAsSignUp) {
-        authenticatedUserCredentials = await createUserWithEmailAndPassword(
-          auth,
+      if (signUpOption) {
+        const authUserData = await createUserWithEmailAndPassword(
+          getAuth(firebaseApp),
           email,
           password
         );
+        const signInMethods = await fetchSignInMethodsForEmail(
+          getAuth(firebaseApp),
+          email
+        );
+        if (signInMethods.length > 0) {
+          dispatch(registrationCompleted(true));
+        }
+        return {
+          uid: authUserData.user.uid,
+          email: authUserData.user.email,
+          usingAsSignUp: signUpOption,
+          firstName: firstName,
+          lastName: lastName,
+        };
       } else {
-        authenticatedUserCredentials = await signInWithEmailAndPassword(
-          auth,
+        const authUserData = await signInWithEmailAndPassword(
+          getAuth(firebaseApp),
           email,
           password
         );
+        return {
+          uid: authUserData.user.uid,
+          email: authUserData.user.email,
+          usingAsSignUp: signUpOption,
+          firstName: firstName,
+          lastName: lastName,
+        };
       }
-    } catch (error) {
-      throw error;
+    } catch (e) {
+      switch (
+        e.code //For illustration but need not be handled here.
+      ) {
+        case "auth/email-already-in-use":
+          console.log("Email address already in use.");
+          break;
+        default:
+          console.log("error.code");
+          break;
+      }
     }
-
-    if (usingAsSignUp)
-      return {
-        uid: authenticatedUserCredentials.user.uid,
-        email: authenticatedUserCredentials.user.email,
-        usingAsSignUp: usingAsSignUp,
-        firstName: firstName,
-        lastName: lastName,
-      };
-
-    return {
-      uid: authenticatedUserCredentials.user.uid,
-      email: authenticatedUserCredentials.user.email,
-      usingAsSignUp: usingAsSignUp,
-      firstName: firstName,
-      lastName: lastName,
-    };
   }
 );
 
@@ -153,9 +170,9 @@ export const listenToAuthChanges = () => (dispatch, _) => {
   const auth = getAuth(firebaseApp);
   onAuthStateChanged(auth, (user) => {
     if (user) {
-    // User is signed in, see https://firebase.google.com/docs/auth/web/start
-    // and https://firebase.google.com/docs/auth/web/manage-users.
-      dispatch (setLoggedInUser({uid: user.uid, email: user.email}));
+      // User is signed in, see https://firebase.google.com/docs/auth/web/start
+      // and https://firebase.google.com/docs/auth/web/manage-users.
+      dispatch(setLoggedInUser({ uid: user.uid, email: user.email }));
       //See if we can use the existing extra reducer instead of setLoggedInUser?
     } else {
       //debugger;
@@ -165,10 +182,9 @@ export const listenToAuthChanges = () => (dispatch, _) => {
       //Remove firebase listeners (that change the model when FB notifies).
       dispatch(logoutAction());
     }
-    dispatch(setFirebaseAuthReady());
-    
-  })
-}
+    //dispatch(setFirebaseAuthReady());
+  });
+};
 
 //Interestingly, it is possible to create my own selectors.
 
@@ -176,10 +192,10 @@ export const listenToAuthChanges = () => (dispatch, _) => {
 export const selectAuth = (state) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
 
-export const selectFirebaseAuthReady = createSelector(
-  selectAuth,
-  (data) => data.firebaseAuthReady
-);
+// export const selectFirebaseAuthReady = createSelector(
+//   selectAuth,
+//   (data) => data.firebaseAuthReady
+// );
 export const selectModelReady = createSelector(
   selectAuth,
   (data) => data.modelReady
@@ -187,17 +203,16 @@ export const selectModelReady = createSelector(
 
 export const logoutNow = (state) => (dispatch, _) => {
   //Perhaps prefer it here after all, in order to avoid calling this in login.
-  //dispatch(logoutAction()); 
+  //dispatch(logoutAction());
   signOut(getAuth(firebaseApp));
-}
-
+};
 
 export const {
   setFirstName,
   setLastName,
-  setFirebaseAuthReady,
-  setFirebaseReady,
-  setRegistrationCompletedStatus,
+  //setFirebaseAuthReady,
+  //setFirebaseReady,
+  registrationCompleted,
   createResistanceExercise,
   setAuthFulfilled,
   setLoggedInUser,
