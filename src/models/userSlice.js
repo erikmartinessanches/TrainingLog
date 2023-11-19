@@ -122,7 +122,7 @@ export const registerOrLogIn = createAsyncThunk(
   "auth/authenticateWithFirebase",
   async (
     { email, password, signUpOption, firstName, lastName },
-    { dispatch }
+    { dispatch, getState }
   ) => {
     try {
       if (signUpOption) {

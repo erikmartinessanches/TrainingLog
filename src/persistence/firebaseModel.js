@@ -49,21 +49,21 @@ const configureListenerMiddleware = () => {
     effect: async (action, listenerApi) => {
       console.log(`Signed up or registered but no user id yet!`);
       debugger;
-      if (action?.type === "auth/registrationCompleted") {
-        debugger;
-        // Registration only goes here.
-        const state = listenerApi.getState();
 
-        console.log(`Registered and we have a user id now!`);
-        // We are now able to write the appropriate data to firebase:
+      if (await listenerApi.condition(registerOrLogIn)) {
+        if (action?.type === "auth/registrationCompleted") {
+          debugger;
+          // Registration only goes here.
+          const state = listenerApi.getState();
 
-        //Consider conditioning this call?
-        saveUserToFirebase(state);
-        //listenerApi.dispatch(setModelReady(true));
-        listenerApi.cancelActiveListeners();
-        // if (await listenerApi.condition(registerOrLogIn)) {
+          console.log(`Registered and we have a user id now!`);
+          // We are now able to write the appropriate data to firebase:
 
-        // }
+          //Consider conditioning this call?
+          saveUserToFirebase(state);
+          //listenerApi.dispatch(setModelReady(true));
+          listenerApi.cancelActiveListeners();
+        }
       }
       if (action?.type === "auth/loginCompleted") {
         // Login only goes here.
