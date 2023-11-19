@@ -59,6 +59,7 @@ const configureListenerMiddleware = () => {
 
           //Consider conditioning this call?
           saveUserToFirebase(state);
+          listenerApi.dispatch(setModelReady(true));
           listenerApi.cancelActiveListeners();
         }
       }
