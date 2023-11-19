@@ -3,9 +3,13 @@ import DashboardView from "./DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSecurity from "../../utils/useSecurity";
-import {logoutNow, selectModelReady, selectUser} from "../../models/userSlice";
+import {
+  logoutNow,
+  selectModelReady,
+  selectUser,
+} from "../../models/userSlice";
 import { LoadingIconView } from "../../views/LoadingIcon";
-//import { firebaseApi } from "../../persistence/apiSlices";
+import AuthPresenter from "../Auth/AuthPresenter";
 //import { updateModelFromFirebase } from "../persistence/firebaseModel";
 
 function DashboardPresenter() {
@@ -21,26 +25,21 @@ function DashboardPresenter() {
   const navigate = useNavigate();
   //const { logOut, loggedIn, loading, error } = useSecurity();
   //const [shouldLogout, setShouldLogout] = useState(false);
-  
+
   // useEffect(() => {
   //   if(shouldLogout)  {
   //     navigate("/");
   //     //dispatch(logoutNow());
   //   }
   // }, [shouldLogout])
-  
 
   function logOutACB() {
-  //  console.log("Log the user out.");
-    
-    //debugger;
-   // dispatch(firebaseApi.util.invalidateTags(['Auth']));
-    //dispatch(firebaseApi.util.resetApiState()); //This could possibly be called from elsewhere.
+    //  console.log("Log the user out.");
     //setShouldLogout(true);
     dispatch(logoutNow());
     //navigate("/");
-    
-  //  logOut();
+
+    //  logOut();
   }
 
   // useEffect(() => {
@@ -52,28 +51,29 @@ function DashboardPresenter() {
     navigate("/dashboard/create-exercise");
   }
 
-  /**This useEffect effectively guards against going to /dashboard unless we
-   * have a user set in redux. If there is not user in redux (no logged in),
-   * we'll be navigated to /. But this may be fishy...
-   */
-  // useEffect(() => {
-  //   if (!loggedIn && !error && !loading) {
-  //     navigate("/");
-  //   }
-  //   return () => {};
-  // }, [loggedIn, error, loading, navigate]);
+  
 
-  if (!modelReady) {
+  //Placing it here for simplicity, consider using the "secure routes" in parent instead.
+  if (user.uid === undefined) {
     return <LoadingIconView />;
   }
-  return (
-    <DashboardView
-      logOut={logOutACB}
-      //loading={loading}
-      createNewACB={createNewACB}
-      user={user}
-    />
-  );
+  if (user.uid === null) {
+    return <AuthPresenter />;
+  }
+  if (user.uid) {
+    if (!modelReady) {
+      return <LoadingIconView />;
+    } else {
+      return (
+        <DashboardView
+          logOut={logOutACB}
+          //loading={loading}
+          createNewACB={createNewACB}
+          user={user}
+        />
+      );
+    }
+  }
 }
 
 export default DashboardPresenter;

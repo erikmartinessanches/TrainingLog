@@ -18,7 +18,7 @@ const logoutAction = createAction("logoutAction");
 
 const initialState = {
   user: {
-    uid: null,
+    uid: undefined,
     firstName: null,
     lastName: null,
     email: null,
@@ -52,6 +52,9 @@ export const user = createSlice({
     registrationCompleted: (state, action) => {
       //state.registrationCompleted = action.payload;
     },
+    loginCompleted: (state, action) => {
+      //state.registrationCompleted = action.payload;
+    },
     createExercise: (state, action) => {
       state.user.exercises = state.user.exercises[action.payload.exerciseId] =
         action.payload.newRecord;
@@ -62,7 +65,7 @@ export const user = createSlice({
         name: action.payload.exerciseName,
       });
     },
-    setRecords: (state, action) => {
+    setExercises: (state, action) => {
       state.user.exercises = action.payload;
     },
     setFirstName: (state, action) => {
@@ -87,10 +90,13 @@ export const user = createSlice({
       //if (action.payload?.usingAsSignUp) {
       //state.registrationCompleted = true;
       //}
+      debugger;
       if (action.payload?.firstName) {
+        debugger;
         state.user.firstName = action.payload?.firstName;
       }
       if (action.payload?.lastName) {
+        debugger;
         state.user.lastName = action.payload?.lastName;
       }
       state.firebaseAuthStatus = "FULFILLED";
@@ -110,7 +116,8 @@ export const user = createSlice({
   },
 });
 
-//Consider moving this to the Persistence layer.
+//Considered moving this to the Persistence layer. Keeping it here for now since
+//this function is used from a presenter.
 export const registerOrLogIn = createAsyncThunk(
   "auth/authenticateWithFirebase",
   async (
@@ -145,6 +152,7 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
+        //dispatch(loginCompleted(true));
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,
@@ -167,31 +175,7 @@ export const registerOrLogIn = createAsyncThunk(
     }
   }
 );
-
-//Model should not really know about persistence, move?
-// export const listenToAuthChanges = () => (dispatch, _) => {
-//   const auth = getAuth(firebaseApp);
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       // User is signed in, see https://firebase.google.com/docs/auth/web/start
-//       // and https://firebase.google.com/docs/auth/web/manage-users.
-//       dispatch(logInUser({ uid: user.uid, email: user.email }));
-//       //See if we can use the existing extra reducer instead of setLoggedInUser?
-//     } else {
-//       //debugger;
-//       //We're logging out (or not logged in) and may set initial state here.
-//       //However, this causes logoutAction to be called on login.
-//       //dispatch (setLoggedInUser({uid: null, email: null, records: []}));
-//       //Remove firebase listeners (that change the model when FB notifies).
-//       dispatch(logoutAction());
-//     }
-//     //dispatch(setFirebaseAuthReady());
-//   });
-// };
-
 //Interestingly, it is possible to create my own selectors.
-
-//export default user.reducer;
 export const selectAuth = (state) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
 
@@ -214,12 +198,12 @@ export const {
   setFirstName,
   setLastName,
   //setFirebaseAuthReady,
-  //setFirebaseReady,
+  loginCompleted,
   registrationCompleted,
   createResistanceExercise,
   setAuthFulfilled,
   logInUser,
   setModelReady,
-  setRecords,
+  setExercises,
   createExercise,
 } = user.actions;

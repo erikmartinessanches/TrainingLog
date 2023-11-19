@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
 import { user } from "./userSlice";
 import {
-  Persistence,
+  connectModelToFirebase,
   configureListenerMiddleware,
 } from "../persistence/firebaseModel";
 
@@ -21,5 +21,5 @@ const store = configureStore({
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 //setupListeners(store.dispatch);
 
-Persistence(store);
+connectModelToFirebase(store);
 export default store;
