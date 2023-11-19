@@ -45,10 +45,11 @@ const configureListenerMiddleware = () => {
       console.log(`Signed up or registered but no user id yet!`);
       //debugger;
       if (await listenerApi.condition(registerOrLogIn)) {
+        // Registration only goes here.
         const state = listenerApi.getState();
         //debugger;
         console.log(`Registered and we have a user id now!`);
-        //We are now able to write the appropriate data to firebase on registration only:
+        // We are now able to write the appropriate data to firebase:
         saveUserToFirebase(state);
       }
       listenerApi.cancelActiveListeners();
