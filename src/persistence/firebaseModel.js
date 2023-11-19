@@ -38,6 +38,10 @@ const firebaseApp = initializeApp(firebaseConfig);
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
 
+function testfunc2(user, dispatch) {
+  debugger;
+}
+
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();
   listenerMiddleware.startListening({
@@ -45,7 +49,7 @@ const configureListenerMiddleware = () => {
     effect: async (action, listenerApi) => {
       console.log(`Signed up or registered but no user id yet!`);
       debugger;
-      if (action.type === "auth/registrationCompleted") {
+      if (action?.type === "auth/registrationCompleted") {
         if (await listenerApi.condition(registerOrLogIn)) {
           // Registration only goes here.
           const state = listenerApi.getState();
@@ -58,16 +62,18 @@ const configureListenerMiddleware = () => {
           listenerApi.cancelActiveListeners();
         }
       }
-      if (action.type === "auth/loginCompleted") {
+      if (action?.type === "auth/loginCompleted") {
         if (await listenerApi.condition(registerOrLogIn)) {
           // Login only goes here.
           const state = listenerApi.getState();
-          debugger;
+          //debugger;
           console.log(`This should only happen on login`);
-          // We are now able to write the appropriate data to firebase:
+          // We are now able to read the appropriate data from firebase:
 
-          //Consider conditioning this call?
-          //saveUserToFirebase(state);
+          //const { dispatch } = listenerApi;
+          debugger;
+          //testfunc2(state.auth.user, dispatch);
+          readFromFirebaseWithUser(state.auth.user, listenerApi.dispatch);
           listenerApi.cancelActiveListeners();
         }
       }
