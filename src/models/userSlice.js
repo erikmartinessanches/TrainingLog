@@ -29,7 +29,7 @@ const initialState = {
   // Whether the model is ready to be used/observed. Save to persistance only if
   //the model is ready:
   modelReady: false,
-  registrationCompleted: false,
+  //registrationCompleted: false,
 
   firebaseAuthStatus: "IDLE", //(IDLE, PENDING, REJECTED or FULFILLED)
   //   requestId: null,

@@ -23,7 +23,10 @@ import {
   setFirstName,
   setLastName,
   selectAuth,
+  registerOrLogIn,
+  registrationCompleted,
 } from "../models/userSlice";
+import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
 
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { firebaseConfig } from "../firebaseConfig";
@@ -34,6 +37,25 @@ const firebaseApp = initializeApp(firebaseConfig);
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
 
+const configureListenerMiddleware = () => {
+  const listenerMiddleware = createListenerMiddleware();
+  listenerMiddleware.startListening({
+    matcher: isAnyOf(registrationCompleted),
+    effect: async (action, listenerApi) => {
+      console.log(`Signed up or registered but no user id yet!`);
+      debugger;
+      if (await listenerApi.condition(registerOrLogIn)) {
+        const state = listenerApi.getState();
+        debugger;
+        console.log(`Registered and we have a user id now!`);
+        //We are now able to write the appropriate data to firebase on registration only:
+      }
+
+      listenerApi.cancelActiveListeners();
+    },
+  });
+  return listenerMiddleware;
+};
 export const Persistence = (store) => {
   // store.subscribe(() => {
   //   const state = store.getState();
@@ -245,4 +267,5 @@ export {
   //ReadFromFirebaseWithUser,
   auth,
   firebaseApp,
+  configureListenerMiddleware,
 };

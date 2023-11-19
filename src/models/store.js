@@ -12,27 +12,15 @@ import {
   registerOrLogIn,
   registrationCompleted,
 } from "./userSlice";
-import { Persistence } from "../persistence/firebaseModel";
+import {
+  Persistence,
+  configureListenerMiddleware,
+} from "../persistence/firebaseModel";
 //import { setupListeners } from "@reduxjs/toolkit/query";
 //import { firebaseApi } from "../persistence/apiSlices";
 
 //Consider moving this to the Persistence layer.
-const listenerMiddleware = createListenerMiddleware();
-listenerMiddleware.startListening({
-  matcher: isAnyOf(registrationCompleted),
-  effect: async (action, listenerApi) => {
-    console.log(`Signed up or registered but no user id yet!`);
-    debugger;
-    if (await listenerApi.condition(registerOrLogIn)) {
-      const state = listenerApi.getState();
-      debugger;
-      console.log(`Registered and we have a user id now!`);
-      //We are now able to write the appropriate data to firebase on registration only:
-    }
-
-    listenerApi.cancelActiveListeners();
-  },
-});
+const listenerMiddleware = configureListenerMiddleware();
 
 const store = configureStore({
   reducer: {
