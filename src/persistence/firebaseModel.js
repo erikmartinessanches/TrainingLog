@@ -50,33 +50,37 @@ const configureListenerMiddleware = () => {
       console.log(`Signed up or registered but no user id yet!`);
       debugger;
       if (action?.type === "auth/registrationCompleted") {
-        if (await listenerApi.condition(registerOrLogIn)) {
-          // Registration only goes here.
-          const state = listenerApi.getState();
-          debugger;
-          console.log(`Registered and we have a user id now!`);
-          // We are now able to write the appropriate data to firebase:
+        debugger;
+        // Registration only goes here.
+        const state = listenerApi.getState();
 
-          //Consider conditioning this call?
-          saveUserToFirebase(state);
-          listenerApi.dispatch(setModelReady(true));
-          listenerApi.cancelActiveListeners();
-        }
+        console.log(`Registered and we have a user id now!`);
+        // We are now able to write the appropriate data to firebase:
+
+        //Consider conditioning this call?
+        saveUserToFirebase(state);
+        //listenerApi.dispatch(setModelReady(true));
+        listenerApi.cancelActiveListeners();
+        // if (await listenerApi.condition(registerOrLogIn)) {
+
+        // }
       }
       if (action?.type === "auth/loginCompleted") {
-        if (await listenerApi.condition(registerOrLogIn)) {
-          // Login only goes here.
-          const state = listenerApi.getState();
-          //debugger;
-          console.log(`This should only happen on login`);
-          // We are now able to read the appropriate data from firebase:
+        // Login only goes here.
+        const state = listenerApi.getState();
+        //debugger;
+        console.log(`This should only happen on login`);
+        // We are now able to read the appropriate data from firebase:
 
-          //const { dispatch } = listenerApi;
-          debugger;
-          //testfunc2(state.auth.user, dispatch);
-          readFromFirebaseWithUser(state.auth.user, listenerApi.dispatch);
-          listenerApi.cancelActiveListeners();
-        }
+        //const { dispatch } = listenerApi;
+        debugger;
+        //testfunc2(state.auth.user, dispatch);
+        //readFromFirebaseWithUser(state.auth.user, listenerApi.dispatch);
+        //listenerApi.dispatch(setModelReady(true));
+        listenerApi.cancelActiveListeners();
+
+        // if (await listenerApi.condition(registerOrLogIn)) {
+        // }
       }
     },
   });
@@ -94,7 +98,7 @@ export const connectModelToFirebase = (store) => {
       const state = store.getState();
       debugger;
 
-      //readFromFirebaseWithUser(user, dispatch); //Consider moving to listenermiddleware?
+      readFromFirebaseWithUser(user, dispatch); //Consider moving to listenermiddleware?
       //Try adding the FB observer here, or perhaps 2 lines above?
       //dispatch(setModelReady(true));
       //Another idea with regards to calling the above too early in the registration
