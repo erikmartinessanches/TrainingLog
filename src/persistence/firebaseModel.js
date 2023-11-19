@@ -1,4 +1,3 @@
-//import firebaseConfig from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,11 +8,14 @@ import {
   set,
   child,
   push,
+  off,
 } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
-  //setFirebaseReady,
-  //setRegistrationCompletedStatus,
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import {
   selectFirebaseAuthReady,
   setModelReady,
   selectModelReady,
@@ -25,12 +27,10 @@ import {
   selectAuth,
   registerOrLogIn,
   registrationCompleted,
+  logInUser,
 } from "../models/userSlice";
 import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
-
-import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { firebaseConfig } from "../firebaseConfig";
-// import { firebaseApp } from "../models/store";
 
 const firebaseNotify = "firebase_notify";
 const firebaseApp = initializeApp(firebaseConfig);
@@ -43,23 +43,30 @@ const configureListenerMiddleware = () => {
     matcher: isAnyOf(registrationCompleted),
     effect: async (action, listenerApi) => {
       console.log(`Signed up or registered but no user id yet!`);
-      debugger;
+      //debugger;
       if (await listenerApi.condition(registerOrLogIn)) {
         const state = listenerApi.getState();
-        debugger;
+        //debugger;
         console.log(`Registered and we have a user id now!`);
         //We are now able to write the appropriate data to firebase on registration only:
+        saveUserToFirebase(state);
       }
-
       listenerApi.cancelActiveListeners();
     },
   });
   return listenerMiddleware;
 };
 export const Persistence = (store) => {
-  // store.subscribe(() => {
-  //   const state = store.getState();
-  // });
+  onAuthStateChanged(auth, (user) => authChangedACB(user, store.dispatch));
+  function authChangedACB(user, dispatch) {
+    //debugger;
+    if (user) {
+      dispatch(logInUser({ uid: user.uid, email: user.email }));
+    } else {
+      //Once we have created callbacks, we can remove them by doing something like
+      // off("users/" + store?.auth?.user?.uid);
+    }
+  }
 };
 
 // export const Persistence = function name(store) {
@@ -163,27 +170,27 @@ export const Persistence = (store) => {
 //   //the observer may save to persistence.)
 // }
 
-// function modelToPersistence(state) {
-//   //debugger; //TODO return actually useful stuff to put into persistence from model.
-//   return {
-//     exercises: state?.auth.user.exercises,
-//     firstName: state.auth.user?.firstName,
-//     lastName: state.auth.user?.lastName,
-//   };
-// }
+function modelToPersistence(state) {
+  //debugger; //TODO return actually useful stuff to put into persistence from model.
+  return {
+    exercises: state?.auth.user.exercises,
+    firstName: state.auth.user?.firstName,
+    lastName: state.auth.user?.lastName,
+  };
+}
 
-// function saveUserToFirebase(state) {
-//   //debugger;
-//   //if (state?.auth.modelReady && state?.auth.user) {
-//   set(
-//     child(ref(firebaseDb, "users"), state.auth.user.uid),
-//     modelToPersistence(state)
-//   );
-//   // set(ref(firebaseDb, 'users/' + state.auth.user.uid), {
-//   //   yolo: "hiyo"
-//   // });
-//   // }
-// }
+function saveUserToFirebase(state) {
+  //debugger;
+  //if (state?.auth.modelReady && state?.auth.user) {
+  set(
+    child(ref(firebaseDb, "users"), state.auth.user.uid),
+    modelToPersistence(state)
+  );
+  // set(ref(firebaseDb, 'users/' + state.auth.user.uid), {
+  //   yolo: "hiyo"
+  // });
+  // }
+}
 
 // function PersistenceToModel(data, dispatch) {
 //   //debugger;

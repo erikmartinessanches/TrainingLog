@@ -71,20 +71,22 @@ export const user = createSlice({
     setLastName: (state, action) => {
       state.user.lastName = action.payload;
     },
-    setLoggedInUser: (state, action) => {
+    logInUser: (state, action) => {
       state.user.uid = action.payload.uid;
       state.user.email = action.payload.email;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(registerOrLogIn.fulfilled, (state, action) => {
-      state.user.uid = action.payload?.uid;
+      //The below is set by onAuthStateChanged, so here I only set "additional
+      //custom state" ib registration/login.
+      //state.user.uid = action.payload?.uid;
       // state.user.name = action.payload.name;
-      state.user.email = action.payload?.email;
+      //state.user.email = action.payload?.email;
       //state.firebaseAuthReady = true;
-      if (action.payload?.usingAsSignUp) {
-        //state.registrationCompleted = true;
-      }
+      //if (action.payload?.usingAsSignUp) {
+      //state.registrationCompleted = true;
+      //}
       if (action.payload?.firstName) {
         state.user.firstName = action.payload?.firstName;
       }
@@ -127,6 +129,7 @@ export const registerOrLogIn = createAsyncThunk(
           email
         );
         if (signInMethods.length > 0) {
+          //debugger;
           dispatch(registrationCompleted(true));
         }
         return {
@@ -166,25 +169,25 @@ export const registerOrLogIn = createAsyncThunk(
 );
 
 //Model should not really know about persistence, move?
-export const listenToAuthChanges = () => (dispatch, _) => {
-  const auth = getAuth(firebaseApp);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see https://firebase.google.com/docs/auth/web/start
-      // and https://firebase.google.com/docs/auth/web/manage-users.
-      dispatch(setLoggedInUser({ uid: user.uid, email: user.email }));
-      //See if we can use the existing extra reducer instead of setLoggedInUser?
-    } else {
-      //debugger;
-      //We're logging out (or not logged in) and may set initial state here.
-      //However, this causes logoutAction to be called on login.
-      //dispatch (setLoggedInUser({uid: null, email: null, records: []}));
-      //Remove firebase listeners (that change the model when FB notifies).
-      dispatch(logoutAction());
-    }
-    //dispatch(setFirebaseAuthReady());
-  });
-};
+// export const listenToAuthChanges = () => (dispatch, _) => {
+//   const auth = getAuth(firebaseApp);
+//   onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       // User is signed in, see https://firebase.google.com/docs/auth/web/start
+//       // and https://firebase.google.com/docs/auth/web/manage-users.
+//       dispatch(logInUser({ uid: user.uid, email: user.email }));
+//       //See if we can use the existing extra reducer instead of setLoggedInUser?
+//     } else {
+//       //debugger;
+//       //We're logging out (or not logged in) and may set initial state here.
+//       //However, this causes logoutAction to be called on login.
+//       //dispatch (setLoggedInUser({uid: null, email: null, records: []}));
+//       //Remove firebase listeners (that change the model when FB notifies).
+//       dispatch(logoutAction());
+//     }
+//     //dispatch(setFirebaseAuthReady());
+//   });
+// };
 
 //Interestingly, it is possible to create my own selectors.
 
@@ -215,7 +218,7 @@ export const {
   registrationCompleted,
   createResistanceExercise,
   setAuthFulfilled,
-  setLoggedInUser,
+  logInUser,
   setModelReady,
   setRecords,
   createExercise,

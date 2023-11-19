@@ -1,25 +1,11 @@
-import {
-  configureStore,
-  createListenerMiddleware,
-  isAnyOf,
-} from "@reduxjs/toolkit";
-//import { fbMiddleware } from "./middleware";
-//import { reducer } from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
-import {
-  user,
-  listenToAuthChanges,
-  registerOrLogIn,
-  registrationCompleted,
-} from "./userSlice";
+import { user } from "./userSlice";
 import {
   Persistence,
   configureListenerMiddleware,
 } from "../persistence/firebaseModel";
-//import { setupListeners } from "@reduxjs/toolkit/query";
-//import { firebaseApi } from "../persistence/apiSlices";
 
-//Consider moving this to the Persistence layer.
 const listenerMiddleware = configureListenerMiddleware();
 
 const store = configureStore({
