@@ -41,21 +41,36 @@ const auth = getAuth(firebaseApp);
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();
   listenerMiddleware.startListening({
-    matcher: isAnyOf(registrationCompleted /* , loginCompleted */),
+    matcher: isAnyOf(registrationCompleted, loginCompleted),
     effect: async (action, listenerApi) => {
       console.log(`Signed up or registered but no user id yet!`);
-      //debugger;
+      debugger;
+      if (action.type === "auth/registrationCompleted") {
+        if (await listenerApi.condition(registerOrLogIn)) {
+          // Registration only goes here.
+          const state = listenerApi.getState();
+          debugger;
+          console.log(`Registered and we have a user id now!`);
+          // We are now able to write the appropriate data to firebase:
 
-      if (await listenerApi.condition(registerOrLogIn)) {
-        // Registration only goes here.
-        const state = listenerApi.getState();
-        //debugger;
-        console.log(`Registered and we have a user id now!`);
-        // We are now able to write the appropriate data to firebase:
-        saveUserToFirebase(state);
+          //Consider conditioning this call?
+          saveUserToFirebase(state);
+          listenerApi.cancelActiveListeners();
+        }
       }
+      if (action.type === "auth/loginCompleted") {
+        if (await listenerApi.condition(registerOrLogIn)) {
+          // Login only goes here.
+          const state = listenerApi.getState();
+          debugger;
+          console.log(`This should only happen on login`);
+          // We are now able to write the appropriate data to firebase:
 
-      listenerApi.cancelActiveListeners();
+          //Consider conditioning this call?
+          //saveUserToFirebase(state);
+          listenerApi.cancelActiveListeners();
+        }
+      }
     },
   });
   return listenerMiddleware;
@@ -69,11 +84,14 @@ export const connectModelToFirebase = (store) => {
       //TODO:
       //Can we readFromFirebaseWithUser safely from here, on BOTH login and register?
       //Yes we can, brilliant! (Both logging and signup breaks here with a uid.)
-      //debugger;
+      const state = store.getState();
+      debugger;
 
-      readFromFirebaseWithUser(user, dispatch); //Consider moving to listenermiddleware?
+      //readFromFirebaseWithUser(user, dispatch); //Consider moving to listenermiddleware?
       //Try adding the FB observer here, or perhaps 2 lines above?
       //dispatch(setModelReady(true));
+      //Another idea with regards to calling the above too early in the registration
+      //case is to use firebase to check if this user exists, as in thunk in userSlice.
     } else {
       //Once we have created callbacks, we can remove them by doing something like
       // off("users/" + store?.auth?.user?.uid);

@@ -152,7 +152,7 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        //dispatch(loginCompleted(true));
+        dispatch(loginCompleted(true));
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,
