@@ -7,7 +7,6 @@ import {
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   fetchSignInMethodsForEmail,
@@ -114,10 +113,7 @@ export const user = createSlice({
 //this function is used from a presenter.
 export const registerOrLogIn = createAsyncThunk(
   "auth/authenticateWithFirebase",
-  async (
-    { email, password, signUpOption, firstName, lastName },
-    { dispatch, getState }
-  ) => {
+  async ({ email, password, signUpOption, firstName, lastName }) => {
     try {
       if (signUpOption) {
         const authUserData = await createUserWithEmailAndPassword(
@@ -125,13 +121,13 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        const signInMethods = await fetchSignInMethodsForEmail(
-          getAuth(firebaseApp),
-          email
-        );
-        if (signInMethods.length > 0) {
-          dispatch(registrationCompleted(true));
-        }
+        // const signInMethods = await fetchSignInMethodsForEmail(
+        //   getAuth(firebaseApp),
+        //   email
+        // );
+        // if (signInMethods.length > 0) {
+        //   dispatch(registrationCompleted(true));
+        // }
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,
@@ -145,7 +141,7 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        dispatch(loginCompleted(true));
+        //dispatch(loginCompleted(true));
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,

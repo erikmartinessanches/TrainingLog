@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import thunkMiddleware from "redux-thunk";
 import { user } from "./userSlice";
 import {
   connectModelToFirebase,
