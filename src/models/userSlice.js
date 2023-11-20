@@ -109,13 +109,15 @@ export const user = createSlice({
 export const registerOrLogIn = createAsyncThunk(
   "auth/authenticateWithFirebase",
   async ({ email, password, signUpOption, firstName, lastName }) => {
+    const auth = getAuth(firebaseApp);
     try {
       if (signUpOption) {
         const authUserData = await createUserWithEmailAndPassword(
-          getAuth(firebaseApp),
+          auth,
           email,
           password
         );
+        // await updateProfile(auth.currentUser, { displayName: firstName });
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,
@@ -125,7 +127,7 @@ export const registerOrLogIn = createAsyncThunk(
         };
       } else {
         const authUserData = await signInWithEmailAndPassword(
-          getAuth(firebaseApp),
+          auth,
           email,
           password
         );
