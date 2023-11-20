@@ -30,7 +30,12 @@ import {
   logInUser,
   loginCompleted,
 } from "../models/userSlice";
-import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
+import {
+  createListenerMiddleware,
+  isAnyOf,
+  isAsyncThunkAction,
+  isFulfilled,
+} from "@reduxjs/toolkit";
 import { firebaseConfig } from "../firebaseConfig";
 
 const firebaseNotify = "firebase_notify";
@@ -44,43 +49,59 @@ function testfunc2(user, dispatch) {
 
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();
+  // listenerMiddleware.startListening({
+  //   matcher: isAnyOf(registrationCompleted/* , loginCompleted */),
+  //   effect: async (action, listenerApi) => {
+  //     console.log(`Signed up or registered but no user id yet!`);
+  //     debugger;
+
+  //     if (await listenerApi.condition(registerOrLogIn)) {
+  //       if (action?.type === "auth/registrationCompleted") {
+  //         debugger;
+  //         // Registration only goes here.
+  //         const state = listenerApi.getState();
+
+  //         console.log(`Registered and we have a user id now!`);
+  //         // We are now able to write the appropriate data to firebase:
+
+  //         //Consider conditioning this call?
+  //         saveUserToFirebase(state);
+  //         //listenerApi.dispatch(setModelReady(true));
+  //         listenerApi.cancelActiveListeners();
+  //       }
+  //     }
+  //     /* if (action?.type === "auth/loginCompleted") {
+  //       // Login only goes here.
+  //       const state = listenerApi.getState();
+  //       //debugger;
+  //       console.log(`This should only happen on login`);
+  //       // We are now able to read the appropriate data from firebase:
+
+  //       //const { dispatch } = listenerApi;
+  //       debugger;
+  //       //testfunc2(state.auth.user, dispatch);
+  //       //readFromFirebaseWithUser(state.auth.user, listenerApi.dispatch);
+  //       //listenerApi.dispatch(setModelReady(true));
+  //       listenerApi.cancelActiveListeners();
+
+  //       // if (await listenerApi.condition(registerOrLogIn)) {
+  //       // }
+  //     } */
+  //   },
+  // });
   listenerMiddleware.startListening({
-    matcher: isAnyOf(registrationCompleted, loginCompleted),
+    matcher: isAsyncThunkAction(registerOrLogIn),
     effect: async (action, listenerApi) => {
-      console.log(`Signed up or registered but no user id yet!`);
+      const state = listenerApi.getState();
       debugger;
-
-      if (await listenerApi.condition(registerOrLogIn)) {
-        if (action?.type === "auth/registrationCompleted") {
-          debugger;
-          // Registration only goes here.
-          const state = listenerApi.getState();
-
-          console.log(`Registered and we have a user id now!`);
-          // We are now able to write the appropriate data to firebase:
-
-          //Consider conditioning this call?
-          saveUserToFirebase(state);
-          //listenerApi.dispatch(setModelReady(true));
-          listenerApi.cancelActiveListeners();
-        }
-      }
-      if (action?.type === "auth/loginCompleted") {
-        // Login only goes here.
-        const state = listenerApi.getState();
-        //debugger;
-        console.log(`This should only happen on login`);
-        // We are now able to read the appropriate data from firebase:
-
-        //const { dispatch } = listenerApi;
+      if (
+        action?.type === "auth/authenticateWithFirebase/fulfilled" &&
+        action.payload.usingAsSignUp
+      ) {
         debugger;
-        //testfunc2(state.auth.user, dispatch);
-        //readFromFirebaseWithUser(state.auth.user, listenerApi.dispatch);
-        //listenerApi.dispatch(setModelReady(true));
-        listenerApi.cancelActiveListeners();
-
-        // if (await listenerApi.condition(registerOrLogIn)) {
-        // }
+        saveUserToFirebase(state).then(() => {
+          listenerApi.dispatch(setModelReady(true));
+        });
       }
     },
   });
@@ -98,7 +119,7 @@ export const connectModelToFirebase = (store) => {
       const state = store.getState();
       debugger;
 
-      readFromFirebaseWithUser(user, dispatch); //Consider moving to listenermiddleware?
+      readFromFirebaseWithUser(user, dispatch, state); //Consider moving to listenermiddleware?
       //Try adding the FB observer here, or perhaps 2 lines above?
       //dispatch(setModelReady(true));
       //Another idea with regards to calling the above too early in the registration
@@ -223,7 +244,7 @@ function modelToPersistence(state) {
 function saveUserToFirebase(state) {
   //debugger;
   //if (state?.auth.modelReady && state?.auth.user) {
-  set(
+  return set(
     child(ref(firebaseDb, "users"), state.auth.user.uid),
     modelToPersistence(state)
   );
@@ -234,7 +255,7 @@ function saveUserToFirebase(state) {
 }
 
 function persistenceToModel(data, dispatch) {
-  debugger;
+  //debugger;
   //We may not need this check if we set the records prop first thing on signup.
   if (data !== null) {
     if (data?.exercises) dispatch(setExercises(data?.exercises));
@@ -243,12 +264,20 @@ function persistenceToModel(data, dispatch) {
   }
 }
 
-async function readFromFirebase(user, dispatch) {
+function readFromFirebase(user, dispatch, state) {
   dispatch(setModelReady(false));
   debugger;
-  const snapshot = await get(child(ref(firebaseDb, "users"), user?.uid));
-  persistenceToModel(snapshot.val(), dispatch);
-  dispatch(setModelReady(true));
+  get(child(ref(firebaseDb, "users"), user?.uid))
+    .then((snapshot) => {
+      persistenceToModel(snapshot.val(), dispatch);
+    })
+    .then(() => {
+      debugger;
+
+      // dispatch(setModelReady(true));
+    });
+
+  //persistenceToModel(snapshot.val(), dispatch);
 
   // todo: Live update here.
 
@@ -296,12 +325,12 @@ async function readFromFirebase(user, dispatch) {
 }
 
 // //TODO: Call this function somewhere!
-function readFromFirebaseWithUser(user, dispatch) {
-  debugger;
+function readFromFirebaseWithUser(user, dispatch, state) {
+  //debugger;
   if (user?.uid) {
-    readFromFirebase(user, dispatch);
+    readFromFirebase(user, dispatch, state);
 
-    debugger;
+    //debugger;
     //TODO: Now it's just a matter of placing the firebase observer in the right place,
     //Move this where to make it work?
   } else {

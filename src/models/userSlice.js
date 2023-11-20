@@ -90,13 +90,13 @@ export const user = createSlice({
       //if (action.payload?.usingAsSignUp) {
       //state.registrationCompleted = true;
       //}
-      debugger;
+      //debugger;
       if (action.payload?.firstName) {
-        debugger;
+        // debugger;
         state.user.firstName = action.payload?.firstName;
       }
       if (action.payload?.lastName) {
-        debugger;
+        // debugger;
         state.user.lastName = action.payload?.lastName;
       }
       state.firebaseAuthStatus = "FULFILLED";
@@ -137,7 +137,7 @@ export const registerOrLogIn = createAsyncThunk(
         );
         if (signInMethods.length > 0) {
           //debugger;
-          dispatch(registrationCompleted(true));
+          //dispatch(registrationCompleted(true));
         }
         return {
           uid: authUserData.user.uid,
@@ -152,7 +152,7 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        dispatch(loginCompleted(true));
+        //dispatch(loginCompleted(true));
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,
