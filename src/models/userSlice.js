@@ -90,13 +90,13 @@ export const user = createSlice({
       //if (action.payload?.usingAsSignUp) {
       //state.registrationCompleted = true;
       //}
-      //debugger;
+      debugger;
       if (action.payload?.firstName) {
-        // debugger;
+        //On registration only
         state.user.firstName = action.payload?.firstName;
       }
       if (action.payload?.lastName) {
-        // debugger;
+        //On registration only
         state.user.lastName = action.payload?.lastName;
       }
       state.firebaseAuthStatus = "FULFILLED";
@@ -109,7 +109,6 @@ export const user = createSlice({
       state.firebaseAuthError = action.error.code;
     });
     builder.addCase(logoutAction, () => {
-      //debugger;
       return initialState;
     });
     //builder.addDefaultCase((state, action) => {});
@@ -157,8 +156,8 @@ export const registerOrLogIn = createAsyncThunk(
           uid: authUserData.user.uid,
           email: authUserData.user.email,
           usingAsSignUp: signUpOption,
-          firstName: firstName,
-          lastName: lastName,
+          firstName: firstName, //This is null, no name on login
+          lastName: lastName, //This is null, no name on login
         };
       }
     } catch (e) {

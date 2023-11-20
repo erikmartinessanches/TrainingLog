@@ -98,12 +98,18 @@ const configureListenerMiddleware = () => {
         action?.type === "auth/authenticateWithFirebase/fulfilled" &&
         action.payload.usingAsSignUp
       ) {
-        debugger;
+        //debugger;
         saveUserToFirebase(state).then(() => {
           listenerApi.dispatch(setModelReady(true));
         });
       }
       //TODO: Do I need to handle login in a similar way?
+      if (
+        action?.type === "auth/authenticateWithFirebase/fulfilled" &&
+        !action.payload.usingAsSignUp
+      ) {
+        listenerApi.dispatch(setModelReady(true));
+      }
     },
   });
   return listenerMiddleware;
