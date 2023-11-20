@@ -9,7 +9,6 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
-  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { firebaseApp } from "../persistence/firebaseModel";
 
@@ -27,7 +26,6 @@ const initialState = {
   //the model is ready:
   modelReady: false,
   firebaseAuthStatus: "IDLE", //Is IDLE, PENDING, REJECTED or FULFILLED.
-
   firebaseAuthError: "",
 };
 
@@ -38,9 +36,6 @@ export const user = createSlice({
     setFirebaseAuthReady(state, action) {
       state.firebaseAuthReady = true;
     },
-    // setFirebaseReady: (state, action) => {
-    //   state.firebaseReady = action.payload;
-    // },
     setModelReady: (state, action) => {
       state.modelReady = action.payload;
     },
@@ -121,13 +116,6 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        // const signInMethods = await fetchSignInMethodsForEmail(
-        //   getAuth(firebaseApp),
-        //   email
-        // );
-        // if (signInMethods.length > 0) {
-        //   dispatch(registrationCompleted(true));
-        // }
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,
@@ -141,7 +129,6 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        //dispatch(loginCompleted(true));
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,

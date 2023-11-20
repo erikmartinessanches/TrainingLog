@@ -32,9 +32,7 @@ const configureListenerMiddleware = () => {
         action?.type === "auth/authenticateWithFirebase/fulfilled" &&
         action.payload.usingAsSignUp
       ) {
-        saveUserToFirebase(state).then(() => {
-          //listenerApi.dispatch(setModelReady(true));
-        });
+        saveUserToFirebase(state);
       }
     },
   });
