@@ -103,6 +103,7 @@ const configureListenerMiddleware = () => {
           listenerApi.dispatch(setModelReady(true));
         });
       }
+      //TODO: Do I need to handle login in a similar way?
     },
   });
   return listenerMiddleware;
