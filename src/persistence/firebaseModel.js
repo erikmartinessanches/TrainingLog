@@ -272,9 +272,14 @@ function readFromFirebase(user, dispatch, state) {
       persistenceToModel(snapshot.val(), dispatch);
     })
     .then(() => {
+      const mystate = state;
       debugger;
-
-      // dispatch(setModelReady(true));
+      if (
+        mystate.auth.firebaseAuthStatus === "IDLE" &&
+        !mystate.auth.modelReady
+      ) {
+        dispatch(setModelReady(true));
+      }
     });
 
   //persistenceToModel(snapshot.val(), dispatch);
