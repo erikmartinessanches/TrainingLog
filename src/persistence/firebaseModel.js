@@ -43,10 +43,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
 
-function testfunc2(user, dispatch) {
-  debugger;
-}
-
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();
   // listenerMiddleware.startListening({
@@ -93,14 +89,12 @@ const configureListenerMiddleware = () => {
     matcher: isAsyncThunkAction(registerOrLogIn),
     effect: async (action, listenerApi) => {
       const state = listenerApi.getState();
-      debugger;
       if (
         action?.type === "auth/authenticateWithFirebase/fulfilled" &&
         action.payload.usingAsSignUp
       ) {
-        //debugger;
         saveUserToFirebase(state).then(() => {
-          //listenerApi.dispatch(setModelReady(true));
+          listenerApi.dispatch(setModelReady(true));
         });
       }
       // if (await listenerApi.condition(registrationCompleted)) {
@@ -131,7 +125,6 @@ const configureListenerMiddleware = () => {
     matcher: isAnyOf(setLastName),
     effect: async (action, listenerApi) => {
       const state = listenerApi.getState();
-      debugger;
       if (state.auth.user?.uid && state.auth.firebaseAuthStatus !== "PENDING") {
         listenerApi.dispatch(setModelReady(true));
       }
@@ -149,7 +142,6 @@ export const connectModelToFirebase = (store) => {
       //Can we readFromFirebaseWithUser safely from here, on BOTH login and register?
       //Yes we can, brilliant! (Both logging and signup breaks here with a uid.)
       const state = store.getState();
-      debugger;
 
       readFromFirebaseWithUser(user, dispatch, state); //Consider moving to listenermiddleware?
       //Try adding the FB observer here, or perhaps 2 lines above?
@@ -265,7 +257,7 @@ export const connectModelToFirebase = (store) => {
 // }
 
 function modelToPersistence(state) {
-  //debugger; //TODO return actually useful stuff to put into persistence from model.
+  //Return actually useful stuff to put into persistence from model.
   return {
     exercises: state?.auth.user.exercises,
     firstName: state.auth.user?.firstName,
@@ -274,7 +266,6 @@ function modelToPersistence(state) {
 }
 
 function saveUserToFirebase(state) {
-  //debugger;
   //if (state?.auth.modelReady && state?.auth.user) {
   return set(
     child(ref(firebaseDb, "users"), state.auth.user.uid),
@@ -287,7 +278,6 @@ function saveUserToFirebase(state) {
 }
 
 function persistenceToModel(data, dispatch) {
-  //debugger;
   //We may not need this check if we set the records prop first thing on signup.
   if (data !== null) {
     if (data?.exercises) dispatch(setExercises(data?.exercises));
@@ -298,14 +288,12 @@ function persistenceToModel(data, dispatch) {
 
 function readFromFirebase(user, dispatch, state) {
   dispatch(setModelReady(false));
-  debugger;
   get(child(ref(firebaseDb, "users"), user?.uid))
     .then((snapshot) => {
       persistenceToModel(snapshot.val(), dispatch);
     })
     .then(() => {
       const mystate = state;
-      debugger;
       if (
         mystate.auth.firebaseAuthStatus === "IDLE" &&
         !mystate.auth.modelReady
@@ -363,11 +351,9 @@ function readFromFirebase(user, dispatch, state) {
 
 // //TODO: Call this function somewhere!
 function readFromFirebaseWithUser(user, dispatch, state) {
-  //debugger;
   if (user?.uid) {
     readFromFirebase(user, dispatch, state);
 
-    //debugger;
     //TODO: Now it's just a matter of placing the firebase observer in the right place,
     //Move this where to make it work?
   } else {

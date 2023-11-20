@@ -24,15 +24,11 @@ const initialState = {
     email: null,
     exercises: {},
   },
-  //firebaseAuthReady: false,
-  //firebaseReady: false,
   // Whether the model is ready to be used/observed. Save to persistance only if
   //the model is ready:
   modelReady: false,
-  //registrationCompleted: false,
+  firebaseAuthStatus: "IDLE", //Is IDLE, PENDING, REJECTED or FULFILLED.
 
-  firebaseAuthStatus: "IDLE", //(IDLE, PENDING, REJECTED or FULFILLED)
-  //   requestId: null,
   firebaseAuthError: "",
 };
 
@@ -90,7 +86,6 @@ export const user = createSlice({
       //if (action.payload?.usingAsSignUp) {
       //state.registrationCompleted = true;
       //}
-      debugger;
       if (action.payload?.firstName) {
         //On registration only
         state.user.firstName = action.payload?.firstName;
@@ -135,7 +130,6 @@ export const registerOrLogIn = createAsyncThunk(
           email
         );
         if (signInMethods.length > 0) {
-          //debugger;
           dispatch(registrationCompleted(true));
         }
         return {
