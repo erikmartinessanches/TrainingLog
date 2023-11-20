@@ -136,7 +136,7 @@ export const registerOrLogIn = createAsyncThunk(
         );
         if (signInMethods.length > 0) {
           //debugger;
-          //dispatch(registrationCompleted(true));
+          dispatch(registrationCompleted(true));
         }
         return {
           uid: authUserData.user.uid,
@@ -151,7 +151,7 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        //dispatch(loginCompleted(true));
+        dispatch(loginCompleted(true));
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,

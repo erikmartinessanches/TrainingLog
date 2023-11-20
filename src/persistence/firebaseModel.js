@@ -100,14 +100,39 @@ const configureListenerMiddleware = () => {
       ) {
         //debugger;
         saveUserToFirebase(state).then(() => {
-          listenerApi.dispatch(setModelReady(true));
+          //listenerApi.dispatch(setModelReady(true));
         });
       }
+      // if (await listenerApi.condition(registrationCompleted)) {
+      //   //listenerApi.dispatch(setModelReady(true));
+      // }
+
+      //Cleverly or stupidly, we listen to the last relevant action setting the
+      //state (model) before we say model is ready.
+      // if (await listenerApi.condition(setLastName)) {
+      //   if (
+      //     state.auth.user?.uid &&
+      //     state.auth.firebaseAuthStatus !== "PENDING"
+      //   ) {
+      //     listenerApi.dispatch(setModelReady(true));
+      //   }
+      // }
+
       //TODO: Do I need to handle login in a similar way?
-      if (
-        action?.type === "auth/authenticateWithFirebase/fulfilled" &&
-        !action.payload.usingAsSignUp
-      ) {
+      // if (
+      //   action?.type === "auth/authenticateWithFirebase/fulfilled" &&
+      //   !action.payload.usingAsSignUp
+      // ) {
+      //   listenerApi.dispatch(setModelReady(true));
+      // }
+    },
+  });
+  listenerMiddleware.startListening({
+    matcher: isAnyOf(setLastName),
+    effect: async (action, listenerApi) => {
+      const state = listenerApi.getState();
+      debugger;
+      if (state.auth.user?.uid && state.auth.firebaseAuthStatus !== "PENDING") {
         listenerApi.dispatch(setModelReady(true));
       }
     },
@@ -285,7 +310,7 @@ function readFromFirebase(user, dispatch, state) {
         mystate.auth.firebaseAuthStatus === "IDLE" &&
         !mystate.auth.modelReady
       ) {
-        dispatch(setModelReady(true));
+        //dispatch(setModelReady(true));
       }
     });
 
