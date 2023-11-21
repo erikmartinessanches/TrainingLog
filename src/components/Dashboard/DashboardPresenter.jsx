@@ -51,12 +51,10 @@ function DashboardPresenter() {
     navigate("/dashboard/create-exercise");
   }
 
-  
-
   //Placing it here for simplicity, consider using the "secure routes" in parent instead.
-  if (user.uid === undefined) {
-    return <LoadingIconView />;
-  }
+  // if (user.uid === undefined) {
+  //   return <LoadingIconView />;
+  // }
   if (user.uid === null) {
     return <AuthPresenter />;
   }

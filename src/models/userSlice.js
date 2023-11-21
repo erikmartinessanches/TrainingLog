@@ -16,7 +16,7 @@ const logoutAction = createAction("logoutAction");
 
 const initialState = {
   user: {
-    uid: undefined,
+    uid: null,
     firstName: null,
     lastName: null,
     email: null,
@@ -166,10 +166,10 @@ export const selectModelReady = createSelector(
   (data) => data.modelReady
 );
 
-export const logoutNow = (state) => (dispatch, _) => {
+export const logoutNow = (state) => async (dispatch, _) => {
   //Perhaps prefer it here after all, in order to avoid calling this in login.
-  //dispatch(logoutAction());
-  signOut(getAuth(firebaseApp));
+  dispatch(logoutAction());
+  await signOut(getAuth(firebaseApp));
 };
 
 export const {
