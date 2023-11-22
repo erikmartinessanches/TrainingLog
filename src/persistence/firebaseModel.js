@@ -25,7 +25,6 @@ import {
 } from "@reduxjs/toolkit";
 import { firebaseConfig } from "../firebaseConfig";
 
-const firebaseNotify = "firebase_notify";
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
@@ -41,7 +40,9 @@ const configureListenerMiddleware = () => {
         action?.type === "auth/authenticateWithFirebase/fulfilled" &&
         action.payload.usingAsSignUp
       ) {
-        saveUserToFirebase(state);
+        saveUserToFirebase(state).then(() => {
+          listenerApi.dispatch(setModelReady(true));
+        });
       }
     },
   });
