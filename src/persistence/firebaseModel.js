@@ -79,8 +79,7 @@ export const connectModelToFirebase = (store) => {
       //Yes we can, brilliant! (Both logging and signup breaks here with a uid.)
       readFromFirebaseWithUser(user, store.dispatch, store);
     } else {
-      //Once we have created callbacks, we can remove them by doing something like
-      // off("users/" + store?.auth?.user?.uid);
+      //We can remove callbacks once we have no user (logged out).
       off(
         ref(firebaseDb, `/users/${store?.getState()?.auth?.user?.uid}/lastName`)
       );
@@ -150,7 +149,6 @@ function readFromFirebaseWithUser(user, dispatch, store) {
 
 // Remember to uncomment the following line:
 export {
-  //FirebaseModelPromise,
   //modelToPersistence,
   readFromFirebase,
   readFromFirebaseWithUser,

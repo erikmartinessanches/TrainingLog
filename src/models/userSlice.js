@@ -23,7 +23,7 @@ const initialState = {
     exercises: {},
   },
   // Whether the model is ready to be used/observed. Save to persistance only if
-  //the model is ready:
+  // the model is ready:
   modelReady: false,
   firebaseAuthStatus: "IDLE", //Is IDLE, PENDING, REJECTED or FULFILLED.
   firebaseAuthError: "",
@@ -39,18 +39,13 @@ export const user = createSlice({
     setModelReady: (state, action) => {
       state.modelReady = action.payload;
     },
-    registrationCompleted: (state, action) => {
-      //state.registrationCompleted = action.payload;
-    },
-    loginCompleted: (state, action) => {
-      //state.registrationCompleted = action.payload;
-    },
+    registrationCompleted: (state, action) => {},
+    loginCompleted: (state, action) => {},
     createExercise: (state, action) => {
       state.user.exercises = state.user.exercises[action.payload.exerciseId] =
         action.payload.newRecord;
     },
     createResistanceExercise: (state, action) => {
-      //state.user.resistanceExercises = {...state.user.resistanceExercises, ...action.payload};
       state.user.resistanceExercises.push({
         name: action.payload.exerciseName,
       });
@@ -71,15 +66,6 @@ export const user = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(registerOrLogIn.fulfilled, (state, action) => {
-      //The below is set by onAuthStateChanged, so here I only set "additional
-      //custom state" ib registration/login.
-      //state.user.uid = action.payload?.uid;
-      // state.user.name = action.payload.name;
-      //state.user.email = action.payload?.email;
-      //state.firebaseAuthReady = true;
-      //if (action.payload?.usingAsSignUp) {
-      //state.registrationCompleted = true;
-      //}
       if (action.payload?.firstName) {
         //On registration only
         state.user.firstName = action.payload?.firstName;
@@ -100,7 +86,6 @@ export const user = createSlice({
     builder.addCase(logoutAction, () => {
       return initialState;
     });
-    //builder.addDefaultCase((state, action) => {});
   },
 });
 
@@ -117,7 +102,6 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
-        // await updateProfile(auth.currentUser, { displayName: firstName });
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,
@@ -135,8 +119,8 @@ export const registerOrLogIn = createAsyncThunk(
           uid: authUserData.user.uid,
           email: authUserData.user.email,
           usingAsSignUp: signUpOption,
-          firstName: firstName, //This is null, no name on login
-          lastName: lastName, //This is null, no name on login
+          firstName: firstName, //This is null, no first name on login
+          lastName: lastName, //This is null, no last name on login
         };
       }
     } catch (e) {
@@ -157,25 +141,18 @@ export const registerOrLogIn = createAsyncThunk(
 export const selectAuth = (state) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
 
-// export const selectFirebaseAuthReady = createSelector(
-//   selectAuth,
-//   (data) => data.firebaseAuthReady
-// );
 export const selectModelReady = createSelector(
   selectAuth,
   (data) => data.modelReady
 );
 
 export const logoutNow = (state) => async (dispatch, _) => {
-  //Perhaps prefer it here after all, in order to avoid calling this in login.
-  //dispatch(logoutAction());
   await signOut(getAuth(firebaseApp));
 };
 
 export const {
   setFirstName,
   setLastName,
-  //setFirebaseAuthReady,
   loginCompleted,
   registrationCompleted,
   createResistanceExercise,
