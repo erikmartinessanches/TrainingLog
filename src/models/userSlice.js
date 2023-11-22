@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import { firebaseApp } from "../persistence/firebaseModel";
 
-const logoutAction = createAction("logoutAction");
+export const logoutAction = createAction("logoutAction");
 
 const initialState = {
   user: {
@@ -168,7 +168,7 @@ export const selectModelReady = createSelector(
 
 export const logoutNow = (state) => async (dispatch, _) => {
   //Perhaps prefer it here after all, in order to avoid calling this in login.
-  dispatch(logoutAction());
+  //dispatch(logoutAction());
   await signOut(getAuth(firebaseApp));
 };
 
