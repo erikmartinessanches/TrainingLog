@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { ref, getDatabase, get, set, child } from "firebase/database";
+import { ref, getDatabase, get, set, child, onValue } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   setModelReady,
@@ -51,14 +51,13 @@ const configureListenerMiddleware = () => {
 };
 export const connectModelToFirebase = (store) => {
   onAuthStateChanged(auth, (user) => authChangedACB(user, store.dispatch));
-
   function authChangedACB(user, dispatch) {
     if (user) {
       dispatch(logInUser({ uid: user.uid, email: user.email }));
       //Can we readFromFirebaseWithUser safely from here, on BOTH login and register?
       //Yes we can, brilliant! (Both logging and signup breaks here with a uid.)
-      const state = store.getState();
-      readFromFirebaseWithUser(user, dispatch, state);
+      //const state = store.getState();
+      readFromFirebaseWithUser(user, dispatch, store);
     } else {
       //Once we have created callbacks, we can remove them by doing something like
       // off("users/" + store?.auth?.user?.uid);
@@ -185,18 +184,29 @@ function saveUserToFirebase(state) {
 }
 
 function persistenceToModel(data, dispatch) {
-  //We may not need this check if we set the records prop first thing on signup.
   if (data !== null) {
     if (data?.exercises) dispatch(setExercises(data?.exercises));
-    if (data?.firstName !== null) dispatch(setFirstName(data?.firstName));
-    if (data?.lastName !== null) dispatch(setLastName(data?.lastName));
+    if (data?.firstName) dispatch(setFirstName(data?.firstName));
+    if (data?.lastName) dispatch(setLastName(data?.lastName));
   }
 }
 
-function readFromFirebase(user, dispatch, state) {
+function readFromFirebase(user, dispatch, store) {
   dispatch(setModelReady(false));
   get(child(ref(firebaseDb, "users"), user?.uid)).then((snapshot) => {
     persistenceToModel(snapshot.val(), dispatch);
+  });
+
+  onValue(ref(firebaseDb, `/users/${user.uid}/firstName`), function (snapshot) {
+    if (store.getState()?.auth?.modelReady) {
+      persistenceToModel({ firstName: snapshot.val() }, dispatch);
+    }
+  });
+
+  onValue(ref(firebaseDb, `/users/${user.uid}/lastName`), function (snapshot) {
+    if (store.getState()?.auth?.modelReady) {
+      persistenceToModel({ lastName: snapshot.val() }, dispatch);
+    }
   });
 
   //persistenceToModel(snapshot.val(), dispatch);
@@ -247,9 +257,9 @@ function readFromFirebase(user, dispatch, state) {
 }
 
 // //TODO: Call this function somewhere!
-function readFromFirebaseWithUser(user, dispatch, state) {
+function readFromFirebaseWithUser(user, dispatch, store) {
   if (user?.uid) {
-    readFromFirebase(user, dispatch, state);
+    readFromFirebase(user, dispatch, store);
 
     //TODO: Now it's just a matter of placing the firebase observer in the right place,
     //Move this where to make it work?
