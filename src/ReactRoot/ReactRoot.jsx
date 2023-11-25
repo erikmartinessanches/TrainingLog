@@ -2,9 +2,9 @@ import {
   auth,
   updateFirebaseFromModel,
   updateModelFromFirebase,
-} from "../persistence/firebaseModel";
+} from "../../persistence/firebaseModel";
 import { useState, useEffect } from "react";
-import AuthPresenter from "../components/Auth/AuthPresenter";
+import AuthPresenter from "../Auth/AuthPresenter";
 import {
   createHashRouter,
   RouterProvider,

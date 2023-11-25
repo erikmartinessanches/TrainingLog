@@ -52,11 +52,6 @@ export const user = createSlice({
         };
       });
     },
-    createResistanceExercise: (state, action) => {
-      state.user.resistanceExercises.push({
-        name: action.payload.exerciseName,
-      });
-    },
     setExercises: (state, action) => {
       state.user.exercises = action.payload;
     },
@@ -176,7 +171,6 @@ export const {
   setLastName,
   loginCompleted,
   registrationCompleted,
-  createResistanceExercise,
   setAuthFulfilled,
   logInUser,
   setModelReady,

@@ -8,7 +8,7 @@ import {
   selectUser,
   selectLoggedOut,
 } from "../models/userSlice";
-import { LoadingIconView } from "../views/LoadingIcon";
+import { LoadingIconView } from "../views/LoadingIconView";
 
 /** 'forwardLoggedInUser' in allows us to say that for certain routes (children
  * of this component), we should navigate a logged-in user to the dashboard (if

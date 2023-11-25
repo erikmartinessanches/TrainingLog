@@ -15,7 +15,7 @@ import "@fontsource/roboto/700.css";
 import { Provider } from "react-redux";
 //import reportWebVitals from './reportWebVitals';
 import SecureRoute from "./utils/SecureRoute";
-import CreateRecordPresenter from "./components/CreateRecord/CreateExercisePresenter";
+import CreateRecordPresenter from "./components/CreateExercise/CreateExercisePresenter";
 import AuthPresenter from "./components/Auth/AuthPresenter";
 import PasswordResetPresenter from "./components/PasswordReset/PasswordResetPresenter";
 import store from "./models/store";

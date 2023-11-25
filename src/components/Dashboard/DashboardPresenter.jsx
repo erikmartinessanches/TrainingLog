@@ -8,7 +8,7 @@ import {
   selectModelReady,
   selectUser,
 } from "../../models/userSlice";
-import { LoadingIconView } from "../../views/LoadingIcon";
+import { LoadingIconView } from "../../views/LoadingIconView";
 import AuthPresenter from "../Auth/AuthPresenter";
 
 function DashboardPresenter() {
@@ -16,7 +16,6 @@ function DashboardPresenter() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   function logOutACB() {
     dispatch(logoutNow());

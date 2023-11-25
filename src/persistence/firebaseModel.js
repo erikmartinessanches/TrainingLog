@@ -60,16 +60,6 @@ const configureListenerMiddleware = () => {
     },
   });
 
-  // listenerMiddleware.startListening({
-  //   matcher: isAnyOf(logoutAction),
-  //   effect: async (action, listenerApi) => {
-  //     const previousState = listenerApi.getOriginalState();
-  //     //Somehow make sure that removing listeners works as expected.
-  //     off(ref(firebaseDb, `/users/${previousState.auth.user.uid}/lastName`));
-  //     off(ref(firebaseDb, `/users/${previousState.auth.user.uid}/firstName`));
-  //   },
-  // });
-
   return listenerMiddleware;
 };
 export const connectModelToFirebase = (store) => {
