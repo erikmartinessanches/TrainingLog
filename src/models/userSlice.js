@@ -11,6 +11,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { firebaseApp } from "../persistence/firebaseModel";
+import produce from "immer";
 
 export const logoutAction = createAction("logoutAction");
 
@@ -42,8 +43,13 @@ export const user = createSlice({
     registrationCompleted: (state, action) => {},
     loginCompleted: (state, action) => {},
     createExercise: (state, action) => {
-      state.user.exercises = state.user.exercises[action.payload.exerciseId] =
-        action.payload.newRecord;
+      debugger;
+      state.user.exercises = produce(state.user.exercises, (draftState) => {
+        draftState[`${action.payload.exerciseId}`] = {
+          exerciseName: action.payload.exerciseName,
+          exerciseType: action.payload.exerciseType,
+        };
+      });
     },
     createResistanceExercise: (state, action) => {
       state.user.resistanceExercises.push({

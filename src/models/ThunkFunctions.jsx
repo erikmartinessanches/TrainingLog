@@ -1,7 +1,7 @@
 import { set, ref, push, getDatabase } from "firebase/database";
 import { firebaseApp } from "../persistence/firebaseModel";
 import { createExercise } from "./userSlice";
-export function SaveNewRecord({exerciseName, exerciseType}) {
+export function SaveNewRecord({ exerciseName, exerciseType }) {
   //We want to return the async thunk function.
 
   return async function SaveNewRecordThunk(dispatch, getState) {
@@ -26,10 +26,11 @@ export function SaveNewRecord({exerciseName, exerciseType}) {
     const newRecordReturned = await push(ref(database, `${REF}`), newRecord);
 
     //Not sure if it's wise to update store from here, I've therefore commented
-    //out the following line. After all, we have the firebase listeners in a 
+    //out the following line. After all, we have the firebase listeners in a
     //persistance observer where we should change the model.
-    //dispatch(createExercise({ ...newRecord, exerciseId: newRecordReturned.key }))
-    
+    dispatch(
+      createExercise({ ...newRecord, exerciseId: newRecordReturned.key })
+    );
   };
 }
 

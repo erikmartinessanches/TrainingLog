@@ -112,6 +112,7 @@ function saveUserToFirebase(state) {
 }
 
 function persistenceToModel(data, dispatch) {
+  //debugger;
   if (data !== null) {
     if (data?.exercises) dispatch(setExercises(data?.exercises));
     if (data?.firstName) dispatch(setFirstName(data?.firstName));

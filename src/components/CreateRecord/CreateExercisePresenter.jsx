@@ -24,18 +24,7 @@ function CreateRecordPresenter() {
 
   function saveExerciseACB() {
     console.log(`Save exercise name: ${exerciseName}, type: ${exerciseType}`);
-    // Use this one or the next? 
-    //dispatch(createResistanceExercise({ tempId: uuidv4(), exerciseName }))
-    dispatch(SaveNewRecord({exerciseName, exerciseType})); //Saves in persistence via Thunk.
-    //I think we need to just set the exercise in the model first.
-
-
-    //Creates a record with a temporary id. This id will be replaced by the id
-    //from the db when the record is saved in the persistence layer.
-/*      dispatch({
-      type: "RECORD_CREATED",
-      payload: { recordId: uuidv4(), text: recordText },
-    });  */
+    dispatch(SaveNewRecord({ exerciseName, exerciseType })); //Saves in persistence via Thunk.
     navigate("/dashboard");
   }
 
