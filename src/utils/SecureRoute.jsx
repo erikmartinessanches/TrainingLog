@@ -2,19 +2,19 @@
  */
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { /* selectFirebaseAuthReady, */ selectUser } from "../models/userSlice";
+import { selectFirebaseAuthStatus, selectUser } from "../models/userSlice";
 import { LoadingIconView } from "../views/LoadingIcon";
 
-/** 'forwardLoggedInUser' in allows us to say that fo certain routes (children
+/** 'forwardLoggedInUser' in allows us to say that for certain routes (children
  * of this component), we should navigate a logged-in user to the dashboard (if
  * the uid is not null).
  */
 const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
-  //const firebaseAuthReady = useSelector(selectFirebaseAuthReady);
+  const firebaseAuthStatus = useSelector(selectFirebaseAuthStatus);
   const user = useSelector(selectUser);
 
-  //if (!firebaseAuthReady) {
-  return <LoadingIconView />;
+  // if (firebaseAuthStatus !== "FULFILLED") {
+  //   return <LoadingIconView />;
   // }
 
   if (forwardLoggedInUser && user.uid !== null) {
@@ -25,7 +25,6 @@ const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
    * setting forwardLoggedInUser to true.
    */
   if (!forwardLoggedInUser && user.uid === null) {
-    //debugger;
     return <Navigate replace to="/login" />;
   }
   return children;

@@ -2,7 +2,7 @@ import { React, useEffect } from "react";
 import DashboardView from "./DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useSecurity from "../../utils/useSecurity";
+
 import {
   logoutNow,
   selectModelReady,
@@ -16,7 +16,7 @@ function DashboardPresenter() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //const { logOut, loggedIn, loading, error } = useSecurity();
+
 
   function logOutACB() {
     dispatch(logoutNow());
@@ -31,9 +31,9 @@ function DashboardPresenter() {
   // if (user.uid === undefined) {
   //   return <LoadingIconView />;
   // }
-  if (user.uid === null) {
-    return <AuthPresenter />;
-  }
+  // if (user.uid === null) {
+  //   return <AuthPresenter />;
+  // }
   if (user.uid) {
     if (!modelReady) {
       return <LoadingIconView />;
