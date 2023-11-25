@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Training Log
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the code for my training log software. It can register and log in users. Users are able to create exercises and log their activity, which are persisted in the database for each user. The application uses roughly an MVP architecture (Model-View-Presenter) with persistence. It also features live-update of training data between multiple logged-in windows, offline functionality and password reset via email.
 
 ## Available Scripts
 
