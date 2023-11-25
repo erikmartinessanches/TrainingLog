@@ -19,6 +19,7 @@ import {
   logInUser,
   logoutAction,
   createExercise,
+  setLoggedOut,
 } from "../models/userSlice";
 import {
   createListenerMiddleware,
@@ -97,7 +98,9 @@ export const connectModelToFirebase = (store) => {
           `/users/${store?.getState()?.auth?.user?.uid}/exercises`
         )
       );
+
       store.dispatch(logoutAction());
+      store.dispatch(setLoggedOut(true));
     }
   }
 };

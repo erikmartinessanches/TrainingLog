@@ -28,6 +28,7 @@ const initialState = {
   modelReady: false,
   firebaseAuthStatus: "IDLE", //Is IDLE, PENDING, REJECTED or FULFILLED.
   firebaseAuthError: "",
+  loggedOut: false,
 };
 
 export const user = createSlice({
@@ -68,6 +69,9 @@ export const user = createSlice({
     logInUser: (state, action) => {
       state.user.uid = action.payload.uid;
       state.user.email = action.payload.email;
+    },
+    setLoggedOut: (state, action) => {
+      state.loggedOut = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -157,8 +161,13 @@ export const selectModelReady = createSelector(
   selectAuth,
   (data) => data.modelReady
 );
+export const selectLoggedOut = createSelector(
+  selectAuth,
+  (data) => data.loggedOut
+);
 
 export const logoutNow = (state) => async (dispatch, _) => {
+  dispatch(setLoggedOut(true));
   await signOut(getAuth(firebaseApp));
 };
 
@@ -173,4 +182,5 @@ export const {
   setModelReady,
   setExercises,
   createExercise,
+  setLoggedOut,
 } = user.actions;

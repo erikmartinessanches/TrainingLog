@@ -2,7 +2,12 @@
  */
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { selectFirebaseAuthStatus, selectUser } from "../models/userSlice";
+import {
+  selectFirebaseAuthStatus,
+  selectModelReady,
+  selectUser,
+  selectLoggedOut,
+} from "../models/userSlice";
 import { LoadingIconView } from "../views/LoadingIcon";
 
 /** 'forwardLoggedInUser' in allows us to say that for certain routes (children
@@ -11,11 +16,15 @@ import { LoadingIconView } from "../views/LoadingIcon";
  */
 const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
   const firebaseAuthStatus = useSelector(selectFirebaseAuthStatus);
+  const modelReady = useSelector(selectModelReady);
   const user = useSelector(selectUser);
-
-  // if (firebaseAuthStatus !== "FULFILLED") {
-  //   return <LoadingIconView />;
-  // }
+  const loggedOut = useSelector(selectLoggedOut);
+  // debugger;
+  // If we are about to forward logged in user from a location to dashboard, this
+  // prevents temporary flash of the location and shows loading state instead!
+  if (forwardLoggedInUser && modelReady === false && loggedOut === false) {
+    return <LoadingIconView />;
+  }
 
   if (forwardLoggedInUser && user.uid !== null) {
     return <Navigate replace to="/dashboard" />;
