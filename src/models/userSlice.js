@@ -136,6 +136,9 @@ export const registerOrLogIn = createAsyncThunk(
         case "auth/email-already-in-use":
           console.log("Email address already in use.");
           break;
+        case "auth/invalid-login-credentials":
+          console.log("Invalid login credentials.");
+          break;
         default:
           console.log("error.code");
           break;
@@ -146,7 +149,10 @@ export const registerOrLogIn = createAsyncThunk(
 //Interestingly, it is possible to create my own selectors.
 export const selectAuth = (state) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
-
+export const selectFirebaseAuthStatus = createSelector(
+  selectAuth,
+  (data) => data.firebaseAuthStatus
+);
 export const selectModelReady = createSelector(
   selectAuth,
   (data) => data.modelReady

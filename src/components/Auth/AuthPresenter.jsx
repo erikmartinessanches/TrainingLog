@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AuthView from "./AuthView";
-// import {
-//   createUserWithEmailAndPassword,
-//   signInWithEmailAndPassword,
-//} from "firebase/auth";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { registerOrLogIn, setAuthFulfilled } from "../../models/userSlice";
-//import { useAuthenticateWithFirebaseMutation } from "../../persistence/apiSlices";
+import { registerOrLogIn } from "../../models/userSlice";
 
-function successACB() {
-  console.log("Signed in.");
-}
-function failureACB(e) {
-  console.log(e.customData.message);
-}
 export default function AuthPresenter(props) {
   const [signup, setSignup] = useState(true);
   const [email, setEmail] = useState("");
