@@ -43,7 +43,7 @@ export const user = createSlice({
     registrationCompleted: (state, action) => {},
     loginCompleted: (state, action) => {},
     createExercise: (state, action) => {
-      debugger;
+      //debugger;
       state.user.exercises = produce(state.user.exercises, (draftState) => {
         draftState[`${action.payload.exerciseId}`] = {
           exerciseName: action.payload.exerciseName,

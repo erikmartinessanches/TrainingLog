@@ -7,6 +7,8 @@ import {
   child,
   onValue,
   off,
+  onChildAdded,
+  DataSnapshot,
 } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -17,6 +19,8 @@ import {
   registerOrLogIn,
   logInUser,
   logoutAction,
+  createExercise,
+  selectModelReady,
 } from "../models/userSlice";
 import {
   createListenerMiddleware,
@@ -24,6 +28,7 @@ import {
   isAsyncThunkAction,
 } from "@reduxjs/toolkit";
 import { firebaseConfig } from "../firebaseConfig";
+import useSelector from "react";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseDb = getDatabase(firebaseApp);
@@ -89,6 +94,12 @@ export const connectModelToFirebase = (store) => {
           `/users/${store?.getState()?.auth?.user?.uid}/firstName`
         )
       );
+      off(
+        ref(
+          firebaseDb,
+          `/users/${store?.getState()?.auth?.user?.uid}/exercises`
+        )
+      );
       store.dispatch(logoutAction());
     }
   }
@@ -111,31 +122,55 @@ function saveUserToFirebase(state) {
   );
 }
 
-function persistenceToModel(data, dispatch) {
-  //debugger;
+function persistenceToModel(data, dispatch, store) {
+  const mr = store.getState().auth.modelReady;
   if (data !== null) {
+    //This works well for getting all exercises at once! CAn we make use of it
+    //in a smart way, together with onChild added?
     if (data?.exercises) dispatch(setExercises(data?.exercises));
+
     if (data?.firstName) dispatch(setFirstName(data?.firstName));
     if (data?.lastName) dispatch(setLastName(data?.lastName));
+
+    //This adds one exercise at a time.
+
+    debugger;
+    if (mr && data?.exerciseAdded) {
+      dispatch(createExercise(data?.exerciseAdded));
+    }
   }
 }
 
 function readFromFirebase(user, dispatch, store) {
   dispatch(setModelReady(false));
   get(child(ref(firebaseDb, "users"), user?.uid)).then((snapshot) => {
-    persistenceToModel(snapshot.val(), dispatch);
+    persistenceToModel(snapshot.val(), dispatch, store);
   });
 
   onValue(ref(firebaseDb, `/users/${user.uid}/firstName`), function (snapshot) {
     if (store.getState()?.auth?.modelReady) {
-      persistenceToModel({ firstName: snapshot.val() }, dispatch);
+      persistenceToModel({ firstName: snapshot.val() }, dispatch, store);
     }
   });
 
   onValue(ref(firebaseDb, `/users/${user.uid}/lastName`), function (snapshot) {
     if (store.getState()?.auth?.modelReady) {
-      persistenceToModel({ lastName: snapshot.val() }, dispatch);
+      persistenceToModel({ lastName: snapshot.val() }, dispatch, store);
     }
+  });
+
+  onChildAdded(ref(firebaseDb, `/users/${user.uid}/exercises`), (snapshot) => {
+    persistenceToModel(
+      {
+        exerciseAdded: {
+          exerciseId: snapshot.key,
+          exerciseName: snapshot.val().exerciseName,
+          exerciseType: snapshot.val().exerciseType,
+        },
+      },
+      dispatch,
+      store
+    );
   });
 }
 
