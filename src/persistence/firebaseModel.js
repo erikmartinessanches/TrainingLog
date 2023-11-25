@@ -8,7 +8,6 @@ import {
   onValue,
   off,
   onChildAdded,
-  DataSnapshot,
 } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -20,7 +19,6 @@ import {
   logInUser,
   logoutAction,
   createExercise,
-  selectModelReady,
 } from "../models/userSlice";
 import {
   createListenerMiddleware,
@@ -28,7 +26,6 @@ import {
   isAsyncThunkAction,
 } from "@reduxjs/toolkit";
 import { firebaseConfig } from "../firebaseConfig";
-import useSelector from "react";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseDb = getDatabase(firebaseApp);
@@ -133,8 +130,6 @@ function persistenceToModel(data, dispatch, store) {
     if (data?.lastName) dispatch(setLastName(data?.lastName));
 
     //This adds one exercise at a time.
-
-    debugger;
     if (mr && data?.exerciseAdded) {
       dispatch(createExercise(data?.exerciseAdded));
     }
