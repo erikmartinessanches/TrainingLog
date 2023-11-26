@@ -22,7 +22,7 @@ function DashboardPresenter() {
     //navigate("/");
   }
 
-  function createNewACB() {
+  function createNewExerciseACB() {
     navigate("/dashboard/create-exercise");
   }
 
@@ -41,7 +41,7 @@ function DashboardPresenter() {
         <DashboardView
           logOut={logOutACB}
           //loading={loading}
-          createNewACB={createNewACB}
+          createNewACB={createNewExerciseACB}
           user={user}
         />
       );
