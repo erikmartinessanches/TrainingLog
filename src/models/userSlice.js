@@ -9,6 +9,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
 import { firebaseApp } from "../persistence/firebaseModel";
 import produce from "immer";
@@ -107,6 +109,22 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password
         );
+        sendEmailVerification(auth.currentUser)
+          .then(() => {
+            console.log("Email verification sent!");
+            // ...
+            updateProfile(auth.currentUser, {
+              displayName: firstName,
+            }).then(() => {
+              console.log("changed?");
+              console.log(auth.currentUser);
+            });
+          })
+
+          .catch((error) => {
+            // An error occurred
+            // ...
+          });
         return {
           uid: authUserData.user.uid,
           email: authUserData.user.email,

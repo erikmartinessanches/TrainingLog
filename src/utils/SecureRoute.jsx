@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { selectModelReady, selectLoggedOut } from "../models/userSlice";
 import { LoadingIconView } from "../views/LoadingIconView";
+import VerifyEmailPresenter from "../components/VerifyEmail/VerifyEmailPresenter";
 import { getAuth } from "firebase/auth";
+import VerifyEmailView from "../components/VerifyEmail/VerifyEmailView";
 
 /** 'forwardLoggedInUser' in allows us to say that for certain routes (children
- * of this component), we should navigate a logged-in user to the dashboard (if
+ * of this component), we should navigate a logged in user to the dashboard (if
  * the uid is not null).
  */
 const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
@@ -17,11 +19,16 @@ const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
   const loggedOut = useSelector(selectLoggedOut);
   // If we are about to forward logged in user from a location to dashboard, this
   // prevents temporary flash of the location and shows loading state instead!
+  //debugger;
+
   if (forwardLoggedInUser && modelReady === false && loggedOut === false) {
     return <LoadingIconView />;
   }
 
   if (forwardLoggedInUser && user !== null) {
+    if (!user.emailVerified) {
+      return <VerifyEmailPresenter />;
+    }
     return <Navigate replace to="/dashboard" />;
   }
   /**This 'protects' the child if the uid is null. For the routes (children) we

@@ -23,11 +23,7 @@ import store from "./models/store";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <SecureRoute forwardLoggedInUser>
-        <LandingPagePresenter />
-      </SecureRoute>
-    ),
+    element: <LandingPagePresenter />,
     errorElement: <ErrorView />,
   },
   {
