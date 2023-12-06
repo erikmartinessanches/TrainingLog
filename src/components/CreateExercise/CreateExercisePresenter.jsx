@@ -4,7 +4,7 @@ import { SaveNewRecord } from "../../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
-import { createResistanceExercise } from "../../models/userSlice";
+import { createExercise } from "../../models/userSlice";
 
 function CreateRecordPresenter() {
   /**State behaves more like a snapshot. Setting it does not change the state
@@ -24,7 +24,14 @@ function CreateRecordPresenter() {
 
   function saveExerciseACB() {
     console.log(`Save exercise name: ${exerciseName}, type: ${exerciseType}`);
-    dispatch(SaveNewRecord({ exerciseName, exerciseType })); //Saves in persistence via Thunk.
+    //dispatch(SaveNewRecord({ exerciseName, exerciseType })); //Saves in persistence via Thunk.
+    dispatch(
+      createExercise({
+        exerciseId: uuidv4(20),
+        exerciseName: exerciseName,
+        exerciseType: exerciseType,
+      })
+    );
     navigate("/dashboard");
   }
 

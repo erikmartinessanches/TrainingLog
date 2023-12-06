@@ -60,6 +60,23 @@ const configureListenerMiddleware = () => {
     },
   });
 
+  listenerMiddleware.startListening({
+    matcher: isAnyOf(createExercise),
+    effect: async (action, listenerApi) => {
+      const state = listenerApi.getState();
+      //debugger;
+      const REF = `users/${state.auth.user.uid}/exercises`;
+      const newExercise = {
+        exerciseName: action.payload.exerciseName,
+        exerciseType: action.payload.exerciseType,
+      };
+      await set(
+        ref(firebaseDb, `${REF}/${action.payload.exerciseId}`),
+        newExercise
+      );
+    },
+  });
+
   return listenerMiddleware;
 };
 export const connectModelToFirebase = (store) => {
@@ -113,7 +130,8 @@ function saveUserToFirebase(state) {
 }
 
 function persistenceToModel(data, dispatch, store) {
-  const mr = store.getState().auth.modelReady;
+  const modelReady = store.getState().auth.modelReady;
+
   if (data !== null) {
     //This works well for getting all exercises at once! CAn we make use of it
     //in a smart way, together with onChild added?
@@ -121,9 +139,17 @@ function persistenceToModel(data, dispatch, store) {
 
     if (data?.firstName) dispatch(setFirstName(data?.firstName));
     if (data?.lastName) dispatch(setLastName(data?.lastName));
-
-    //This adds one exercise at a time.
-    if (mr && data?.exerciseAdded) {
+    const exercisesInStore = store.getState().auth.user.exercises;
+    //debugger;
+    //This adds one exercise at a time, does not add if the exercise already exists.
+    if (
+      modelReady &&
+      data?.exerciseAdded &&
+      //Trying to avoid double action on the setting window. Perhaps the following
+      // condition will work when/if I set store prior to persistence, so
+      // probably using set() rather than push() to persistence.
+      !exercisesInStore.hasOwnProperty(`${data?.exerciseAdded?.exerciseId}`)
+    ) {
       dispatch(createExercise(data?.exerciseAdded));
     }
   }
