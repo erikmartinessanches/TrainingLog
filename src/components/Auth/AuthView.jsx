@@ -6,6 +6,12 @@ export default function AuthView(props) {
   function setEmailACB(event) {
     props.setEmail(event.target.value);
   }
+  function setFirstNameACB(event) {
+    props.setFirstName(event.target.value);
+  }
+  function setLastNameACB(event) {
+    props.setLastName(event.target.value);
+  }
 
   function setPasswordACB(event) {
     props.setPassword(event.target.value);
@@ -22,7 +28,7 @@ export default function AuthView(props) {
       <form onSubmit={handleSubmitACB}>
         <TextField
           required
-          id="outlined-required"
+          //id="outlined-required"
           label="Email"
           //value={props.email}
           //{...(props.isSignup ? { value: "" } : {})}
@@ -30,6 +36,28 @@ export default function AuthView(props) {
           //disabled={loading}
           onChange={setEmailACB}
         />
+        {props.isSignup && 
+        <TextField
+          //id="outlined"
+          label="First name"
+          //value={props.email}
+          //{...(props.isSignup ? { value: "" } : {})}
+          //value={props.isSignup ? "" : null}
+          //disabled={loading}
+          onChange={setFirstNameACB}
+        />
+        }
+        {props.isSignup && 
+        <TextField
+          //id="outlined"
+          label="Last name"
+          //value={props.email}
+          //{...(props.isSignup ? { value: "" } : {})}
+          //value={props.isSignup ? "" : null}
+          //disabled={loading}
+          onChange={setLastNameACB}
+        />
+        }
         <TextField
           required
           id="outlined-password-input"

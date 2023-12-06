@@ -1,15 +1,18 @@
 import { React, useState, useRef } from "react";
-import CreateRecordView from "./CreateRecordView";
+import CreateRecordView from "./CreateExerciseView";
 import { SaveNewRecord } from "../../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
+import { createExercise } from "../../models/userSlice";
 
 function CreateRecordPresenter() {
   /**State behaves more like a snapshot. Setting it does not change the state
    * variable you already have, but instead triggers a re-render. */
-  const [record, setRecord] = useState({ recordText: "" });
-  const recordRef = useRef(""); //For uncontrolled inputs.
+  const [exerciseName, setExerciseName] = useState("");
+  const [exerciseType, setExerciseType] = useState("");
+  //const exerciseNameRef = useRef(""); //For uncontrolled inputs.
+  //const exerciseTypeRef = useRef("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   /**In React, side effects usually belong inside event handlers. Even though
@@ -19,16 +22,16 @@ function CreateRecordPresenter() {
    * I think this why we never want to call event handlers during rendering,
    * as Cristi put it. (Calling with the () notation.)*/
 
-  function saveRecordTextACB(recordText) {
-    console.log(`Save record text: ${recordText}`);
-    dispatch(SaveNewRecord(recordText));
-
-    //Creates a record with a temporary id. This id will be replaced by the id
-    //from the db when the record is saved in the persistence layer.
-/*     dispatch({
-      type: "RECORD_CREATED",
-      payload: { recordId: uuidv4(), text: recordText },
-    }); */
+  function saveExerciseACB() {
+    console.log(`Save exercise name: ${exerciseName}, type: ${exerciseType}`);
+    //dispatch(SaveNewRecord({ exerciseName, exerciseType })); //Saves in persistence via Thunk.
+    dispatch(
+      createExercise({
+        exerciseId: uuidv4(20),
+        exerciseName: exerciseName,
+        exerciseType: exerciseType,
+      })
+    );
     navigate("/dashboard");
   }
 
@@ -53,9 +56,11 @@ function CreateRecordPresenter() {
    * */
   return (
     <CreateRecordView
-      saveRecordTextACB={saveRecordTextACB}
-      record={record}
-      recordRef={recordRef}
+      saveExerciseACB={saveExerciseACB}
+      exerciseName={exerciseName}
+      setExerciseName={setExerciseName}
+      exerciseType={exerciseType}
+      setExerciseType={setExerciseType}
     />
   );
 }

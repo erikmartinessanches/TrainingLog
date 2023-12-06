@@ -7,29 +7,30 @@ import {
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
-import { firebaseApp } from "./store";
+import { firebaseApp } from "../persistence/firebaseModel";
+import produce from "immer";
 
-const logoutAction = createAction("logoutAction");
+export const logoutAction = createAction("logoutAction");
 
 const initialState = {
   user: {
     uid: null,
-    name: null,
+    firstName: null,
+    lastName: null,
     email: null,
-    records: [],
+    exercises: {},
   },
-  firebaseAuthReady: false,
-  firebaseReady: false,
-  registrationCompleted: false,
-  authenticate: {
-    status: "IDLE", //(IDLE, PENDING, REJECTED or FULFILLED)
-    requestId: null,
-    error: "",
-  },
+  // Whether the model is ready to be used/observed. Save to persistance only if
+  // the model is ready:
+  modelReady: false,
+  firebaseAuthStatus: "IDLE", //Is IDLE, PENDING, REJECTED or FULFILLED.
+  firebaseAuthError: "",
+  loggedOut: false,
 };
 
 export const user = createSlice({
@@ -39,135 +40,159 @@ export const user = createSlice({
     setFirebaseAuthReady(state, action) {
       state.firebaseAuthReady = true;
     },
-    setFirebaseReady: (state, action) => {
-      state.firebaseReady = true;
+    setModelReady: (state, action) => {
+      state.modelReady = action.payload;
     },
-    setRegistrationCompletedStatus: (state, action) => {
-      state.registrationCompleted = action.payload;
-    },
-    createRecord: (state, action) => {
-      state.user.records.push(action.payload);
-    },
-    setName: (state, action) => {
-      state.user.name = action.payload;
-    },
-    setLoggedInUser: (state, action) => {
-      state.user.uid = action.payload.uid;
-      state.user.email = action.payload.email;
-    },
-/*     setAuthFulfilled: (state, action) => { //This may not be necessary
+    registrationCompleted: (state, action) => {},
+    loginCompleted: (state, action) => {},
+    createExercise: (state, action) => {
       //debugger;
+      state.user.exercises = produce(state.user.exercises, (draftState) => {
+        draftState[`${action.payload.exerciseId}`] = {
+          exerciseName: action.payload.exerciseName,
+          exerciseType: action.payload.exerciseType,
+        };
+      });
+    },
+    setExercises: (state, action) => {
+      state.user.exercises = action.payload;
+    },
+    setFirstName: (state, action) => {
+      state.user.firstName = action.payload;
+    },
+    setLastName: (state, action) => {
+      state.user.lastName = action.payload;
+    },
+    logInUser: (state, action) => {
       state.user.uid = action.payload.uid;
-      // state.user.name = action.payload.name;
       state.user.email = action.payload.email;
-      if (action.payload.usingAsSignUp) {
-        state.registrationCompleted = true;
-      }
-      state.authenticate.status = "FULFILLED";
-    }, */
+    },
+    setLoggedOut: (state, action) => {
+      state.loggedOut = action.payload;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(authenticate.fulfilled, (state, action) => {
-      state.user.uid = action.payload.uid;
-     // state.user.name = action.payload.name;
-      state.user.email = action.payload.email;
-      if (action.payload.usingAsSignUp) {
-        state.registrationCompleted = true;
+    builder.addCase(registerOrLogIn.fulfilled, (state, action) => {
+      if (action.payload?.firstName) {
+        //On registration only
+        state.user.firstName = action.payload?.firstName;
       }
-      state.authenticate.status = "FULFILLED";
+      if (action.payload?.lastName) {
+        //On registration only
+        state.user.lastName = action.payload?.lastName;
+      }
+      state.firebaseAuthStatus = "FULFILLED";
     });
-    builder.addCase(authenticate.pending, (state) => {
-      state.authenticate.status = "PENDING";
+    builder.addCase(registerOrLogIn.pending, (state) => {
+      state.firebaseAuthStatus = "PENDING";
     });
-    builder.addCase(authenticate.rejected, (state, action) => {
-      state.authenticate.status = "REJECTED";
-      state.authenticate.error = action.payload.error.code;
+    builder.addCase(registerOrLogIn.rejected, (state, action) => {
+      state.firebaseAuthStatus = "REJECTED";
+      state.firebaseAuthError = action.error.code;
     });
     builder.addCase(logoutAction, () => {
-      //debugger;
       return initialState;
     });
-    //builder.addDefaultCase((state, action) => {});
   },
 });
 
-export const authenticate = createAsyncThunk(
-  "auth/authenticate",
-  async ({ usingAsSignUp, email, password }) => {
-    //Do we need the name for authentication?
+//Considered moving this to the Persistence layer. Keeping it here for now since
+//this function is used from a presenter.
+export const registerOrLogIn = createAsyncThunk(
+  "auth/authenticateWithFirebase",
+  async ({ email, password, signUpOption, firstName, lastName }) => {
     const auth = getAuth(firebaseApp);
-    let authenticatedUserCredentials;
-
     try {
-      if (usingAsSignUp) {
-        authenticatedUserCredentials = await createUserWithEmailAndPassword(
+      if (signUpOption) {
+        const authUserData = await createUserWithEmailAndPassword(
           auth,
           email,
           password
         );
+        sendEmailVerification(auth.currentUser)
+          .then(() => {
+            console.log("Email verification sent!");
+            // ...
+            updateProfile(auth.currentUser, {
+              displayName: firstName,
+            }).then(() => {
+              console.log("changed?");
+              console.log(auth.currentUser);
+            });
+          })
+
+          .catch((error) => {
+            // An error occurred
+            // ...
+          });
+        return {
+          uid: authUserData.user.uid,
+          email: authUserData.user.email,
+          usingAsSignUp: signUpOption,
+          firstName: firstName,
+          lastName: lastName,
+        };
       } else {
-        authenticatedUserCredentials = await signInWithEmailAndPassword(
+        const authUserData = await signInWithEmailAndPassword(
           auth,
           email,
           password
         );
+        return {
+          uid: authUserData.user.uid,
+          email: authUserData.user.email,
+          usingAsSignUp: signUpOption,
+          firstName: firstName, //This is null, no first name on login
+          lastName: lastName, //This is null, no last name on login
+        };
       }
-    } catch (error) {
-      throw error;
+    } catch (e) {
+      switch (
+        e.code //For illustration but need not be handled here.
+      ) {
+        case "auth/email-already-in-use":
+          console.log("Email address already in use.");
+          break;
+        case "auth/invalid-login-credentials":
+          console.log("Invalid login credentials.");
+          break;
+        default:
+          console.log("error.code");
+          break;
+      }
     }
-
-    if (usingAsSignUp)
-      return {
-        uid: authenticatedUserCredentials.user.uid,
-        email: authenticatedUserCredentials.user.email,
-        usingAsSignUp: usingAsSignUp,
-        // name: name,
-      };
-
-    return {
-      uid: authenticatedUserCredentials.user.uid,
-      email: authenticatedUserCredentials.user.email,
-      usingAsSignUp: usingAsSignUp,
-      //name: name,
-    };
   }
 );
-
-export const listenToAuthChanges = () => (dispatch, _) => {
-  const auth = getAuth(firebaseApp);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-    // User is signed in, see https://firebase.google.com/docs/auth/web/start
-    // and https://firebase.google.com/docs/auth/web/manage-users.
-      dispatch (setLoggedInUser({uid: user.uid, email: user.email}));
-    }
-    dispatch(setFirebaseAuthReady());
-  })
-}
-
 //Interestingly, it is possible to create my own selectors.
-
-//export default user.reducer;
-const selectAuth = (state) => state.auth;
+export const selectAuth = (state) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
-
-export const selectFirebaseAuthReady = createSelector(
+export const selectFirebaseAuthStatus = createSelector(
   selectAuth,
-  (data) => data.firebaseAuthReady
+  (data) => data.firebaseAuthStatus
+);
+export const selectModelReady = createSelector(
+  selectAuth,
+  (data) => data.modelReady
+);
+export const selectLoggedOut = createSelector(
+  selectAuth,
+  (data) => data.loggedOut
 );
 
-export const logoutNow = (state) => (dispatch, _) => {
-  dispatch(logoutAction());
-  signOut(getAuth(firebaseApp));
-}
-
+export const logoutNow = (state) => async (dispatch, _) => {
+  dispatch(setLoggedOut(true));
+  await signOut(getAuth(firebaseApp));
+};
 
 export const {
-  setName,
-  setFirebaseAuthReady,
-  setFirebaseReady,
-  setRegistrationCompletedStatus,
-  createRecord,
+  setFirstName,
+  setLastName,
+  loginCompleted,
+  registrationCompleted,
   setAuthFulfilled,
-  setLoggedInUser
+  logInUser,
+  setModelReady,
+  setExercises,
+  createExercise,
+  setLoggedOut,
 } = user.actions;

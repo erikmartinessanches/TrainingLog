@@ -1,96 +1,208 @@
-//import firebaseConfig from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
-import { useDispatch, useSelector } from "react-redux";
-import { ref, onChildAdded, getDatabase } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
-  setFirebaseReady,
-  setRegistrationCompletedStatus,
+  ref,
+  getDatabase,
+  get,
+  set,
+  child,
+  onValue,
+  off,
+  onChildAdded,
+} from "firebase/database";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  setModelReady,
+  setExercises,
+  setFirstName,
+  setLastName,
+  registerOrLogIn,
+  logInUser,
+  logoutAction,
+  createExercise,
+  setLoggedOut,
 } from "../models/userSlice";
-//import usersPersister from "./persisters/usersPersister";
-import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import { firebaseApp } from "../models/store";
+import {
+  createListenerMiddleware,
+  isAnyOf,
+  isAsyncThunkAction,
+} from "@reduxjs/toolkit";
+import { firebaseConfig } from "../firebaseConfig";
 
+const firebaseApp = initializeApp(firebaseConfig);
+const firebaseDb = getDatabase(firebaseApp);
+const auth = getAuth(firebaseApp);
 
+const configureListenerMiddleware = () => {
+  const listenerMiddleware = createListenerMiddleware();
 
-export const persistence = function name(store, fireBaseApp) {
-  let previousState = store.getState();
-  const dispatch = store.dispatch;
-  const firebaseDb = getDatabase(fireBaseApp);
-
-  store.subscribe(() => {
-    const state = store.getState();
-    // const userId = state.auth.user.id;
-    // const previousUserId = previousState.auth.user.id;
-    // const registrationCompleted = state.auth.registrationCompleted;
-
-    // if (userId && state.auth.firebaseReady) {
-    //   usersPersister.toFirebase(firebaseDb, state, previousState);
-    // }
-
-    // if (registrationCompleted) {
-    //   usersPersister.toFirebase(firebaseDb, state, previousState);
-    //   dispatch(setRegistrationCompletedStatus(false));
-    // }
+  listenerMiddleware.startListening({
+    matcher: isAsyncThunkAction(registerOrLogIn),
+    effect: async (action, listenerApi) => {
+      const state = listenerApi.getState();
+      if (
+        action?.type === "auth/authenticateWithFirebase/fulfilled" &&
+        action?.payload?.usingAsSignUp
+      ) {
+        saveUserToFirebase(state).then(() => {
+          listenerApi.dispatch(setModelReady(true));
+        });
+      }
+    },
   });
 
-  previousState = store.getState();
+  listenerMiddleware.startListening({
+    matcher: isAnyOf(setLastName),
+    effect: async (action, listenerApi) => {
+      const state = listenerApi.getState();
+      if (state.auth.user?.uid && state.auth.firebaseAuthStatus !== "PENDING") {
+        listenerApi.dispatch(setModelReady(true));
+      }
+    },
+  });
+
+  listenerMiddleware.startListening({
+    matcher: isAnyOf(createExercise),
+    effect: async (action, listenerApi) => {
+      const state = listenerApi.getState();
+      //debugger;
+      const REF = `users/${state.auth.user.uid}/exercises`;
+      const newExercise = {
+        exerciseName: action.payload.exerciseName,
+        exerciseType: action.payload.exerciseType,
+      };
+      await set(
+        ref(firebaseDb, `${REF}/${action.payload.exerciseId}`),
+        newExercise
+      );
+    },
+  });
+
+  return listenerMiddleware;
+};
+export const connectModelToFirebase = (store) => {
+  onAuthStateChanged(auth, (user) => authChangedACB(user, store));
+
+  function authChangedACB(user, store) {
+    if (user) {
+      store.dispatch(logInUser({ uid: user.uid, email: user.email }));
+      //Can we readFromFirebaseWithUser safely from here, on BOTH login and register?
+      //Yes we can, brilliant! (Both logging and signup breaks here with a uid.)
+      readFromFirebaseWithUser(user, store.dispatch, store);
+    } else {
+      //We can remove callbacks once we have no user (logged out).
+      off(
+        ref(firebaseDb, `/users/${store?.getState()?.auth?.user?.uid}/lastName`)
+      );
+      off(
+        ref(
+          firebaseDb,
+          `/users/${store?.getState()?.auth?.user?.uid}/firstName`
+        )
+      );
+      off(
+        ref(
+          firebaseDb,
+          `/users/${store?.getState()?.auth?.user?.uid}/exercises`
+        )
+      );
+
+      store.dispatch(logoutAction());
+      store.dispatch(setLoggedOut(true));
+    }
+  }
 };
 
-//const app = initializeApp(firebaseConfig);
-//const database = getDatabase(app);
-//export const auth = getAuth(app);
-
-const REF = "dinnerModel200-test3";
-//const rf= ref(database, REF);
-const firebaseNotify = "firebase_notify";
-
-function firebaseModelPromise() {}
-
-export function updateModelFromFirebase(dispatch, userId) {
-  // firebase
-  //   .database()
-  //   .ref(REF + "/numberOfGuests")
-  //   .on("value", function guestsChangedInFirebaseACB(firebaseData) {
-  //     model.setNumberOfGuests(firebaseData.val());
-  //   });
-  // firebase
-  //   .database()
-  //   .ref(REF + "/currentDish")
-  //   .on("value", function currentDishChangedInFirebaseACB(firebaseData) {
-  //     model.setCurrentDish(firebaseData.val());
-  //   });
-  /*   console.log("Inside updateModelFromFirebase");
-  const recordsRef = ref(database, `users/${userId}/records`);
-  onChildAdded(recordsRef, (data) => {
-    const internalId = data.key;
-    const recordText = data.val().text;
-    //console.log(data.val()); //Record object without id.
-    dispatch({
-      type: "RECORD_CREATED",
-      payload: { text: recordText, recordId: internalId },
-    });
-  }); */
-  /*TODO Check that a record is not already in redux store in order to avoid 
-  double entry into redux store. */
-  //dispatch({ type: "HI", payload: "Yo." });
-  // firebase
-  //   .database()
-  //   .ref(REF + "/dishes")
-  //   .on("child_added", function recordAddedInFirebaseACB(firebaseData) {
-  //     dispatch({
-  //       type: "RECORD_CREATED",
-  //       payload: { ...newRecord, recordId: newRecordReturned.key },
-  //     });
-  //   });
-  // firebase
-  //   .database()
-  //   .ref(REF + "/dishes")
-  //   .on("child_removed", function dishRemovedInFirebaseACB(firebaseData) {
-  //     model.removeFromMenu({ id: +firebaseData.key });
-  //   });
+function modelToPersistence(state) {
+  //Return actually useful stuff to put into persistence from model.
+  return {
+    exercises: state?.auth.user.exercises,
+    firstName: state.auth.user?.firstName,
+    lastName: state.auth.user?.lastName,
+  };
 }
-export function updateFirebaseFromModel() {}
+
+function saveUserToFirebase(state) {
+  //if (state?.auth.modelReady && state?.auth.user) {
+  return set(
+    child(ref(firebaseDb, "users"), state.auth.user.uid),
+    modelToPersistence(state)
+  );
+}
+
+function persistenceToModel(data, dispatch, store) {
+  const modelReady = store.getState().auth.modelReady;
+
+  if (data !== null) {
+    //This works well for getting all exercises at once! CAn we make use of it
+    //in a smart way, together with onChild added?
+    if (data?.exercises) dispatch(setExercises(data?.exercises));
+
+    if (data?.firstName) dispatch(setFirstName(data?.firstName));
+    if (data?.lastName) dispatch(setLastName(data?.lastName));
+    const exercisesInStore = store.getState().auth.user.exercises;
+    //debugger;
+    //This adds one exercise at a time, does not add if the exercise already exists.
+    if (
+      modelReady &&
+      data?.exerciseAdded &&
+      //Trying to avoid double action on the setting window. Perhaps the following
+      // condition will work when/if I set store prior to persistence, so
+      // probably using set() rather than push() to persistence.
+      !exercisesInStore.hasOwnProperty(`${data?.exerciseAdded?.exerciseId}`)
+    ) {
+      dispatch(createExercise(data?.exerciseAdded));
+    }
+  }
+}
+
+function readFromFirebase(user, dispatch, store) {
+  dispatch(setModelReady(false));
+  get(child(ref(firebaseDb, "users"), user?.uid)).then((snapshot) => {
+    persistenceToModel(snapshot.val(), dispatch, store);
+  });
+
+  onValue(ref(firebaseDb, `/users/${user.uid}/firstName`), function (snapshot) {
+    if (store.getState()?.auth?.modelReady) {
+      persistenceToModel({ firstName: snapshot.val() }, dispatch, store);
+    }
+  });
+
+  onValue(ref(firebaseDb, `/users/${user.uid}/lastName`), function (snapshot) {
+    if (store.getState()?.auth?.modelReady) {
+      persistenceToModel({ lastName: snapshot.val() }, dispatch, store);
+    }
+  });
+
+  onChildAdded(ref(firebaseDb, `/users/${user.uid}/exercises`), (snapshot) => {
+    persistenceToModel(
+      {
+        exerciseAdded: {
+          exerciseId: snapshot.key,
+          exerciseName: snapshot.val().exerciseName,
+          exerciseType: snapshot.val().exerciseType,
+        },
+      },
+      dispatch,
+      store
+    );
+  });
+}
+
+// //TODO: Call this function somewhere!
+function readFromFirebaseWithUser(user, dispatch, store) {
+  if (user?.uid) {
+    readFromFirebase(user, dispatch, store);
+  } else {
+    //TODO cancel live update?
+  }
+}
 
 // Remember to uncomment the following line:
-// export {observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase};
+export {
+  //modelToPersistence,
+  readFromFirebase,
+  readFromFirebaseWithUser,
+  auth,
+  firebaseApp,
+  configureListenerMiddleware,
+};

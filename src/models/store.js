@@ -1,33 +1,24 @@
 import { configureStore } from "@reduxjs/toolkit";
-//import { fbMiddleware } from "./middleware";
-import { initializeApp } from "firebase/app";
-//import { reducer } from "./reducers";
-import thunkMiddleware from "redux-thunk";
-import { firebaseConfig } from "../firebaseConfig";
-import { user, listenToAuthChanges } from "./userSlice";
-import { persistence } from "../persistence/firebaseModel";
-//import { setupListeners } from "@reduxjs/toolkit/query";
-//import { firebaseApi } from "../persistence/apiSlices";
+import { user } from "./userSlice";
+import {
+  connectModelToFirebase,
+  configureListenerMiddleware,
+} from "../persistence/firebaseModel";
 
-export const firebaseApp = initializeApp(firebaseConfig);
+const listenerMiddleware = configureListenerMiddleware();
 
 const store = configureStore({
   reducer: {
     auth: user.reducer,
-    //[firebaseApi.reducerPath]: firebaseApi.reducer,
   },
- // middleware: [thunkMiddleware, (getDefaultMiddleware) =>
-   // getDefaultMiddleware()]/* .concat(firebaseApi.middleware) */,
-  //middleware: [ fbMiddleware,  thunkMiddleware],
-  //preloadedState: { user: null, records: [] }, //Probably don't need to init these...
-  //enhancers: [composedEnhancer],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware),
   devTools: true,
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 //setupListeners(store.dispatch);
-store.dispatch(listenToAuthChanges());
 
-persistence(store, firebaseApp);
+connectModelToFirebase(store);
 export default store;

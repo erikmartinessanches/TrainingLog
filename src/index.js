@@ -1,42 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import store from "./models/store";
 import LandingPagePresenter from "./components/LandingPage/LandingPagePresenter";
 import {
   createBrowserRouter,
   RouterProvider /*, Route*/,
 } from "react-router-dom";
 import ErrorView from "./views/ErrorView";
-//import SignUpPresenter from "./presenters/SignUpPresenter";
-//import LogInPresenter from "./presenters/LogInPresenter";
 import DashboardPresenter from "./components/Dashboard/DashboardPresenter";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-//import { fbMiddleware } from "./redux/middleware";
-//import { reducer } from "./redux/reducers";
 import { Provider } from "react-redux";
-
 //import reportWebVitals from './reportWebVitals';
 import SecureRoute from "./utils/SecureRoute";
-import SecurityProvider from "./utils/SecurityProvider";
-import CreateRecordPresenter from "./components/CreateRecord/CreateRecordPresenter";
-import ReactRoot from "./presenters/ReactRoot";
+import CreateRecordPresenter from "./components/CreateExercise/CreateExercisePresenter";
 import AuthPresenter from "./components/Auth/AuthPresenter";
 import PasswordResetPresenter from "./components/PasswordReset/PasswordResetPresenter";
-
-//const store = configureStore({ reducer: reducer, middleware: fbMiddleware });
+import store from "./models/store";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <SecureRoute forwardLoggedInUser>
-        <LandingPagePresenter />
-      </SecureRoute>
-    ),
+    element: <LandingPagePresenter />,
     errorElement: <ErrorView />,
   },
   {
@@ -67,7 +54,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorView />,
   },
   {
-    path: "/dashboard/create-record",
+    path: "/dashboard/create-exercise",
     element: (
       <SecureRoute>
         <CreateRecordPresenter />
@@ -77,9 +64,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/password-reset",
-    element: (
-        <PasswordResetPresenter />
-    ),
+    element: <PasswordResetPresenter />,
     errorElement: <ErrorView />,
   },
 ]);
@@ -88,9 +73,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <SecurityProvider> */}
       <RouterProvider router={router} />
-      {/* </SecurityProvider> */}
     </Provider>
   </React.StrictMode>
 );
