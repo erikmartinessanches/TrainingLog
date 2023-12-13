@@ -29,6 +29,8 @@ import {
 
 //import { env } from 'process';
 //import { firebaseConfig } from "../firebaseConfig";
+// console.log(`Hello from ${process.env.HELLO} environment!`)
+
 const firebaseApp = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
