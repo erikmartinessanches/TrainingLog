@@ -9,6 +9,8 @@ function LandingPageView() {
     navigate("/signup");
   }
 
+  console.log(`Hello from ${process.env.REACT_APP_HELLO} environment!!!`)
+
   function toLogInACB() {
     navigate("/login");
   }
