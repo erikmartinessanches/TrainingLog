@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
-//Navigating is ok from the View.
+//Navigating is ok from the View. 
 function LandingPageView() {
   const navigate = useNavigate();
 
