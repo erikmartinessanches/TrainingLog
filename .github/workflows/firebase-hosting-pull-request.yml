@@ -3,6 +3,10 @@
 
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
+env:
+  DOTENV_KEY_DEVELOPMENT: ${{ secrets.DOTENV_KEY_DEVELOPMENT }}
+  DOTENV_KEY_STAGING: ${{ secrets.DOTENV_KEY_STAGING }}
+  DOTENV_KEY_PRODUCTION: ${{ secrets.DOTENV_KEY_PRODUCTION }}
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
