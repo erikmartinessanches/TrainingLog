@@ -7,6 +7,7 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - master
       env:
+        REACT_APP_HELLO: ${{ secrets.REACT_APP_HELLO }}
         REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
         REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
         REACT_APP_DATABASE_URL: ${{ secrets.REACT_APP_DATABASE_URL }}
