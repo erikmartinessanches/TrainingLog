@@ -26,6 +26,8 @@ import {
   isAnyOf,
   isAsyncThunkAction,
 } from "@reduxjs/toolkit";
+import { configDotenv } from "dotenv";
+configDotenv();
 
 //import { env } from 'process';
 //import { firebaseConfig } from "../firebaseConfig";
