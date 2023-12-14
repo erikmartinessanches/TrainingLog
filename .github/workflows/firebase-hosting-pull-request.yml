@@ -7,6 +7,7 @@ env:
   DOTENV_KEY_DEVELOPMENT: ${{ secrets.DOTENV_KEY_DEVELOPMENT }}
   DOTENV_KEY_STAGING: ${{ secrets.DOTENV_KEY_STAGING }}
   DOTENV_KEY_PRODUCTION: ${{ secrets.DOTENV_KEY_PRODUCTION }}
+  DOTENV_KEY: ${{ secrets.DOTENV_KEY }}
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -15,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: npm ci && npm run build
         env:
-          DOTENV_KEY: ${{ secrets.DOTENV_KEY_STAGING }}
+          DOTENV_KEY: ${{ secrets.DOTENV_KEY}}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
