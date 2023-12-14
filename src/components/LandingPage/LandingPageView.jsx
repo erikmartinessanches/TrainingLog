@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import "dotenv/config"
+
 
 //Navigating is ok from the View. 
 function LandingPageView() {
