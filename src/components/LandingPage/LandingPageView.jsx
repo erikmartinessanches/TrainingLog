@@ -1,7 +1,10 @@
 import React from "react";
 import Button from "@mui/material/Button";
+
 import { useNavigate } from "react-router-dom";
-//Navigating is ok from the View.
+
+
+//Navigating is ok from the View. 
 function LandingPageView() {
   const navigate = useNavigate();
 
@@ -9,7 +12,7 @@ function LandingPageView() {
     navigate("/signup");
   }
 
-  console.log(`Hello from ${process.env.REACT_APP_HELLO} environment!!!`)
+  console.log(`Hello from ${process.env.REACT_APP_HELLO} environment!`)
 
   function toLogInACB() {
     navigate("/login");
