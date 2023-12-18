@@ -5,7 +5,7 @@ This is the code for my training log software. It can register and sign in users
 
 (It needs an excluded file holding credentials to operate.)
 
-See a [live demonstration](https://netuplink.web.app).
+See a [live demonstration](https://netuplink.web.app)!
 
 ## Available Scripts
 
