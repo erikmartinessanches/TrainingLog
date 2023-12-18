@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
+      
       - uses: actions/checkout@v3
+        env:
+          DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
+          DOTENV_KEY_STAGING: '${{ secrets.DOTENV_KEY_STAGING}}'
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -20,4 +24,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MINIPROJECT_90787 }}'
           projectId: miniproject-90787
           DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
+          DOTENV_KEY_STAGING: '${{ secrets.DOTENV_KEY_STAGING}}'
         

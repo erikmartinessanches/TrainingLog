@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
+
 import { useNavigate } from "react-router-dom";
 
 
@@ -11,7 +12,7 @@ function LandingPageView() {
     navigate("/signup");
   }
 
-  console.log(`Hello from ${process.env.REACT_APP_HELLO} environment!!`)
+  console.log(`Hello from ${process.env.REACT_APP_HELLO} environment!`)
 
   function toLogInACB() {
     navigate("/login");
