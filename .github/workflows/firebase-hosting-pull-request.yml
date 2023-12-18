@@ -4,8 +4,6 @@
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
 env:
-  DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
-  DOTENV_KEY_STAGING: '${{ secrets.DOTENV_KEY_STAGING}}'
   REACT_APP_HELLO: '${{ secrets.REACT_APP_HELLO }}'
   
 jobs:
@@ -15,10 +13,6 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@v3
-        env:
-          DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
-          DOTENV_KEY_STAGING: '${{ secrets.DOTENV_KEY_STAGING}}'
-          REACT_APP_HELLO: '${{ secrets.REACT_APP_HELLO }}'
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
