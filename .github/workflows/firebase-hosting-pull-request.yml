@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      
       - uses: actions/checkout@v3
         env:
           DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
