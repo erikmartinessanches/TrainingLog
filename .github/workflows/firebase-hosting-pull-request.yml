@@ -17,3 +17,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MINIPROJECT_90787 }}'
           projectId: miniproject-90787
           DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
+        env:
+          DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
