@@ -16,7 +16,7 @@ jobs:
         env:
           DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
           DOTENV_KEY_STAGING: '${{ secrets.DOTENV_KEY_STAGING}}'
-      - run: npm ci && npm run build
+      - run: npm ci && npm run build:staging
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
