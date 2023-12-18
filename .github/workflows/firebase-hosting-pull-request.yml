@@ -6,6 +6,8 @@ name: Deploy to Firebase Hosting on PR
 env:
   DOTENV_KEY: '${{ secrets.DOTENV_KEY}}'
   DOTENV_KEY_STAGING: '${{ secrets.DOTENV_KEY_STAGING}}'
+  REACT_APP_HELLO: '${{ secrets.REACT_APP_HELLO }}'
+  
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
