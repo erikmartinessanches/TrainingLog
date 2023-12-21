@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerOrLogIn } from "../../models/userSlice";
 
-export default function AuthPresenter(props) {
+export default function AuthPresenter() {
   const [signup, setSignup] = useState(true);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -36,7 +36,7 @@ export default function AuthPresenter(props) {
       //signIn={signInACB}
       setEmail={setEmail}
       setPassword={setPassword}
-      toggleType={setSignup}
+      //toggleType={setSignup}
       setFirstName={setFirstName}
       setLastName={setLastName}
       //  email={email}

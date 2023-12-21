@@ -2,22 +2,31 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-export default function AuthView(props) {
-  function setEmailACB(event) {
+
+interface Props {
+  setEmail: (email:string) => void;
+  setFirstName: (firstName:string) => void;
+  setLastName: (lastName:string) => void;
+  setPassword: (password:string) => void;
+  onSubmitACB: () => void;
+  isSignup: boolean;
+}
+export default function AuthView(props: Props) {
+  function setEmailACB(event: React.ChangeEvent<HTMLInputElement>) {
     props.setEmail(event.target.value);
   }
-  function setFirstNameACB(event) {
+  function setFirstNameACB(event: React.ChangeEvent<HTMLInputElement>) {
     props.setFirstName(event.target.value);
   }
-  function setLastNameACB(event) {
+  function setLastNameACB(event: React.ChangeEvent<HTMLInputElement>) {
     props.setLastName(event.target.value);
   }
 
-  function setPasswordACB(event) {
+  function setPasswordACB(event: React.ChangeEvent<HTMLInputElement>) {
     props.setPassword(event.target.value);
   }
 
-  function handleSubmitACB(event) {
+  function handleSubmitACB(event: React.ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     props.onSubmitACB();
   }

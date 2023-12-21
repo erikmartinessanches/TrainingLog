@@ -1,6 +1,5 @@
-import { React, useState, useRef } from "react";
+import { useState } from "react";
 import CreateRecordView from "./CreateExerciseView";
-import { SaveNewRecord } from "../../models/ThunkFunctions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
@@ -27,7 +26,7 @@ function CreateRecordPresenter() {
     //dispatch(SaveNewRecord({ exerciseName, exerciseType })); //Saves in persistence via Thunk.
     dispatch(
       createExercise({
-        exerciseId: uuidv4(20),
+        exerciseId: uuidv4(),
         exerciseName: exerciseName,
         exerciseType: exerciseType,
       })

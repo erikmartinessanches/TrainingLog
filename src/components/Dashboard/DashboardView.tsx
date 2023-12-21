@@ -1,7 +1,19 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-function DashboardView({ logOut, loading, createNewACB, user }) {
+
+interface Props {
+  logOut: () => void;
+  //loading: boolean;
+  createNewACB: () => void;
+  user: {
+    firstName?: string;
+    lastName: string;
+    email?: string
+  }
+}
+
+function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
   function onLogOutClicked() {
     logOut();
   }
@@ -18,7 +30,7 @@ function DashboardView({ logOut, loading, createNewACB, user }) {
         variant="contained"
         onClick={onLogOutClicked}
         type="submit"
-        disabled={loading}
+       // disabled={loading}
       >
         Log out
       </Button>
@@ -26,7 +38,7 @@ function DashboardView({ logOut, loading, createNewACB, user }) {
         variant="contained"
         onClick={onCreateNewRecord}
         type="submit"
-        disabled={loading}
+       // disabled={loading}
       >
         Create new exercise
       </Button>

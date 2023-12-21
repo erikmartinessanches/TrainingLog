@@ -1,22 +1,30 @@
-import { React, useRef } from "react";
+import React, { useRef } from "react";
 import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { Link } from "react-router-dom";
 
-function CreateExerciseView({ saveExerciseACB, exerciseName, setExerciseName, exerciseType, setExerciseType }) {
+interface Props {
+  saveExerciseACB: ()=> void;
+  exerciseName: string;
+  setExerciseName: (exerciseName: string) => void;
+  exerciseType: string;
+  setExerciseType: (exerciseType: string) => void;
+}
+
+function CreateExerciseView({ saveExerciseACB, exerciseName, setExerciseName, exerciseType, setExerciseType }: Props) {
 
 
-  function onSubmitACB(e) {
+  function onSubmitACB(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     saveExerciseACB();
   }
 
-  const handleChangeExerciseTypeACB = (event) => {
+  const handleChangeExerciseTypeACB = (event: SelectChangeEvent<string>) => {
     setExerciseType(event.target.value);
   }
 

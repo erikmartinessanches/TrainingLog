@@ -1,4 +1,3 @@
-import { React, useEffect } from "react";
 import DashboardView from "./DashboardView";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,7 @@ import {
   selectUser,
 } from "../../models/userSlice";
 import { LoadingIconView } from "../../views/LoadingIconView";
-import AuthPresenter from "../Auth/AuthPresenter";
+
 
 function DashboardPresenter() {
   const modelReady = useSelector(selectModelReady);
