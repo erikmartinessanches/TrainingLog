@@ -4,15 +4,16 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
 import { createExercise } from "../../models/userSlice";
+import { useAppDispatch } from "../../utils/hooks";
 
 function CreateRecordPresenter() {
   /**State behaves more like a snapshot. Setting it does not change the state
    * variable you already have, but instead triggers a re-render. */
-  const [exerciseName, setExerciseName] = useState("");
-  const [exerciseType, setExerciseType] = useState("");
+  const [exerciseName, setExerciseName] = useState<string>("");
+  const [exerciseType, setExerciseType] = useState<string>("");
   //const exerciseNameRef = useRef(""); //For uncontrolled inputs.
   //const exerciseTypeRef = useRef("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   /**In React, side effects usually belong inside event handlers. Even though
    * event handlers are defined inside your component, they don’t run during
