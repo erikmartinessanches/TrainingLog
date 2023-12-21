@@ -7,9 +7,9 @@ interface Props {
   //loading: boolean;
   createNewACB: () => void;
   user: {
-    firstName?: string;
-    lastName: string;
-    email?: string
+    firstName: string|null
+    lastName: string|null;
+    email?: string|null
   }
 }
 
