@@ -1,6 +1,6 @@
 /**SecureRoute gets current logged in status.
  */
-import { useSelector } from "react-redux";
+import { useAppSelector } from "./hooks";
 import { Navigate } from "react-router-dom";
 import { selectModelReady, selectLoggedOut } from "../models/userSlice";
 import { LoadingIconView } from "../views/LoadingIconView";
@@ -15,8 +15,8 @@ import VerifyEmailView from "../components/VerifyEmail/VerifyEmailView";
 const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
   const auth = getAuth();
   const user = auth.currentUser;
-  const modelReady = useSelector(selectModelReady);
-  const loggedOut = useSelector(selectLoggedOut);
+  const modelReady = useAppSelector(selectModelReady);
+  const loggedOut = useAppSelector(selectLoggedOut);
   // If we are about to forward logged in user from a location to dashboard, this
   // prevents temporary flash of the location and shows loading state instead!
   //debugger;

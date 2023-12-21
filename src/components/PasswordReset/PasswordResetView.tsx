@@ -1,15 +1,20 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-function PasswordResetView(props) {
-  function setEmailACB(event) {
+interface Props {
+  setEmail: (string) => void;
+  onSubmitACB: () => void;
+}
+
+function PasswordResetView(props: Props) {
+  function setEmailACB(event: ChangeEvent<HTMLInputElement>) {
     props.setEmail(event.target.value);
   }
 
 
-  function handleSubmitACB(event) {
+  function handleSubmitACB(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     props.onSubmitACB();
   }

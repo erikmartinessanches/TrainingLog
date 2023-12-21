@@ -1,6 +1,5 @@
 import { useState } from "react";
 import CreateRecordView from "./CreateExerciseView";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { uuidv4 } from "@firebase/util";
 import { createExercise } from "../../models/userSlice";

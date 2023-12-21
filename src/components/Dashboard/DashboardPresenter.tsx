@@ -1,5 +1,4 @@
 import DashboardView from "./DashboardView";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import {
