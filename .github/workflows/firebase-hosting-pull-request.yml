@@ -20,7 +20,7 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@v2
-      - run: yarn install && yarn build
+      - run: yarn install --immutable && yarn build 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
