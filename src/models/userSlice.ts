@@ -3,6 +3,7 @@ import {
   createSelector,
   createSlice,
   createAction,
+  PayloadAction
 } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
@@ -14,10 +15,25 @@ import {
 } from "firebase/auth";
 import { firebaseApp } from "../persistence/firebaseModel";
 import produce from "immer";
+import { RootState, AppDispatch } from "./store";
 
 export const logoutAction = createAction("logoutAction");
 
-const initialState = {
+interface InitialState {
+  user: {
+    uid: null|string;
+    firstName: null|string;
+    lastName: null|string;
+    email: null|string;
+    exercises: {};
+  },
+  modelReady: boolean;
+  firebaseAuthStatus: string;
+  firebaseAuthError: undefined|string;
+  loggedOut: boolean;
+}
+
+const initialState: InitialState = {
   user: {
     uid: null,
     firstName: null,
@@ -37,13 +53,9 @@ export const user = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setFirebaseAuthReady(state, action) {
-      state.firebaseAuthReady = true;
-    },
-    setModelReady: (state, action) => {
+    setModelReady: (state, action: PayloadAction<boolean>) => {
       state.modelReady = action.payload;
     },
-    registrationCompleted: (state, action) => {},
     loginCompleted: (state, action) => {},
     createExercise: (state, action) => {
       //debugger;
@@ -96,11 +108,19 @@ export const user = createSlice({
   },
 });
 
+
+interface RegisterProps {
+  email: string;
+  password: string;
+  signUpOption: boolean;
+  firstName: string;
+  lastName: string;
+}
 //Considered moving this to the Persistence layer. Keeping it here for now since
 //this function is used from a presenter.
 export const registerOrLogIn = createAsyncThunk(
   "auth/authenticateWithFirebase",
-  async ({ email, password, signUpOption, firstName, lastName }) => {
+  async ({ email, password, signUpOption, firstName, lastName }: RegisterProps) => {
     const auth = getAuth(firebaseApp);
     try {
       if (signUpOption) {
@@ -164,7 +184,7 @@ export const registerOrLogIn = createAsyncThunk(
   }
 );
 //Interestingly, it is possible to create my own selectors.
-export const selectAuth = (state) => state.auth;
+export const selectAuth = (state: RootState) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
 export const selectFirebaseAuthStatus = createSelector(
   selectAuth,
@@ -179,7 +199,7 @@ export const selectLoggedOut = createSelector(
   (data) => data.loggedOut
 );
 
-export const logoutNow = (state) => async (dispatch, _) => {
+export const logoutNow = ( /* state: RootState */ ) => async (dispatch: AppDispatch, _) => {
   dispatch(setLoggedOut(true));
   await signOut(getAuth(firebaseApp));
 };
@@ -188,8 +208,6 @@ export const {
   setFirstName,
   setLastName,
   loginCompleted,
-  registrationCompleted,
-  setAuthFulfilled,
   logInUser,
   setModelReady,
   setExercises,

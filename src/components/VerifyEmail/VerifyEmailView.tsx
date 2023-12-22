@@ -1,7 +1,12 @@
 //import React from "react";
 import Button from "@mui/material/Button";
 
-const VerifyEmailView = ({ logOut, resend }) => {
+interface Props {
+  logOut: () => void;
+  resend: () => void;
+}
+
+const VerifyEmailView = ({ logOut, resend }: Props) => {
   function onLogOutClicked() {
     logOut();
   }

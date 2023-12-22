@@ -1,12 +1,11 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../utils/hooks";
 import { logoutNow } from "../../models/userSlice";
 import VerifyEmailView from "./VerifyEmailView";
 import { getAuth, sendEmailVerification } from "firebase/auth";
 
 const VerifyEmailPresenter = () => {
   const auth = getAuth();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   function logOutACB() {
     dispatch(logoutNow());
     //navigate("/");

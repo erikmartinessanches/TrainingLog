@@ -1,20 +1,18 @@
-import { React, useEffect } from "react";
 import DashboardView from "./DashboardView";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import {
   logoutNow,
   selectModelReady,
   selectUser,
 } from "../../models/userSlice";
 import { LoadingIconView } from "../../views/LoadingIconView";
-import AuthPresenter from "../Auth/AuthPresenter";
+
 
 function DashboardPresenter() {
-  const modelReady = useSelector(selectModelReady);
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
+  const modelReady = useAppSelector(selectModelReady);
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   function logOutACB() {

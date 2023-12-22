@@ -31,3 +31,12 @@ yarn-error.log*
 .flaskenv*
 !.env.project
 !.env.vault
+
+#Optionally disable yarn zero-installs by ignoring:
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
+
+
+
