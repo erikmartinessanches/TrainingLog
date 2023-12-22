@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "CI=false && tsc && vite build",
     "preview": "vite preview",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "test": "react-scripts test",
