@@ -32,7 +32,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "preci": "rm -rf node_modules",
-    "ci": "yarn install --frozen-lockfile"
+    "ci": "yarn install --frozen-lockfile",
+    "setfbproj": "firebase use --clear --project='miniproject-90787'"
   },
   "eslintConfig": {
     "extends": [
