@@ -1,6 +1,7 @@
 {
   "name": "miniproject",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -20,14 +21,13 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
-    "react-scripts": "5.0.1",
-    "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "CI=false && react-scripts build",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -52,6 +52,18 @@
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1",
-    "firebase-tools": "^12.9.1"
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "firebase-tools": "^12.9.1",
+    "redux-devtools-extension": "^2.13.9",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-tsconfig-paths": "^4.2.2"
   }
 }

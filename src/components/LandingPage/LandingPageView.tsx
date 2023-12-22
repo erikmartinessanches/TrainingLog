@@ -1,25 +1,25 @@
-import React from "react";
 import Button from "@mui/material/Button";
 
-import { useNavigate } from "react-router-dom";
-
+interface Props {
+  toSignUp: () => void;
+  toLogIn: () => void;
+}
 
 //Navigating is ok from the View. 
-function LandingPageView() {
-  const navigate = useNavigate();
+function LandingPageView({toSignUp, toLogIn}: Props) {
 
   function toSignUpACB() {
-    navigate("/signup");
+    toSignUp()
   }
 
-  console.log(`Hello from ${process.env.REACT_APP_HELLO} environment!`)
+  console.log(`Hello from ${import.meta.env.VITE_APP_HELLO} environment!`)
 
   function toLogInACB() {
-    navigate("/login");
+    toLogIn()
   }
   return (
     <div className="App">
-      <header className="App-header">Mini project</header>
+      <header className="App-header">Training Log</header>
       <h2>App view (front page)</h2>
       <Button variant="contained" onClick={toSignUpACB}>
         Sign-up
