@@ -32,7 +32,7 @@ function CreateExerciseView({ saveExerciseACB, exerciseName, setExerciseName, ex
     <form onSubmit={onSubmitACB}>
       <Box sx={{ display: 'flex' }}>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          {/* <InputLabel id="exercise-name-input-label">Exercise name</InputLabel> */}
+         {/*  <InputLabel id="exercise-name-input-label">Exercise name</InputLabel> */}
           <TextField
             //labelId="exercise-name-input-label"
             id="exercise-name"
