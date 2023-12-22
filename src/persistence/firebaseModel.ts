@@ -66,7 +66,8 @@ const configureListenerMiddleware = () => {
     matcher: isAnyOf(setLastName),
     effect: async (action, listenerApi) => {
       const state = listenerApi.getState();
-      if (state.auth.user?.uid && state.auth.firebaseAuthStatus !== "PENDING") {
+      
+      if ((state as any).auth.user?.uid && (state as any).auth.firebaseAuthStatus !== "PENDING") {
         listenerApi.dispatch(setModelReady(true));
       }
     },
@@ -77,7 +78,7 @@ const configureListenerMiddleware = () => {
     effect: async (action, listenerApi) => {
       const state = listenerApi.getState();
       //debugger;
-      const REF = `users/${state.auth.user.uid}/exercises`;
+      const REF = `users/${(state as any).auth.user.uid}/exercises`;
       const newExercise = {
         exerciseName: action.payload.exerciseName,
         exerciseType: action.payload.exerciseType,

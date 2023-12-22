@@ -12,7 +12,7 @@ export default function ErrorView() {
         Sorry, an unexpected error has occurred, probably with the routing...
       </p>
       <p>
-        <i>{error.statusText || error.message}</i>
+        <i>{(error as any).statusText || (error as any).message}</i>
       </p>
     </div>
   );
