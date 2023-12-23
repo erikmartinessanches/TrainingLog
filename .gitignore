@@ -33,13 +33,9 @@ yarn-error.log*
 !.env.project
 !.env.vault
 
+!tsconfig.json
+
 #Optionally disable yarn zero-installs by:
-
-
-/dist
-
-
-
 .pnp.*
 .yarn/*
 !.yarn/patches
