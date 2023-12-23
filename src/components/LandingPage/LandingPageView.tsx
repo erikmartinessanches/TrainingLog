@@ -12,7 +12,7 @@ function LandingPageView({toSignUp, toLogIn}: Props) {
     toSignUp()
   }
 
-  console.log(`Hello from ${import.meta.env.VITE_APP_HELLO} environment!!!`)
+  console.log(`Hello from ${import.meta.env.VITE_APP_HELLO} environment!`)
 
   function toLogInACB() {
     toLogIn()
