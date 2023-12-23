@@ -33,11 +33,15 @@ yarn-error.log*
 !.env.project
 !.env.vault
 
-#Optionally disable yarn zero-installs by ignoring:
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
+#Optionally disable yarn zero-installs by:
+
+
+
+
 .pnp.*
-
-
-
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
