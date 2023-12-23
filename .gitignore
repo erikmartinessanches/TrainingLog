@@ -10,6 +10,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -32,13 +33,13 @@ yarn-error.log*
 !.env.project
 !.env.vault
 
-#Optionally disable yarn zero-installs by ignoring:
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
+!tsconfig.json
+
+#Optionally disable yarn zero-installs by:
 .pnp.*
-
-/dist
-
-
-
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
