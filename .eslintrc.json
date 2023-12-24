@@ -10,7 +10,7 @@
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
   "ignorePatterns": ["dist", ".eslintrc.json"],
   "parser": "@typescript-eslint/parser",
@@ -24,6 +24,7 @@
     "react-refresh/only-export-components": [
       "warn",
       { "allowConstantExport": true }
-    ]
+    ],
+    "react/react-in-jsx-scope": 0
   }
 }
