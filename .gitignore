@@ -27,6 +27,7 @@ yarn-error.log*
 
 #API config
 **/*Config.js*
+**/*Config.ts*
 
 .firebase
 .env
