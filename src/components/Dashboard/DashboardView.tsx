@@ -1,16 +1,15 @@
-import React from "react";
-import Button from "@mui/material/Button";
-
+import React from 'react';
+import Button from '@mui/material/Button';
 
 interface Props {
   logOut: () => void;
   //loading: boolean;
   createNewACB: () => void;
   user: {
-    firstName: string|null
-    lastName: string|null;
-    email?: string|null
-  }
+    firstName: string | null;
+    lastName: string | null;
+    email?: string | null;
+  };
 }
 
 function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
@@ -25,12 +24,14 @@ function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>{user?.firstName} {user.lastName} {user?.email}</p>
+      <p>
+        {user?.firstName} {user.lastName} {user?.email}
+      </p>
       <Button
         variant="contained"
         onClick={onLogOutClicked}
         type="submit"
-       // disabled={loading}
+        // disabled={loading}
       >
         Log out
       </Button>
@@ -38,7 +39,7 @@ function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
         variant="contained"
         onClick={onCreateNewRecord}
         type="submit"
-       // disabled={loading}
+        // disabled={loading}
       >
         Create new exercise
       </Button>

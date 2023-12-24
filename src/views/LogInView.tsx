@@ -1,6 +1,6 @@
-import React from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import React from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function LogInView({ loggedIn, loading, setEmail, setPassword }) {
   function onLogInClicked(e) {

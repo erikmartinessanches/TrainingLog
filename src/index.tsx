@@ -1,33 +1,33 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import LandingPagePresenter from "./components/LandingPage/LandingPagePresenter";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import LandingPagePresenter from './components/LandingPage/LandingPagePresenter';
 import {
   createBrowserRouter,
   RouterProvider /*, Route*/,
-} from "react-router-dom";
-import ErrorView from "./views/ErrorView";
-import DashboardPresenter from "./components/Dashboard/DashboardPresenter";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import { Provider } from "react-redux";
+} from 'react-router-dom';
+import ErrorView from './views/ErrorView';
+import DashboardPresenter from './components/Dashboard/DashboardPresenter';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { Provider } from 'react-redux';
 //import reportWebVitals from './reportWebVitals';
-import SecureRoute from "./utils/SecureRoute";
-import CreateRecordPresenter from "./components/CreateExercise/CreateExercisePresenter";
-import AuthPresenter from "./components/Auth/AuthPresenter";
-import PasswordResetPresenter from "./components/PasswordReset/PasswordResetPresenter";
-import store from "./models/store";
+import SecureRoute from './utils/SecureRoute';
+import CreateRecordPresenter from './components/CreateExercise/CreateExercisePresenter';
+import AuthPresenter from './components/Auth/AuthPresenter';
+import PasswordResetPresenter from './components/PasswordReset/PasswordResetPresenter';
+import store from './models/store';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <LandingPagePresenter />,
     errorElement: <ErrorView />,
   },
   {
-    path: "/signup",
+    path: '/signup',
     element: (
       <SecureRoute forwardLoggedInUser>
         <AuthPresenter />
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorView />,
   },
   {
-    path: "/login",
+    path: '/login',
     element: (
       <SecureRoute forwardLoggedInUser>
         <AuthPresenter />
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorView />,
   },
   {
-    path: "/dashboard",
+    path: '/dashboard',
     element: (
       <SecureRoute>
         <DashboardPresenter />
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorView />,
   },
   {
-    path: "/dashboard/create-exercise",
+    path: '/dashboard/create-exercise',
     element: (
       <SecureRoute>
         <CreateRecordPresenter />
@@ -63,18 +63,18 @@ const router = createBrowserRouter([
     errorElement: <ErrorView />,
   },
   {
-    path: "/password-reset",
+    path: '/password-reset',
     element: <PasswordResetPresenter />,
     errorElement: <ErrorView />,
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

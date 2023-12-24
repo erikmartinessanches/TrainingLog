@@ -3,8 +3,8 @@ import {
   createSelector,
   createSlice,
   createAction,
-  PayloadAction
-} from "@reduxjs/toolkit";
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -12,24 +12,24 @@ import {
   signOut,
   updateProfile,
   sendEmailVerification,
-} from "firebase/auth";
-import { firebaseApp } from "../persistence/firebaseModel";
-import produce from "immer";
-import { RootState, AppDispatch } from "./store";
+} from 'firebase/auth';
+import { firebaseApp } from '../persistence/firebaseModel';
+import produce from 'immer';
+import { RootState, AppDispatch } from './store';
 
-export const logoutAction = createAction("logoutAction");
+export const logoutAction = createAction('logoutAction');
 
 interface InitialState {
   user: {
-    uid: null|string;
-    firstName: null|string;
-    lastName: null|string;
-    email: null|string;
+    uid: null | string;
+    firstName: null | string;
+    lastName: null | string;
+    email: null | string;
     exercises: {};
-  },
+  };
   modelReady: boolean;
   firebaseAuthStatus: string;
-  firebaseAuthError: undefined|string;
+  firebaseAuthError: undefined | string;
   loggedOut: boolean;
 }
 
@@ -44,13 +44,13 @@ const initialState: InitialState = {
   // Whether the model is ready to be used/observed. Save to persistance only if
   // the model is ready:
   modelReady: false,
-  firebaseAuthStatus: "IDLE", //Is IDLE, PENDING, REJECTED or FULFILLED.
-  firebaseAuthError: "",
+  firebaseAuthStatus: 'IDLE', //Is IDLE, PENDING, REJECTED or FULFILLED.
+  firebaseAuthError: '',
   loggedOut: false,
 };
 
 export const user = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setModelReady: (state, action: PayloadAction<boolean>) => {
@@ -93,13 +93,13 @@ export const user = createSlice({
         //On registration only
         state.user.lastName = action.payload?.lastName;
       }
-      state.firebaseAuthStatus = "FULFILLED";
+      state.firebaseAuthStatus = 'FULFILLED';
     });
     builder.addCase(registerOrLogIn.pending, (state) => {
-      state.firebaseAuthStatus = "PENDING";
+      state.firebaseAuthStatus = 'PENDING';
     });
     builder.addCase(registerOrLogIn.rejected, (state, action) => {
-      state.firebaseAuthStatus = "REJECTED";
+      state.firebaseAuthStatus = 'REJECTED';
       state.firebaseAuthError = action.error.code;
     });
     builder.addCase(logoutAction, () => {
@@ -107,7 +107,6 @@ export const user = createSlice({
     });
   },
 });
-
 
 interface RegisterProps {
   email: string;
@@ -119,24 +118,30 @@ interface RegisterProps {
 //Considered moving this to the Persistence layer. Keeping it here for now since
 //this function is used from a presenter.
 export const registerOrLogIn = createAsyncThunk(
-  "auth/authenticateWithFirebase",
-  async ({ email, password, signUpOption, firstName, lastName }: RegisterProps) => {
+  'auth/authenticateWithFirebase',
+  async ({
+    email,
+    password,
+    signUpOption,
+    firstName,
+    lastName,
+  }: RegisterProps) => {
     const auth = getAuth(firebaseApp);
     try {
       if (signUpOption) {
         const authUserData = await createUserWithEmailAndPassword(
           auth,
           email,
-          password
+          password,
         );
         sendEmailVerification(auth.currentUser)
           .then(() => {
-            console.log("Email verification sent!");
+            console.log('Email verification sent!');
             // ...
             updateProfile(auth.currentUser, {
               displayName: firstName,
             }).then(() => {
-              console.log("changed?");
+              console.log('changed?');
               console.log(auth.currentUser);
             });
           })
@@ -156,7 +161,7 @@ export const registerOrLogIn = createAsyncThunk(
         const authUserData = await signInWithEmailAndPassword(
           auth,
           email,
-          password
+          password,
         );
         return {
           uid: authUserData.user.uid,
@@ -170,39 +175,40 @@ export const registerOrLogIn = createAsyncThunk(
       switch (
         e.code //For illustration but need not be handled here.
       ) {
-        case "auth/email-already-in-use":
-          console.log("Email address already in use.");
+        case 'auth/email-already-in-use':
+          console.log('Email address already in use.');
           break;
-        case "auth/invalid-login-credentials":
-          console.log("Invalid login credentials.");
+        case 'auth/invalid-login-credentials':
+          console.log('Invalid login credentials.');
           break;
         default:
-          console.log("error.code");
+          console.log('error.code');
           break;
       }
     }
-  }
+  },
 );
 //Interestingly, it is possible to create my own selectors.
 export const selectAuth = (state: RootState) => state.auth;
 export const selectUser = createSelector(selectAuth, (data) => data.user);
 export const selectFirebaseAuthStatus = createSelector(
   selectAuth,
-  (data) => data.firebaseAuthStatus
+  (data) => data.firebaseAuthStatus,
 );
 export const selectModelReady = createSelector(
   selectAuth,
-  (data) => data.modelReady
+  (data) => data.modelReady,
 );
 export const selectLoggedOut = createSelector(
   selectAuth,
-  (data) => data.loggedOut
+  (data) => data.loggedOut,
 );
 
-export const logoutNow = ( /* state: RootState */ ) => async (dispatch: AppDispatch, _) => {
-  dispatch(setLoggedOut(true));
-  await signOut(getAuth(firebaseApp));
-};
+export const logoutNow =
+  (/* state: RootState */) => async (dispatch: AppDispatch, _) => {
+    dispatch(setLoggedOut(true));
+    await signOut(getAuth(firebaseApp));
+  };
 
 export const {
   setFirstName,

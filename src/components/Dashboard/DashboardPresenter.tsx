@@ -1,13 +1,12 @@
-import DashboardView from "./DashboardView";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import DashboardView from './DashboardView';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import {
   logoutNow,
   selectModelReady,
   selectUser,
-} from "../../models/userSlice";
-import { LoadingIconView } from "../../views/LoadingIconView";
-
+} from '../../models/userSlice';
+import { LoadingIconView } from '../../views/LoadingIconView';
 
 function DashboardPresenter() {
   const modelReady = useAppSelector(selectModelReady);
@@ -21,7 +20,7 @@ function DashboardPresenter() {
   }
 
   function createNewExerciseACB() {
-    navigate("/dashboard/create-exercise");
+    navigate('/dashboard/create-exercise');
   }
 
   //Placing it here for simplicity, consider using the "secure routes" in parent instead.
