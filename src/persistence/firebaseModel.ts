@@ -8,8 +8,13 @@ import {
   onValue,
   off,
   onChildAdded,
+  connectDatabaseEmulator,
 } from 'firebase/database';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  connectAuthEmulator,
+} from 'firebase/auth';
 import {
   setModelReady,
   setExercises,
@@ -43,6 +48,11 @@ const firebaseApp = initializeApp({
 });
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+  connectDatabaseEmulator(firebaseDb, '127.0.0.1', 9000);
+  console.log('hi');
+}
 
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();
@@ -224,4 +234,5 @@ export {
   auth,
   firebaseApp,
   configureListenerMiddleware,
+  //connectToEmulator,
 };

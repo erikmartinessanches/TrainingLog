@@ -11,15 +11,15 @@ function LandingPageView({ toSignUp, toLogIn }: Props) {
     toSignUp();
   }
 
-  console.log(`Hello from ${import.meta.env.VITE_APP_HELLO} environment!`);
+  console.log(`Hello from ${import.meta.env.VITE_APP_HELLO} environment!!`);
 
   function toLogInACB() {
     toLogIn();
   }
   return (
     <div className="App">
-      <header className="App-header">Training Log</header>
-      <h2>App view (front page)</h2>
+      <header className="App-header">Training Log!</header>
+      <h2>App view (front page)!!</h2>
       <Button variant="contained" onClick={toSignUpACB}>
         Sign-up
       </Button>

@@ -19,6 +19,7 @@ import CreateRecordPresenter from './components/CreateExercise/CreateExercisePre
 import AuthPresenter from './components/Auth/AuthPresenter';
 import PasswordResetPresenter from './components/PasswordReset/PasswordResetPresenter';
 import store from './models/store';
+//import { connectToEmulator } from './persistence/firebaseModel';
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </Provider>
   </React.StrictMode>,
 );
+
+//connectToEmulator();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

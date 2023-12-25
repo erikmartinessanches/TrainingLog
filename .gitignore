@@ -36,6 +36,11 @@ yarn-error.log*
 !.env.project
 !.env.vault
 
+database-debug.log
+firebase-debug.log
+pubsub-debug.log
+ui-debug.log
+
 !tsconfig.json
 
 #Optionally disable yarn zero-installs by:
