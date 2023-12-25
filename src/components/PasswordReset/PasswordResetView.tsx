@@ -1,7 +1,7 @@
-import React, { ChangeEvent } from "react";
-import { Link } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import React, { ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 interface Props {
   setEmail: (string) => void;
@@ -12,7 +12,6 @@ function PasswordResetView(props: Props) {
   function setEmailACB(event: ChangeEvent<HTMLInputElement>) {
     props.setEmail(event.target.value);
   }
-
 
   function handleSubmitACB(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -42,11 +41,8 @@ function PasswordResetView(props: Props) {
         >
           Send password reset email
         </Button>
-        {" or "}
-        <Link to={"/login"}>
-          {"Back to login"}
-        </Link>
-        
+        {' or '}
+        <Link to={'/login'}>{'Back to login'}</Link>
       </form>
     </React.Fragment>
   );

@@ -1,6 +1,6 @@
-import { set, ref, push, getDatabase } from "firebase/database";
-import { firebaseApp } from "../persistence/firebaseModel";
-import { createExercise } from "./userSlice";
+import { set, ref, push, getDatabase } from 'firebase/database';
+import { firebaseApp } from '../persistence/firebaseModel';
+import { createExercise } from './userSlice';
 export function SaveNewRecord({ exerciseName, exerciseType }) {
   //We want to return the async thunk function.
 
@@ -29,7 +29,7 @@ export function SaveNewRecord({ exerciseName, exerciseType }) {
     //out the following line. After all, we have the firebase listeners in a
     //persistance observer where we should change the model.
     dispatch(
-      createExercise({ ...newRecord, exerciseId: newRecordReturned.key })
+      createExercise({ ...newRecord, exerciseId: newRecordReturned.key }),
     );
   };
 }

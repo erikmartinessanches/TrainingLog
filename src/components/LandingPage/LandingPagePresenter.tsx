@@ -1,19 +1,21 @@
-import "./App.css";
-import LandingPageView from "./LandingPageView";
-import { useNavigate } from "react-router-dom";
+import './App.css';
+import LandingPageView from './LandingPageView';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const navigate = useNavigate();
 
   function toSignUp() {
-    navigate("/signup");
+    navigate('/signup');
   }
 
   function toLogIn() {
-    navigate("/login");
+    navigate('/login');
   }
 
-  return <LandingPageView toSignUp={toSignUp} toLogIn={toLogIn}></LandingPageView>;
+  return (
+    <LandingPageView toSignUp={toSignUp} toLogIn={toLogIn}></LandingPageView>
+  );
 }
 
 export default App;

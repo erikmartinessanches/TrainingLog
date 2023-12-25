@@ -1,15 +1,15 @@
-import { useState } from "react";
-import CreateRecordView from "./CreateExerciseView";
-import { useNavigate } from "react-router-dom";
-import { uuidv4 } from "@firebase/util";
-import { createExercise } from "../../models/userSlice";
-import { useAppDispatch } from "../../utils/hooks";
+import { useState } from 'react';
+import CreateRecordView from './CreateExerciseView';
+import { useNavigate } from 'react-router-dom';
+import { uuidv4 } from '@firebase/util';
+import { createExercise } from '../../models/userSlice';
+import { useAppDispatch } from '../../utils/hooks';
 
 function CreateRecordPresenter() {
   /**State behaves more like a snapshot. Setting it does not change the state
    * variable you already have, but instead triggers a re-render. */
-  const [exerciseName, setExerciseName] = useState<string>("");
-  const [exerciseType, setExerciseType] = useState<string>("");
+  const [exerciseName, setExerciseName] = useState<string>('');
+  const [exerciseType, setExerciseType] = useState<string>('');
   //const exerciseNameRef = useRef(""); //For uncontrolled inputs.
   //const exerciseTypeRef = useRef("");
   const dispatch = useAppDispatch();
@@ -29,9 +29,9 @@ function CreateRecordPresenter() {
         exerciseId: uuidv4(),
         exerciseName: exerciseName,
         exerciseType: exerciseType,
-      })
+      }),
     );
-    navigate("/dashboard");
+    navigate('/dashboard');
   }
 
   /**“Rendering” means that React is calling your component, which is a

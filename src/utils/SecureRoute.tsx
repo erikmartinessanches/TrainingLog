@@ -1,12 +1,12 @@
 /**SecureRoute gets current logged in status.
  */
-import { useAppSelector } from "./hooks";
-import { Navigate } from "react-router-dom";
-import { selectModelReady, selectLoggedOut } from "../models/userSlice";
-import { LoadingIconView } from "../views/LoadingIconView";
-import VerifyEmailPresenter from "../components/VerifyEmail/VerifyEmailPresenter";
-import { getAuth } from "firebase/auth";
-import VerifyEmailView from "../components/VerifyEmail/VerifyEmailView";
+import { useAppSelector } from './hooks';
+import { Navigate } from 'react-router-dom';
+import { selectModelReady, selectLoggedOut } from '../models/userSlice';
+import { LoadingIconView } from '../views/LoadingIconView';
+import VerifyEmailPresenter from '../components/VerifyEmail/VerifyEmailPresenter';
+import { getAuth } from 'firebase/auth';
+import VerifyEmailView from '../components/VerifyEmail/VerifyEmailView';
 
 /** 'forwardLoggedInUser' in allows us to say that for certain routes (children
  * of this component), we should navigate a logged in user to the dashboard (if

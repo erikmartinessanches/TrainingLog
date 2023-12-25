@@ -1,7 +1,7 @@
-import { useAppDispatch } from "../../utils/hooks";
-import { logoutNow } from "../../models/userSlice";
-import VerifyEmailView from "./VerifyEmailView";
-import { getAuth, sendEmailVerification } from "firebase/auth";
+import { useAppDispatch } from '../../utils/hooks';
+import { logoutNow } from '../../models/userSlice';
+import VerifyEmailView from './VerifyEmailView';
+import { getAuth, sendEmailVerification } from 'firebase/auth';
 
 const VerifyEmailPresenter = () => {
   const auth = getAuth();
@@ -14,7 +14,7 @@ const VerifyEmailPresenter = () => {
   function resend() {
     sendEmailVerification(auth.currentUser)
       .then(() => {
-        console.log("Email verification sent.");
+        console.log('Email verification sent.');
       })
       .catch();
   }

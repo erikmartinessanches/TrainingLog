@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
-import AuthView from "./AuthView";
-import { useLocation } from "react-router-dom";
-import { registerOrLogIn } from "../../models/userSlice";
-import { useAppDispatch } from "../../utils/hooks";
+import { useState, useEffect } from 'react';
+import AuthView from './AuthView';
+import { useLocation } from 'react-router-dom';
+import { registerOrLogIn } from '../../models/userSlice';
+import { useAppDispatch } from '../../utils/hooks';
 
 export default function AuthPresenter() {
   const [signup, setSignup] = useState<boolean>(true);
-  const [email, setEmail] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const location = useLocation();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    location.pathname === "/login" ? setSignup(false) : setSignup(true);
+    location.pathname === '/login' ? setSignup(false) : setSignup(true);
   }, [location.pathname]);
 
   async function onSubmitACB() {
@@ -25,7 +25,7 @@ export default function AuthPresenter() {
         signUpOption: signup,
         firstName,
         lastName,
-      })
+      }),
     );
   }
 

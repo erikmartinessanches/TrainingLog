@@ -1,21 +1,20 @@
-import Button from "@mui/material/Button";
+import Button from '@mui/material/Button';
 
 interface Props {
   toSignUp: () => void;
   toLogIn: () => void;
 }
 
-//Navigating is ok from the View. 
-function LandingPageView({toSignUp, toLogIn}: Props) {
-
+//Navigating is ok from the View.
+function LandingPageView({ toSignUp, toLogIn }: Props) {
   function toSignUpACB() {
-    toSignUp()
+    toSignUp();
   }
 
-  console.log(`Hello from ${import.meta.env.VITE_APP_HELLO} environment!`)
+  console.log(`Hello from ${import.meta.env.VITE_APP_HELLO} environment!`);
 
   function toLogInACB() {
-    toLogIn()
+    toLogIn();
   }
   return (
     <div className="App">

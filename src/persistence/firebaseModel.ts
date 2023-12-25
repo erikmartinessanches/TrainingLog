@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
   ref,
   getDatabase,
@@ -8,8 +8,8 @@ import {
   onValue,
   off,
   onChildAdded,
-} from "firebase/database";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+} from 'firebase/database';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   setModelReady,
   setExercises,
@@ -20,12 +20,12 @@ import {
   logoutAction,
   createExercise,
   setLoggedOut,
-} from "../models/userSlice";
+} from '../models/userSlice';
 import {
   createListenerMiddleware,
   isAnyOf,
   isAsyncThunkAction,
-} from "@reduxjs/toolkit";
+} from '@reduxjs/toolkit';
 
 //import { env } from 'process';
 //import { firebaseConfig } from "../firebaseConfig";
@@ -52,7 +52,7 @@ const configureListenerMiddleware = () => {
     effect: async (action, listenerApi) => {
       const state = listenerApi.getState();
       if (
-        action?.type === "auth/authenticateWithFirebase/fulfilled" &&
+        action?.type === 'auth/authenticateWithFirebase/fulfilled' &&
         action?.payload?.usingAsSignUp
       ) {
         saveUserToFirebase(state).then(() => {
@@ -66,8 +66,11 @@ const configureListenerMiddleware = () => {
     matcher: isAnyOf(setLastName),
     effect: async (action, listenerApi) => {
       const state = listenerApi.getState();
-      
-      if ((state as any).auth.user?.uid && (state as any).auth.firebaseAuthStatus !== "PENDING") {
+
+      if (
+        (state as any).auth.user?.uid &&
+        (state as any).auth.firebaseAuthStatus !== 'PENDING'
+      ) {
         listenerApi.dispatch(setModelReady(true));
       }
     },
@@ -85,7 +88,7 @@ const configureListenerMiddleware = () => {
       };
       await set(
         ref(firebaseDb, `${REF}/${action.payload.exerciseId}`),
-        newExercise
+        newExercise,
       );
     },
   });
@@ -104,19 +107,22 @@ export const connectModelToFirebase = (store) => {
     } else {
       //We can remove callbacks once we have no user (logged out).
       off(
-        ref(firebaseDb, `/users/${store?.getState()?.auth?.user?.uid}/lastName`)
+        ref(
+          firebaseDb,
+          `/users/${store?.getState()?.auth?.user?.uid}/lastName`,
+        ),
       );
       off(
         ref(
           firebaseDb,
-          `/users/${store?.getState()?.auth?.user?.uid}/firstName`
-        )
+          `/users/${store?.getState()?.auth?.user?.uid}/firstName`,
+        ),
       );
       off(
         ref(
           firebaseDb,
-          `/users/${store?.getState()?.auth?.user?.uid}/exercises`
-        )
+          `/users/${store?.getState()?.auth?.user?.uid}/exercises`,
+        ),
       );
 
       store.dispatch(logoutAction());
@@ -137,8 +143,8 @@ function modelToPersistence(state) {
 function saveUserToFirebase(state) {
   //if (state?.auth.modelReady && state?.auth.user) {
   return set(
-    child(ref(firebaseDb, "users"), state.auth.user.uid),
-    modelToPersistence(state)
+    child(ref(firebaseDb, 'users'), state.auth.user.uid),
+    modelToPersistence(state),
   );
 }
 
@@ -170,7 +176,7 @@ function persistenceToModel(data, dispatch, store) {
 
 function readFromFirebase(user, dispatch, store) {
   dispatch(setModelReady(false));
-  get(child(ref(firebaseDb, "users"), user?.uid)).then((snapshot) => {
+  get(child(ref(firebaseDb, 'users'), user?.uid)).then((snapshot) => {
     persistenceToModel(snapshot.val(), dispatch, store);
   });
 
@@ -196,7 +202,7 @@ function readFromFirebase(user, dispatch, store) {
         },
       },
       dispatch,
-      store
+      store,
     );
   });
 }

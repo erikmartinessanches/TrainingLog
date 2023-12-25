@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 interface Props {
-  setEmail: (email:string) => void;
-  setFirstName: (firstName:string) => void;
-  setLastName: (lastName:string) => void;
-  setPassword: (password:string) => void;
+  setEmail: (email: string) => void;
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
+  setPassword: (password: string) => void;
   onSubmitACB: () => void;
   isSignup: boolean;
 }
@@ -33,7 +33,7 @@ export default function AuthView(props: Props) {
 
   return (
     <React.Fragment>
-      <h2>{props.isSignup ? "Sign-up" : "Log in"}</h2>
+      <h2>{props.isSignup ? 'Sign-up' : 'Log in'}</h2>
       <form onSubmit={handleSubmitACB}>
         <TextField
           required
@@ -45,28 +45,28 @@ export default function AuthView(props: Props) {
           //disabled={loading}
           onChange={setEmailACB}
         />
-        {props.isSignup && 
-        <TextField
-          //id="outlined"
-          label="First name"
-          //value={props.email}
-          //{...(props.isSignup ? { value: "" } : {})}
-          //value={props.isSignup ? "" : null}
-          //disabled={loading}
-          onChange={setFirstNameACB}
-        />
-        }
-        {props.isSignup && 
-        <TextField
-          //id="outlined"
-          label="Last name"
-          //value={props.email}
-          //{...(props.isSignup ? { value: "" } : {})}
-          //value={props.isSignup ? "" : null}
-          //disabled={loading}
-          onChange={setLastNameACB}
-        />
-        }
+        {props.isSignup && (
+          <TextField
+            //id="outlined"
+            label="First name"
+            //value={props.email}
+            //{...(props.isSignup ? { value: "" } : {})}
+            //value={props.isSignup ? "" : null}
+            //disabled={loading}
+            onChange={setFirstNameACB}
+          />
+        )}
+        {props.isSignup && (
+          <TextField
+            //id="outlined"
+            label="Last name"
+            //value={props.email}
+            //{...(props.isSignup ? { value: "" } : {})}
+            //value={props.isSignup ? "" : null}
+            //disabled={loading}
+            onChange={setLastNameACB}
+          />
+        )}
         <TextField
           required
           id="outlined-password-input"
@@ -86,11 +86,11 @@ export default function AuthView(props: Props) {
           //onClick={onSignUpClicked}
           //disabled={loading || status === "empty"}
         >
-          {props.isSignup ? "Sign-up" : "Log in"}
+          {props.isSignup ? 'Sign-up' : 'Log in'}
         </Button>
-        {" or "}
-        <Link to={props.isSignup ? "/login" : "/signup"}>
-          {!props.isSignup ? "Sign-up" : "Log in"}
+        {' or '}
+        <Link to={props.isSignup ? '/login' : '/signup'}>
+          {!props.isSignup ? 'Sign-up' : 'Log in'}
         </Link>
         {!props.isSignup && <Link to="/password-reset">Forgot password?</Link>}
       </form>
