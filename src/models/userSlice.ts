@@ -134,7 +134,9 @@ export const registerOrLogIn = createAsyncThunk(
           email,
           password,
         );
-        sendEmailVerification(auth.currentUser)
+        sendEmailVerification(auth.currentUser, {
+          url: 'https://netuplink.web.app/dashboard',
+        })
           .then(() => {
             console.log('Email verification sent!');
             // ...
