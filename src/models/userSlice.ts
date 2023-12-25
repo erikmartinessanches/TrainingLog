@@ -16,7 +16,7 @@ import {
 import { firebaseApp } from '../persistence/firebaseModel';
 import produce from 'immer';
 import { RootState, AppDispatch } from './store';
-import { continuationUrl } from '../utils/utils';
+import { continuationUrlDomain } from '../utils/utils';
 
 export const logoutAction = createAction('logoutAction');
 
@@ -136,7 +136,7 @@ export const registerOrLogIn = createAsyncThunk(
           password,
         );
         sendEmailVerification(auth.currentUser, {
-          url: continuationUrl(),
+          url: `${continuationUrlDomain()}/dashboard`,
         })
           .then(() => {
             console.log('Email verification sent!');
