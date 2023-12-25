@@ -5,7 +5,8 @@ import { Navigate } from 'react-router-dom';
 import { selectModelReady, selectLoggedOut } from '../models/userSlice';
 import { LoadingIconView } from '../views/LoadingIconView';
 import VerifyEmailPresenter from '../components/VerifyEmail/VerifyEmailPresenter';
-import { getAuth } from 'firebase/auth';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { auth } from '../persistence/firebaseModel';
 import VerifyEmailView from '../components/VerifyEmail/VerifyEmailView';
 
 /** 'forwardLoggedInUser' in allows us to say that for certain routes (children
@@ -13,7 +14,11 @@ import VerifyEmailView from '../components/VerifyEmail/VerifyEmailView';
  * the uid is not null).
  */
 const SecureRoute = ({ forwardLoggedInUser = false, children }) => {
-  const auth = getAuth();
+  //const auth = getAuth();
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+    console.log('hi');
+  }
   const user = auth.currentUser;
   const modelReady = useAppSelector(selectModelReady);
   const loggedOut = useAppSelector(selectLoggedOut);

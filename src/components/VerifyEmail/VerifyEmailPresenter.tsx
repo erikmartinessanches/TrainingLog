@@ -1,10 +1,19 @@
 import { useAppDispatch } from '../../utils/hooks';
 import { logoutNow } from '../../models/userSlice';
 import VerifyEmailView from './VerifyEmailView';
-import { getAuth, sendEmailVerification } from 'firebase/auth';
+import {
+  //getAuth,
+  sendEmailVerification,
+  connectAuthEmulator,
+} from 'firebase/auth';
+import { auth } from '../../persistence/firebaseModel';
 
 const VerifyEmailPresenter = () => {
-  const auth = getAuth();
+  // const auth = getAuth();
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+    console.log('hi');
+  }
   const dispatch = useAppDispatch();
   function logOutACB() {
     dispatch(logoutNow());
