@@ -20,10 +20,10 @@ function LandingPageView({ toSignUp, toLogIn }: Props) {
     <div className="App">
       <header className="App-header">Training Log</header>
       <h2>App view (front page)</h2>
-      <Button variant="contained" onClick={toSignUpACB}>
+      <Button variant="contained" onClick={toSignUpACB} id="register">
         Sign-up
       </Button>
-      <Button variant="contained" onClick={toLogInACB}>
+      <Button variant="contained" onClick={toLogInACB} id="login">
         Log in
       </Button>
     </div>
