@@ -1,4 +1,4 @@
-[![Deploys to production](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-merge.yml)
+[![Deployment to staging on PR](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-pull-request.yml/badge.svg)](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-pull-request.yml)[![Deploy to production on merge](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-merge.yml)
 
 # Training Log
 
