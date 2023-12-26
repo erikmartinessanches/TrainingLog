@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import HeaderPresenter from './components/Header/HeaderPresenter';
 import LandingPagePresenter from './components/LandingPage/LandingPagePresenter';
 import {
   createBrowserRouter,
@@ -25,14 +26,22 @@ import TosView from './components/TOS/TosView';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LandingPagePresenter />,
+    element: (
+      <React.Fragment>
+        <HeaderPresenter />
+        <LandingPagePresenter />
+      </React.Fragment>
+    ),
     errorElement: <ErrorView />,
   },
   {
     path: '/signup',
     element: (
       <SecureRoute forwardLoggedInUser>
-        <AuthPresenter />
+        <React.Fragment>
+          <HeaderPresenter />
+          <AuthPresenter />
+        </React.Fragment>
       </SecureRoute>
     ),
     errorElement: <ErrorView />,
@@ -41,7 +50,10 @@ const router = createBrowserRouter([
     path: '/login',
     element: (
       <SecureRoute forwardLoggedInUser>
-        <AuthPresenter />
+        <React.Fragment>
+          <HeaderPresenter />
+          <AuthPresenter />
+        </React.Fragment>
       </SecureRoute>
     ),
     errorElement: <ErrorView />,
@@ -50,7 +62,10 @@ const router = createBrowserRouter([
     path: '/dashboard',
     element: (
       <SecureRoute>
-        <DashboardPresenter />
+        <React.Fragment>
+          <HeaderPresenter />
+          <DashboardPresenter />
+        </React.Fragment>
       </SecureRoute>
     ),
     errorElement: <ErrorView />,
@@ -59,24 +74,42 @@ const router = createBrowserRouter([
     path: '/dashboard/create-exercise',
     element: (
       <SecureRoute>
-        <CreateRecordPresenter />
+        <React.Fragment>
+          <HeaderPresenter />
+          <CreateRecordPresenter />
+        </React.Fragment>
       </SecureRoute>
     ),
     errorElement: <ErrorView />,
   },
   {
     path: '/password-reset',
-    element: <PasswordResetPresenter />,
+    element: (
+      <React.Fragment>
+        <HeaderPresenter />
+        <PasswordResetPresenter />
+      </React.Fragment>
+    ),
     errorElement: <ErrorView />,
   },
   {
     path: '/privacy',
-    element: <PrivacyView />,
+    element: (
+      <React.Fragment>
+        <HeaderPresenter />
+        <PrivacyView />
+      </React.Fragment>
+    ),
     errorElement: <ErrorView />,
   },
   {
     path: '/terms',
-    element: <TosView />,
+    element: (
+      <React.Fragment>
+        <HeaderPresenter />
+        <TosView />
+      </React.Fragment>
+    ),
     errorElement: <ErrorView />,
   },
 ]);

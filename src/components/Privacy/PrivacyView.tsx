@@ -29,14 +29,14 @@ export default function PrivacyView() {
       <p>Updated at 2023-12-26</p>
       <p>
         {' '}
-        Training Log (“we,” “our,” or “us”) is committed to protecting your
+        Log for Training (“we,” “our,” or “us”) is committed to protecting your
         privacy. This Privacy Policy explains how your personal information is
-        collected, used, and disclosed by Training Log.
+        collected, used, and disclosed by Log for Training.
       </p>
       <p>
         This Privacy Policy applies to our website, and its associated
-        subdomains (collectively, our “Service”) alongside our application,
-        Training Log. By accessing or using our Service, you signify that you
+        subdomains (collectively, our “Service”) alongside our application, Log
+        for Training. By accessing or using our Service, you signify that you
         have read, understood, and agree to our collection, storage, use, and
         disclosure of your personal information as described in this Privacy
         Policy and our Terms of Service. This Privacy Policy was created with{' '}
@@ -57,22 +57,22 @@ export default function PrivacyView() {
         </li>
         <li>
           Company: when this policy mentions “Company,” “we,” “us,” or “our,” it
-          refers to Training Log, that is responsible for your information under
-          this Privacy Policy.
+          refers to Log for Training, that is responsible for your information
+          under this Privacy Policy.
         </li>
         <li>
-          Country: where Training Log or the owners/founders of Training Log are
-          based, in this case is Sweden
+          Country: where Log for Training or the owners/founders of Log for
+          Training are based, in this case is Sweden
         </li>
         <li>
           Customer: refers to the company, organization or person that signs up
-          to use the Training Log Service to manage the relationships with your
-          consumers or service users.
+          to use the Log for Training Service to manage the relationships with
+          your consumers or service users.
         </li>
         <li>
           Device: any internet connected device such as a phone, tablet,
-          computer or any other device that can be used to visit Training Log
-          and use the services.
+          computer or any other device that can be used to visit Log for
+          Training and use the services.
         </li>
         <li>
           IP address: Every device connected to the Internet is assigned a
@@ -93,8 +93,8 @@ export default function PrivacyView() {
           identifiability of a natural person.
         </li>
         <li>
-          Service: refers to the service provided by Training Log as described
-          in the relative terms (if available) and on this platform.
+          Service: refers to the service provided by Log for Training as
+          described in the relative terms (if available) and on this platform.
         </li>
         <li>
           Third-party service: refers to advertisers, contest sponsors,
@@ -102,12 +102,12 @@ export default function PrivacyView() {
           or whose products or services we think may interest you.
         </li>
         <li>
-          Website: Training Log's site, which can be accessed via this URL:
+          Website: Log for Training's site, which can be accessed via this URL:
           https://miniproject-90787.web.app
         </li>
         <li>
-          You: a person or entity that is registered with Training Log to use
-          the Services.
+          You: a person or entity that is registered with Log for Training to
+          use the Services.
         </li>
       </ul>
       <h1>What Information Do We Collect?</h1>
@@ -146,11 +146,11 @@ export default function PrivacyView() {
         <li>To send periodic emails</li>
       </ul>
       <h1>
-        When does Training Log use end user information from third parties?
+        When does Log for Training use end user information from third parties?
       </h1>
       <p>
-        Training Log will collect End User Data necessary to provide the
-        Training Log services to our customers.
+        Log for Training will collect End User Data necessary to provide the Log
+        for Training services to our customers.
       </p>
       <p>
         End users may voluntarily provide us with information they have made
@@ -161,17 +161,17 @@ export default function PrivacyView() {
         websites and changing your privacy settings.
       </p>
       <h1>
-        When does Training Log use customer information from third parties?
+        When does Log for Training use customer information from third parties?
       </h1>
       <p>
         We receive some information from the third parties when you contact us.
         For example, when you submit your email address to us to show interest
-        in becoming a Training Log customer, we receive information from a third
-        party that provides automated fraud detection services to Training Log.
-        We also occasionally collect information that is made publicly available
-        on social media websites. You can control how much of your information
-        social media websites make public by visiting these websites and
-        changing your privacy settings.
+        in becoming a Log for Training customer, we receive information from a
+        third party that provides automated fraud detection services to Log for
+        Training. We also occasionally collect information that is made publicly
+        available on social media websites. You can control how much of your
+        information social media websites make public by visiting these websites
+        and changing your privacy settings.
       </p>
       <h1>Do we share the information we collect with third parties?</h1>
       <p>
@@ -216,9 +216,9 @@ export default function PrivacyView() {
         Where and when is information collected from customers and end users?
       </h1>
       <p>
-        Training Log will collect personal information that you submit to us. We
-        may also receive personal information about you from third parties as
-        described above.
+        Log for Training will collect personal information that you submit to
+        us. We may also receive personal information about you from third
+        parties as described above.
       </p>
       <h1>How Do We Use Your Email Address?</h1>
       <p>
@@ -262,16 +262,16 @@ export default function PrivacyView() {
         information confidential. After a transaction, your private information
         (credit cards, social security numbers, financials, etc.) is never kept
         on file. We cannot, however, ensure or warrant the absolute security of
-        any information you transmit to Training Log or guarantee that your
+        any information you transmit to Log for Training or guarantee that your
         information on the Service may not be accessed, disclosed, altered, or
         destroyed by a breach of any of our physical, technical, or managerial
         safeguards.
       </p>
       <h1>Could my information be transferred to other countries?</h1>
       <p>
-        Training Log is incorporated in Sweden. Information collected via our
-        website, through direct interactions with you, or from use of our help
-        services may be transferred from time to time to our offices or
+        Log for Training is incorporated in Sweden. Information collected via
+        our website, through direct interactions with you, or from use of our
+        help services may be transferred from time to time to our offices or
         personnel, or to third parties, located throughout the world, and may be
         viewed and hosted anywhere in the world, including countries that may
         not have laws of general applicability regulating the use and transfer
@@ -280,7 +280,8 @@ export default function PrivacyView() {
         and hosting of such information.
       </p>
       <h1>
-        Is the information collected through the Training Log Service secure?
+        Is the information collected through the Log for Training Service
+        secure?
       </h1>
       <p>
         We take precautions to protect the security of your information. We have
@@ -298,9 +299,9 @@ export default function PrivacyView() {
       <h1>Can I update or correct my information?</h1>
       <p>
         The rights you have to request updates or corrections to the information
-        Training Log collects depend on your relationship with Training Log.
-        Personnel may update or correct their information as detailed in our
-        internal company employment policies.
+        Log for Training collects depend on your relationship with Log for
+        Training. Personnel may update or correct their information as detailed
+        in our internal company employment policies.
       </p>
       <p>
         Customers have the right to request the restriction of certain uses and
@@ -339,11 +340,11 @@ export default function PrivacyView() {
       <p>
         We reserve the right to transfer information to a third party in the
         event of a sale, merger or other transfer of all or substantially all of
-        the assets of Training Log or any of its Corporate Affiliates (as
-        defined herein), or that portion of Training Log or any of its Corporate
-        Affiliates to which the Service relates, or in the event that we
-        discontinue our business or file a petition or have filed against us a
-        petition in bankruptcy, reorganization or similar proceeding, provided
+        the assets of Log for Training or any of its Corporate Affiliates (as
+        defined herein), or that portion of Log for Training or any of its
+        Corporate Affiliates to which the Service relates, or in the event that
+        we discontinue our business or file a petition or have filed against us
+        a petition in bankruptcy, reorganization or similar proceeding, provided
         that the third party agrees to adhere to the terms of this Privacy
         Policy.
       </p>
@@ -353,7 +354,7 @@ export default function PrivacyView() {
         to our Corporate Affiliates. For purposes of this Privacy Policy,
         "Corporate Affiliate" means any person or entity which directly or
         indirectly controls, is controlled by or is under common control with
-        Training Log, whether by ownership or otherwise. Any information
+        Log for Training, whether by ownership or otherwise. Any information
         relating to you that we provide to our Corporate Affiliates will be
         treated by those Corporate Affiliates in accordance with the terms of
         this Privacy Policy.
@@ -373,7 +374,7 @@ export default function PrivacyView() {
         also be subject to other local, state, national, or international laws.
       </p>
       <p>
-        By using Training Log or contacting us directly, you signify your
+        By using Log for Training or contacting us directly, you signify your
         acceptance of this Privacy Policy. If you do not agree to this Privacy
         Policy, you should not engage with our website, or use our services.
         Continued use of the website, direct engagement with us, or following
@@ -404,8 +405,8 @@ export default function PrivacyView() {
       </p>
       <h1>Cookies</h1>
       <p>
-        Training Log uses "Cookies" to identify the areas of our website that
-        you have visited. A Cookie is a small piece of data stored on your
+        Log for Training uses "Cookies" to identify the areas of our website
+        that you have visited. A Cookie is a small piece of data stored on your
         computer or mobile device by your web browser. We use Cookies to enhance
         the performance and functionality of our website but are non-essential
         to their use. However, without these cookies, certain functionality like
@@ -457,11 +458,11 @@ export default function PrivacyView() {
         links to third-party websites or services ("Third- Party Services").
       </p>
       <p>
-        You acknowledge and agree that Training Log shall not be responsible for
-        any Third-Party Services, including their accuracy, completeness,
+        You acknowledge and agree that Log for Training shall not be responsible
+        for any Third-Party Services, including their accuracy, completeness,
         timeliness, validity, copyright compliance, legality, decency, quality
-        or any other aspect thereof. Training Log does not assume and shall not
-        have any liability or responsibility to you or any other person or
+        or any other aspect thereof. Log for Training does not assume and shall
+        not have any liability or responsibility to you or any other person or
         entity for any Third-Party Services.
       </p>
       <p>
@@ -568,7 +569,7 @@ export default function PrivacyView() {
         individuals' personal data that they collect and process. It also raises
         the stakes for compliance by increasing enforcement and imposing greater
         fines for breach. Beyond these facts it's simply the right thing to do.
-        At Training Log we strongly believe that your data privacy is very
+        At Log for Training we strongly believe that your data privacy is very
         important and we already have solid security and privacy practices in
         place that go beyond the requirements of this new regulation.
       </p>
@@ -577,11 +578,12 @@ export default function PrivacyView() {
       </h1>
       <p>
         We are committed to helping our customers meet the data subject rights
-        requirements of GDPR. Training Log processes or stores all personal data
-        in fully vetted, DPA compliant vendors. We do store all conversation and
-        personal data for up to 6 years unless your account is deleted. In which
-        case, we dispose of all data in accordance with our Terms of Service and
-        Privacy Policy, but we will not hold it longer than 60 days.
+        requirements of GDPR. Log for Training processes or stores all personal
+        data in fully vetted, DPA compliant vendors. We do store all
+        conversation and personal data for up to 6 years unless your account is
+        deleted. In which case, we dispose of all data in accordance with our
+        Terms of Service and Privacy Policy, but we will not hold it longer than
+        60 days.
       </p>
       <p>
         We are aware that if you are working with EU customers, you need to be

@@ -29,24 +29,24 @@ export default function TosView() {
 
       <h1>General Terms</h1>
       <p>
-        By accessing and placing an order with Training Log, you confirm that
-        you are in agreement with and bound by the terms of service contained in
-        the Terms & Conditions outlined below. These terms apply to the entire
-        website and any email or other type of communication between you and
-        Training Log.
+        By accessing and placing an order with Log for Training, you confirm
+        that you are in agreement with and bound by the terms of service
+        contained in the Terms & Conditions outlined below. These terms apply to
+        the entire website and any email or other type of communication between
+        you and Log for Training.
       </p>
       <p>
-        Under no circumstances shall Training Log team be liable for any direct,
-        indirect, special, incidental or consequential damages, including, but
-        not limited to, loss of data or profit, arising out of the use, or the
-        inability to use, the materials on this site, even if Training Log team
-        or an authorized representative has been advised of the possibility of
-        such damages. If your use of materials from this site results in the
-        need for servicing, repair or correction of equipment or data, you
-        assume any costs thereof.
+        Under no circumstances shall Log for Training team be liable for any
+        direct, indirect, special, incidental or consequential damages,
+        including, but not limited to, loss of data or profit, arising out of
+        the use, or the inability to use, the materials on this site, even if
+        Log for Training team or an authorized representative has been advised
+        of the possibility of such damages. If your use of materials from this
+        site results in the need for servicing, repair or correction of
+        equipment or data, you assume any costs thereof.
       </p>
       <p>
-        Training Log will not be responsible for any outcome that may occur
+        Log for Training will not be responsible for any outcome that may occur
         during the course of usage of our resources. We reserve the rights to
         change prices and revise the resources usage policy in any moment. This
         Terms & Conditions was created with{' '}
@@ -58,24 +58,25 @@ export default function TosView() {
 
       <h1>License</h1>
       <p>
-        Training Log grants you a revocable, non-exclusive, non-transferable,
-        limited license to download, install and use the website strictly in
-        accordance with the terms of this Agreement.
+        Log for Training grants you a revocable, non-exclusive,
+        non-transferable, limited license to download, install and use the
+        website strictly in accordance with the terms of this Agreement.
       </p>
       <p>
-        These Terms & Conditions are a contract between you and Training Log
-        (referred to in these Terms & Conditions as "Training Log", "us", "we"
-        or "our"), the provider of the Training Log website and the services
-        accessible from the Training Log website (which are collectively
-        referred to in these Terms & Conditions as the "Training Log Service").
+        These Terms & Conditions are a contract between you and Log for Training
+        (referred to in these Terms & Conditions as "Log for Training", "us",
+        "we" or "our"), the provider of the Log for Training website and the
+        services accessible from the Log for Training website (which are
+        collectively referred to in these Terms & Conditions as the "Log for
+        Training Service").
       </p>
       <p>
         You are agreeing to be bound by these Terms & Conditions. If you do not
-        agree to these Terms & Conditions, please do not use the Training Log
-        Service. In these Terms & Conditions, "you" refers both to you as an
-        individual and to the entity you represent. If you violate any of these
-        Terms & Conditions, we reserve the right to cancel your account or block
-        access to your account without notice.
+        agree to these Terms & Conditions, please do not use the Log for
+        Training Service. In these Terms & Conditions, "you" refers both to you
+        as an individual and to the entity you represent. If you violate any of
+        these Terms & Conditions, we reserve the right to cancel your account or
+        block access to your account without notice.
       </p>
 
       <h1>Definitions and key terms</h1>
@@ -93,21 +94,21 @@ export default function TosView() {
         </li>
         <li>
           Company: when this policy mentions “Company,” “we,” “us,” or “our,” it
-          refers to Training Log, that is responsible for your information under
-          this Terms & Conditions.
+          refers to Log for Training, that is responsible for your information
+          under this Terms & Conditions.
         </li>
         <li>
-          Country: where Training Log or the owners/founders of Training Log are
-          based, in this case is{' '}
+          Country: where Log for Training or the owners/founders of Log for
+          Training are based, in this case is{' '}
         </li>
         <li>
           Device: any internet connected device such as a phone, tablet,
-          computer or any other device that can be used to visit Training Log
-          and use the services.
+          computer or any other device that can be used to visit Log for
+          Training and use the services.
         </li>
         <li>
-          Service: refers to the service provided by Training Log as described
-          in the relative terms (if available) and on this platform.
+          Service: refers to the service provided by Log for Training as
+          described in the relative terms (if available) and on this platform.
         </li>
         <li>
           Third-party service: refers to advertisers, contest sponsors,
@@ -115,12 +116,12 @@ export default function TosView() {
           or whose products or services we think may interest you.
         </li>
         <li>
-          Website: Training Log's site, which can be accessed via this URL:
+          Website: Log for Training's site, which can be accessed via this URL:
           https://miniproject-90787.web.app
         </li>
         <li>
-          You: a person or entity that is registered with Training Log to use
-          the Services.
+          You: a person or entity that is registered with Log for Training to
+          use the Services.
         </li>
       </ul>
 
@@ -138,23 +139,23 @@ export default function TosView() {
         </li>
         <li>
           Remove, alter or obscure any proprietary notice (including any notice
-          of copyright or trademark) of Training Log or its affiliates,
+          of copyright or trademark) of Log for Training or its affiliates,
           partners, suppliers or the licensors of the website.
         </li>
       </ul>
       <h1>Return and Refund Policy</h1>
       <p>
-        Thanks for shopping at Training Log. We appreciate the fact that you
+        Thanks for shopping at Log for Training. We appreciate the fact that you
         like to buy the stuff we build. We also want to make sure you have a
         rewarding experience while you’re exploring, evaluating, and purchasing
         our products.
       </p>
       <p>
         As with any shopping experience, there are terms and conditions that
-        apply to transactions at Training Log. We’ll be as brief as our
+        apply to transactions at Log for Training. We’ll be as brief as our
         attorneys will allow. The main thing to remember is that by placing an
-        order or making a purchase at Training Log, you agree to the terms along
-        with Training Log's Privacy Policy.
+        order or making a purchase at Log for Training, you agree to the terms
+        along with Log for Training's Privacy Policy.
       </p>
       <p>
         If, for any reason, You are not completely satisfied with any good or
@@ -165,12 +166,12 @@ export default function TosView() {
       <h1>Your Suggestions</h1>
       <p>
         Any feedback, comments, ideas, improvements or suggestions
-        (collectively, "Suggestions") provided by you to Training Log with
+        (collectively, "Suggestions") provided by you to Log for Training with
         respect to the website shall remain the sole and exclusive property of
-        Training Log.
+        Log for Training.
       </p>
       <p>
-        Training Log shall be free to use, copy, modify, publish, or
+        Log for Training shall be free to use, copy, modify, publish, or
         redistribute the Suggestions for any purpose and in any way without any
         credit or any compensation to you.
       </p>
@@ -200,8 +201,8 @@ export default function TosView() {
 
       <h1>Cookies</h1>
       <p>
-        Training Log uses "Cookies" to identify the areas of our website that
-        you have visited. A Cookie is a small piece of data stored on your
+        Log for Training uses "Cookies" to identify the areas of our website
+        that you have visited. A Cookie is a small piece of data stored on your
         computer or mobile device by your web browser. We use Cookies to enhance
         the performance and functionality of our website but are non-essential
         to their use. However, without these cookies, certain functionality like
@@ -215,15 +216,15 @@ export default function TosView() {
 
       <h1>Changes To Our Terms & Conditions</h1>
       <p>
-        You acknowledge and agree that Training Log may stop (permanently or
+        You acknowledge and agree that Log for Training may stop (permanently or
         temporarily) providing the Service (or any features within the Service)
         to you or to users generally at sole discretion, without prior notice to
         you. You may stop using the Service at any time. You do not need to
-        specifically inform Training Log when you stop using the Service. You
-        acknowledge and agree that if Training Log disables access to your
-        account, you may be prevented from accessing the Service, your account
-        details or any files or other materials which is contained in your
-        account.
+        specifically inform Log for Training when you stop using the Service.
+        You acknowledge and agree that if Log for Training disables access to
+        your account, you may be prevented from accessing the Service, your
+        account details or any files or other materials which is contained in
+        your account.
       </p>
       <p>
         If we decide to change our Terms & Conditions, we will post those
@@ -233,21 +234,21 @@ export default function TosView() {
 
       <h1>Modifications to Our website</h1>
       <p>
-        Training Log reserves the right to modify, suspend or discontinue,
+        Log for Training reserves the right to modify, suspend or discontinue,
         temporarily or permanently, the website or any service to which it
         connects, with or without notice and without liability to you.
       </p>
 
       <h1>Updates to Our website</h1>
       <p>
-        Training Log may from time to time provide enhancements or improvements
-        to the features/ functionality of the website, which may include
-        patches, bug fixes, updates, upgrades and other modifications
+        Log for Training may from time to time provide enhancements or
+        improvements to the features/ functionality of the website, which may
+        include patches, bug fixes, updates, upgrades and other modifications
         ("Updates").
       </p>
       <p>
         Updates may modify or delete certain features and/or functionalities of
-        the website. You agree that Training Log has no obligation to (i)
+        the website. You agree that Log for Training has no obligation to (i)
         provide any Updates, or (ii) continue to provide or enable any
         particular features and/or functionalities of the website to you.
       </p>
@@ -264,11 +265,11 @@ export default function TosView() {
         links to third-party websites or services ("Third- Party Services").
       </p>
       <p>
-        You acknowledge and agree that Training Log shall not be responsible for
-        any Third-Party Services, including their accuracy, completeness,
+        You acknowledge and agree that Log for Training shall not be responsible
+        for any Third-Party Services, including their accuracy, completeness,
         timeliness, validity, copyright compliance, legality, decency, quality
-        or any other aspect thereof. Training Log does not assume and shall not
-        have any liability or responsibility to you or any other person or
+        or any other aspect thereof. Log for Training does not assume and shall
+        not have any liability or responsibility to you or any other person or
         entity for any Third-Party Services.
       </p>
       <p>
@@ -279,17 +280,17 @@ export default function TosView() {
 
       <h1>Term and Termination</h1>
       <p>
-        This Agreement shall remain in effect until terminated by you or
-        Training Log.
+        This Agreement shall remain in effect until terminated by you or Log for
+        Training.
       </p>
       <p>
-        Training Log may, in its sole discretion, at any time and for any or no
-        reason, suspend or terminate this Agreement with or without prior
+        Log for Training may, in its sole discretion, at any time and for any or
+        no reason, suspend or terminate this Agreement with or without prior
         notice.
       </p>
       <p>
-        This Agreement will terminate immediately, without prior notice from
-        Training Log, in the event that you fail to comply with any provision of
+        This Agreement will terminate immediately, without prior notice from Log
+        for Training, in the event that you fail to comply with any provision of
         this Agreement. You may also terminate this Agreement by deleting the
         website and all copies thereof from your computer.
       </p>
@@ -298,7 +299,7 @@ export default function TosView() {
         website and delete all copies of the website from your computer.
       </p>
       <p>
-        Termination of this Agreement will not limit any of Training Log's
+        Termination of this Agreement will not limit any of Log for Training's
         rights or remedies at law or in equity in case of breach by you (during
         the term of this Agreement) of any of your obligations under the present
         Agreement.
@@ -321,7 +322,7 @@ export default function TosView() {
 
       <h1>Indemnification</h1>
       <p>
-        You agree to indemnify and hold Training Log and its parents,
+        You agree to indemnify and hold Log for Training and its parents,
         subsidiaries, affiliates, officers, employees, agents, partners and
         licensors (if any) harmless from any claim or demand, including
         reasonable attorneys' fees, due to or arising out of your: (a) use of
@@ -333,31 +334,32 @@ export default function TosView() {
       <p>
         The website is provided to you "AS IS" and "AS AVAILABLE" and with all
         faults and defects without warranty of any kind. To the maximum extent
-        permitted under applicable law, Training Log, on its own behalf and on
-        behalf of its affiliates and its and their respective licensors and
+        permitted under applicable law, Log for Training, on its own behalf and
+        on behalf of its affiliates and its and their respective licensors and
         service providers, expressly disclaims all warranties, whether express,
         implied, statutory or otherwise, with respect to the website, including
         all implied warranties of merchantability, fitness for a particular
         purpose, title and non-infringement, and warranties that may arise out
         of course of dealing, course of performance, usage or trade practice.
-        Without limitation to the foregoing, Training Log provides no warranty
-        or undertaking, and makes no representation of any kind that the website
-        will meet your requirements, achieve any intended results, be compatible
-        or work with any other software, , systems or services, operate without
-        interruption, meet any performance or reliability standards or be error
-        free or that any errors or defects can or will be corrected.
+        Without limitation to the foregoing, Log for Training provides no
+        warranty or undertaking, and makes no representation of any kind that
+        the website will meet your requirements, achieve any intended results,
+        be compatible or work with any other software, , systems or services,
+        operate without interruption, meet any performance or reliability
+        standards or be error free or that any errors or defects can or will be
+        corrected.
       </p>
       <p>
-        Without limiting the foregoing, neither Training Log nor any Training
-        Log's provider makes any representation or warranty of any kind, express
-        or implied: (i) as to the operation or availability of the website, or
-        the information, content, and materials or products included thereon;
-        (ii) that the website will be uninterrupted or error-free; (iii) as to
-        the accuracy, reliability, or currency of any information or content
-        provided through the website; or (iv) that the website, its servers, the
-        content, or e-mails sent from or on behalf of Training Log are free of
-        viruses, scripts, trojan horses, worms, malware, timebombs or other
-        harmful components.
+        Without limiting the foregoing, neither Log for Training nor any
+        Training Log's provider makes any representation or warranty of any
+        kind, express or implied: (i) as to the operation or availability of the
+        website, or the information, content, and materials or products included
+        thereon; (ii) that the website will be uninterrupted or error-free;
+        (iii) as to the accuracy, reliability, or currency of any information or
+        content provided through the website; or (iv) that the website, its
+        servers, the content, or e-mails sent from or on behalf of Log for
+        Training are free of viruses, scripts, trojan horses, worms, malware,
+        timebombs or other harmful components.
       </p>
       <p>
         Some jurisdictions do not allow the exclusion of or limitations on
@@ -369,22 +371,22 @@ export default function TosView() {
       <h1>Limitation of Liability</h1>
       <p>
         Notwithstanding any damages that you might incur, the entire liability
-        of Training Log and any of its suppliers under any provision of this
+        of Log for Training and any of its suppliers under any provision of this
         Agreement and your exclusive remedy for all of the foregoing shall be
         limited to the amount actually paid by you for the website.
       </p>
       <p>
-        To the maximum extent permitted by applicable law, in no event shall
-        Training Log or its suppliers be liable for any special, incidental,
+        To the maximum extent permitted by applicable law, in no event shall Log
+        for Training or its suppliers be liable for any special, incidental,
         indirect, or consequential damages whatsoever (including, but not
         limited to, damages for loss of profits, for loss of data or other
         information, for business interruption, for personal injury, for loss of
         privacy arising out of or in any way related to the use of or inability
         to use the website, third-party software and/or third-party hardware
         used with the website, or otherwise in connection with any provision of
-        this Agreement), even if Training Log or any supplier has been advised
-        of the possibility of such damages and even if the remedy fails of its
-        essential purpose.
+        this Agreement), even if Log for Training or any supplier has been
+        advised of the possibility of such damages and even if the remedy fails
+        of its essential purpose.
       </p>
       <p>
         Some states/jurisdictions do not allow the exclusion or limitation of
@@ -402,19 +404,19 @@ export default function TosView() {
       </p>
       <p>
         This Agreement, together with the Privacy Policy and any other legal
-        notices published by Training Log on the Services, shall constitute the
-        entire agreement between you and Training Log concerning the Services.
-        If any provision of this Agreement is deemed invalid by a court of
-        competent jurisdiction, the invalidity of such provision shall not
-        affect the validity of the remaining provisions of this Agreement, which
-        shall remain in full force and effect. No waiver of any term of this
-        Agreement shall be deemed a further or continuing waiver of such term or
-        any other term, and Training Log's failure to assert any right or
-        provision under this Agreement shall not constitute a waiver of such
-        right or provision. YOU AND Training Log AGREE THAT ANY CAUSE OF ACTION
-        ARISING OUT OF OR RELATED TO THE SERVICES MUST COMMENCE WITHIN ONE (1)
-        YEAR AFTER THE CAUSE OF ACTION ACCRUES. OTHERWISE, SUCH CAUSE OF ACTION
-        IS PERMANENTLY BARRED.
+        notices published by Log for Training on the Services, shall constitute
+        the entire agreement between you and Log for Training concerning the
+        Services. If any provision of this Agreement is deemed invalid by a
+        court of competent jurisdiction, the invalidity of such provision shall
+        not affect the validity of the remaining provisions of this Agreement,
+        which shall remain in full force and effect. No waiver of any term of
+        this Agreement shall be deemed a further or continuing waiver of such
+        term or any other term, and Log for Training's failure to assert any
+        right or provision under this Agreement shall not constitute a waiver of
+        such right or provision. YOU AND Log for Training AGREE THAT ANY CAUSE
+        OF ACTION ARISING OUT OF OR RELATED TO THE SERVICES MUST COMMENCE WITHIN
+        ONE (1) YEAR AFTER THE CAUSE OF ACTION ACCRUES. OTHERWISE, SUCH CAUSE OF
+        ACTION IS PERMANENTLY BARRED.
       </p>
 
       <h1>Waiver</h1>
@@ -437,8 +439,8 @@ export default function TosView() {
 
       <h1>Amendments to this Agreement</h1>
       <p>
-        Training Log reserves the right, at its sole discretion, to modify or
-        replace this Agreement at any time. If a revision is material we will
+        Log for Training reserves the right, at its sole discretion, to modify
+        or replace this Agreement at any time. If a revision is material we will
         provide at least 30 days' notice prior to any new terms taking effect.
         What constitutes a material change will be determined at our sole
         discretion.
@@ -454,12 +456,13 @@ export default function TosView() {
       <p>
         The Agreement constitutes the entire agreement between you and Training
         Log regarding your use of the website and supersedes all prior and
-        contemporaneous written or oral agreements between you and Training Log.
+        contemporaneous written or oral agreements between you and Log for
+        Training.
       </p>
       <p>
         You may be subject to additional terms and conditions that apply when
-        you use or purchase other Training Log's services, which Training Log
-        will provide to you at the time of such use or purchase.
+        you use or purchase other Log for Training's services, which Log for
+        Training will provide to you at the time of such use or purchase.
       </p>
 
       <h1>Updates to Our Terms</h1>
@@ -479,31 +482,31 @@ export default function TosView() {
         The website and its entire contents, features and functionality
         (including but not limited to all information, software, text, displays,
         images, video and audio, and the design, selection and arrangement
-        thereof), are owned by Training Log, its licensors or other providers of
-        such material and are protected by and international copyright,
-        trademark, patent, trade secret and other intellectual property or
-        proprietary rights laws. The material may not be copied, modified,
-        reproduced, downloaded or distributed in any way, in whole or in part,
-        without the express prior written permission of Training Log, unless and
-        except as is expressly provided in these Terms & Conditions. Any
-        unauthorized use of the material is prohibited.
+        thereof), are owned by Log for Training, its licensors or other
+        providers of such material and are protected by and international
+        copyright, trademark, patent, trade secret and other intellectual
+        property or proprietary rights laws. The material may not be copied,
+        modified, reproduced, downloaded or distributed in any way, in whole or
+        in part, without the express prior written permission of Log for
+        Training, unless and except as is expressly provided in these Terms &
+        Conditions. Any unauthorized use of the material is prohibited.
       </p>
 
       <h1>Agreement to Arbitrate</h1>
       <p>
         This section applies to any dispute EXCEPT IT DOESN’T INCLUDE A DISPUTE
         RELATING TO CLAIMS FOR INJUNCTIVE OR EQUITABLE RELIEF REGARDING THE
-        ENFORCEMENT OR VALIDITY OF YOUR OR Training Log's INTELLECTUAL PROPERTY
-        RIGHTS. The term “dispute” means any dispute, action, or other
-        controversy between you and Training Log concerning the Services or this
-        agreement, whether in contract, warranty, tort, statute, regulation,
-        ordinance, or any other legal or equitable basis. “Dispute” will be
-        given the broadest possible meaning allowable under law.
+        ENFORCEMENT OR VALIDITY OF YOUR OR Log for Training's INTELLECTUAL
+        PROPERTY RIGHTS. The term “dispute” means any dispute, action, or other
+        controversy between you and Log for Training concerning the Services or
+        this agreement, whether in contract, warranty, tort, statute,
+        regulation, ordinance, or any other legal or equitable basis. “Dispute”
+        will be given the broadest possible meaning allowable under law.
       </p>
 
       <h1>Notice of Dispute</h1>
       <p>
-        In the event of a dispute, you or Training Log must give the other a
+        In the event of a dispute, you or Log for Training must give the other a
         Notice of Dispute, which is a written statement that sets forth the
         name, address, and contact information of the party giving it, the facts
         giving rise to the dispute, and the relief requested. You must send any
@@ -515,17 +518,17 @@ export default function TosView() {
         >
           [email&#160;protected]
         </a>
-        . Training Log will send any Notice of Dispute to you by mail to your
-        address if we have it, or otherwise to your email address. You and
-        Training Log will attempt to resolve any dispute through informal
+        . Log for Training will send any Notice of Dispute to you by mail to
+        your address if we have it, or otherwise to your email address. You and
+        Log for Training will attempt to resolve any dispute through informal
         negotiation within sixty (60) days from the date the Notice of Dispute
-        is sent. After sixty (60) days, you or Training Log may commence
+        is sent. After sixty (60) days, you or Log for Training may commence
         arbitration.
       </p>
 
       <h1>Binding Arbitration</h1>
       <p>
-        If you and Training Log don’t resolve any dispute by informal
+        If you and Log for Training don’t resolve any dispute by informal
         negotiation, any other effort to resolve the dispute will be conducted
         exclusively by binding arbitration as described in this section. You are
         giving up the right to litigate (or participate in as a party or class
@@ -546,8 +549,8 @@ export default function TosView() {
         including ideas for new or improved products, services, features,
         technologies or promotions, you expressly agree that such submissions
         will automatically be treated as non-confidential and non-proprietary
-        and will become the sole property of Training Log without any
-        compensation or credit to you whatsoever. Training Log and its
+        and will become the sole property of Log for Training without any
+        compensation or credit to you whatsoever. Log for Training and its
         affiliates shall have no obligations with respect to such submissions or
         posts and may use the ideas contained in such submissions or posts for
         any purposes in any medium in perpetuity, including, but not limited to,
@@ -557,7 +560,7 @@ export default function TosView() {
 
       <h1>Promotions</h1>
       <p>
-        Training Log may, from time to time, include contests, promotions,
+        Log for Training may, from time to time, include contests, promotions,
         sweepstakes, or other activities (“Promotions”) that require you to
         submit material or information concerning yourself. Please note that all
         Promotions may be governed by separate rules that may contain certain
@@ -593,32 +596,32 @@ export default function TosView() {
         remainder of these Terms & Conditions will continue in full force and
         effect. Any waiver of any provision of these Terms & Conditions will be
         effective only if in writing and signed by an authorized representative
-        of Training Log. Training Log will be entitled to injunctive or other
-        equitable relief (without the obligations of posting any bond or surety)
-        in the event of any breach or anticipatory breach by you. Training Log
-        operates and controls the Training Log Service from its offices in . The
-        Service is not intended for distribution to or use by any person or
-        entity in any jurisdiction or country where such distribution or use
-        would be contrary to law or regulation. Accordingly, those persons who
-        choose to access the Training Log Service from other locations do so on
-        their own initiative and are solely responsible for compliance with
-        local laws, if and to the extent local laws are applicable. These Terms
-        & Conditions (which include and incorporate the Training Log Privacy
-        Policy) contains the entire understanding, and supersedes all prior
-        understandings, between you and Training Log concerning its subject
-        matter, and cannot be changed or modified by you. The section headings
-        used in this Agreement are for convenience only and will not be given
-        any legal import.
+        of Log for Training. Log for Training will be entitled to injunctive or
+        other equitable relief (without the obligations of posting any bond or
+        surety) in the event of any breach or anticipatory breach by you. Log
+        for Training operates and controls the Log for Training Service from its
+        offices in . The Service is not intended for distribution to or use by
+        any person or entity in any jurisdiction or country where such
+        distribution or use would be contrary to law or regulation. Accordingly,
+        those persons who choose to access the Log for Training Service from
+        other locations do so on their own initiative and are solely responsible
+        for compliance with local laws, if and to the extent local laws are
+        applicable. These Terms & Conditions (which include and incorporate the
+        Log for Training Privacy Policy) contains the entire understanding, and
+        supersedes all prior understandings, between you and Log for Training
+        concerning its subject matter, and cannot be changed or modified by you.
+        The section headings used in this Agreement are for convenience only and
+        will not be given any legal import.
       </p>
 
       <h1>Disclaimer</h1>
       <p>
-        Training Log is not responsible for any content, code or any other
+        Log for Training is not responsible for any content, code or any other
         imprecision.
       </p>
-      <p>Training Log does not provide warranties or guarantees.</p>
+      <p>Log for Training does not provide warranties or guarantees.</p>
       <p>
-        In no event shall Training Log be liable for any special, direct,
+        In no event shall Log for Training be liable for any special, direct,
         indirect, consequential, or incidental damages or any damages
         whatsoever, whether in an action of contract, negligence or other tort,
         arising out of or in connection with the use of the Service or the
@@ -627,27 +630,27 @@ export default function TosView() {
         any time without prior notice.
       </p>
       <p>
-        The Training Log Service and its contents are provided "as is" and "as
-        available" without any warranty or representations of any kind, whether
-        express or implied. Training Log is a distributor and not a publisher of
-        the content supplied by third parties; as such, Training Log exercises
-        no editorial control over such content and makes no warranty or
-        representation as to the accuracy, reliability or currency of any
-        information, content, service or merchandise provided through or
-        accessible via the Training Log Service. Without limiting the foregoing,
-        Training Log specifically disclaims all warranties and representations
-        in any content transmitted on or in connection with the Training Log
-        Service or on sites that may appear as links on the Training Log
-        Service, or in the products provided as a part of, or otherwise in
-        connection with, the Training Log Service, including without limitation
-        any warranties of merchantability, fitness for a particular purpose or
-        non-infringement of third party rights. No oral advice or written
-        information given by Training Log or any of its affiliates, employees,
-        officers, directors, agents, or the like will create a warranty. Price
-        and availability information is subject to change without notice.
-        Without limiting the foregoing, Training Log does not warrant that the
-        Training Log Service will be uninterrupted, uncorrupted, timely, or
-        error-free.
+        The Log for Training Service and its contents are provided "as is" and
+        "as available" without any warranty or representations of any kind,
+        whether express or implied. Log for Training is a distributor and not a
+        publisher of the content supplied by third parties; as such, Log for
+        Training exercises no editorial control over such content and makes no
+        warranty or representation as to the accuracy, reliability or currency
+        of any information, content, service or merchandise provided through or
+        accessible via the Log for Training Service. Without limiting the
+        foregoing, Log for Training specifically disclaims all warranties and
+        representations in any content transmitted on or in connection with the
+        Log for Training Service or on sites that may appear as links on the Log
+        for Training Service, or in the products provided as a part of, or
+        otherwise in connection with, the Log for Training Service, including
+        without limitation any warranties of merchantability, fitness for a
+        particular purpose or non-infringement of third party rights. No oral
+        advice or written information given by Log for Training or any of its
+        affiliates, employees, officers, directors, agents, or the like will
+        create a warranty. Price and availability information is subject to
+        change without notice. Without limiting the foregoing, Log for Training
+        does not warrant that the Log for Training Service will be
+        uninterrupted, uncorrupted, timely, or error-free.
       </p>
 
       <h1>Contact Us</h1>
