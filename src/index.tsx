@@ -19,6 +19,8 @@ import CreateRecordPresenter from './components/CreateExercise/CreateExercisePre
 import AuthPresenter from './components/Auth/AuthPresenter';
 import PasswordResetPresenter from './components/PasswordReset/PasswordResetPresenter';
 import store from './models/store';
+import PrivacyView from './components/Privacy/PrivacyView';
+import TosView from './components/TOS/TosView';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,16 @@ const router = createBrowserRouter([
   {
     path: '/password-reset',
     element: <PasswordResetPresenter />,
+    errorElement: <ErrorView />,
+  },
+  {
+    path: '/privacy',
+    element: <PrivacyView />,
+    errorElement: <ErrorView />,
+  },
+  {
+    path: '/terms',
+    element: <TosView />,
     errorElement: <ErrorView />,
   },
 ]);

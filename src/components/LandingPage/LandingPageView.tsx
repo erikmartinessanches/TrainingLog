@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 interface Props {
   toSignUp: () => void;
@@ -26,6 +27,8 @@ function LandingPageView({ toSignUp, toLogIn }: Props) {
       <Button variant="contained" onClick={toLogInACB} id="login">
         Log in
       </Button>
+      <Link to="/privacy">Privacy Policy</Link>
+      <Link to="/terms">Terms of Service</Link>
     </div>
   );
 }
