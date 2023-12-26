@@ -16,6 +16,7 @@ import {
 import { firebaseApp } from '../persistence/firebaseModel';
 import produce from 'immer';
 import { RootState, AppDispatch } from './store';
+import { continuationUrlDomain } from '../utils/utils';
 
 export const logoutAction = createAction('logoutAction');
 
@@ -135,7 +136,7 @@ export const registerOrLogIn = createAsyncThunk(
           password,
         );
         sendEmailVerification(auth.currentUser, {
-          url: 'https://netuplink.web.app/dashboard',
+          url: `${continuationUrlDomain()}/dashboard`,
         })
           .then(() => {
             console.log('Email verification sent!');
