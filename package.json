@@ -29,7 +29,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "build:staging": "env-cmd -f .env.staging yarn build",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "e2e": "cypress open"
   },
   "eslintConfig": {},
   "browserslist": {
@@ -46,11 +47,14 @@
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1",
+    "@types/chance": "^1",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "chance": "^1.1.11",
+    "cypress": "^13.6.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.2",

@@ -34,11 +34,12 @@ export default function AuthView(props: Props) {
   return (
     <React.Fragment>
       <h2>{props.isSignup ? 'Sign-up' : 'Log in'}</h2>
-      <form onSubmit={handleSubmitACB}>
+      <form onSubmit={handleSubmitACB} id="form-validation">
         <TextField
           required
           //id="outlined-required"
           label="Email"
+          id="email"
           //value={props.email}
           //{...(props.isSignup ? { value: "" } : {})}
           //value={props.isSignup ? "" : null}
@@ -49,6 +50,7 @@ export default function AuthView(props: Props) {
           <TextField
             //id="outlined"
             label="First name"
+            id="first-name"
             //value={props.email}
             //{...(props.isSignup ? { value: "" } : {})}
             //value={props.isSignup ? "" : null}
@@ -60,6 +62,7 @@ export default function AuthView(props: Props) {
           <TextField
             //id="outlined"
             label="Last name"
+            id="last-name"
             //value={props.email}
             //{...(props.isSignup ? { value: "" } : {})}
             //value={props.isSignup ? "" : null}
@@ -82,6 +85,7 @@ export default function AuthView(props: Props) {
         <Button
           variant="contained"
           type="submit"
+          id="login"
           //value={props.isSignup ? "Register" : "Sign in"}
           //onClick={onSignUpClicked}
           //disabled={loading || status === "empty"}
