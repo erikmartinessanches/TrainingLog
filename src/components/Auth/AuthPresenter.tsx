@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AuthView from './AuthView';
 import { useLocation } from 'react-router-dom';
-import { registerOrLogIn } from '../../models/userSlice';
+import { registerOrLogIn, authWithProvider } from '../../models/userSlice';
 import { useAppDispatch } from '../../utils/hooks';
 
 export default function AuthPresenter() {
@@ -29,6 +29,10 @@ export default function AuthPresenter() {
     );
   }
 
+  async function signUpWithGoogle() {
+    dispatch(authWithProvider({ provider: 'google' }));
+  }
+
   return (
     <AuthView
       isSignup={signup}
@@ -41,6 +45,7 @@ export default function AuthPresenter() {
       setLastName={setLastName}
       //  email={email}
       //   password={password}
+      signUpWithGoogle={signUpWithGoogle}
     />
   );
 }

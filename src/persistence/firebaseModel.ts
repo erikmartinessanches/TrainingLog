@@ -43,6 +43,7 @@ const firebaseApp = initializeApp({
 });
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
+auth.useDeviceLanguage();
 
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();

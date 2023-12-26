@@ -7,16 +7,22 @@ import {
 } from '@reduxjs/toolkit';
 import {
   createUserWithEmailAndPassword,
-  getAuth,
+  //getAuth,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
   sendEmailVerification,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  UserCredential,
 } from 'firebase/auth';
-import { firebaseApp } from '../persistence/firebaseModel';
+//import { firebaseApp } from '../persistence/firebaseModel';
 import produce from 'immer';
 import { RootState, AppDispatch } from './store';
 import { continuationUrlDomain } from '../utils/utils';
+
+import { auth } from '../persistence/firebaseModel';
+import { FirebaseError } from 'firebase/app';
 
 export const logoutAction = createAction('logoutAction');
 
@@ -116,6 +122,53 @@ interface RegisterProps {
   firstName: string;
   lastName: string;
 }
+
+interface ProviderProps {
+  provider: string;
+}
+
+export const authWithProvider = createAsyncThunk(
+  'auth/authWithProvider',
+  async ({ provider }: ProviderProps) => {
+    try {
+      if (provider === 'google') {
+        const authProvider = new GoogleAuthProvider();
+
+        signInWithRedirect(auth, authProvider)
+          .then(async (result: UserCredential) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+            debugger;
+            // IdP data available using getAdditionalUserInfo(result)
+          })
+          .catch((error: FirebaseError) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+          });
+        return {
+          uid: credential.user.uid,
+          email: credential.user.email,
+          usingAsSignUp: signUpOption,
+          firstName: firstName,
+          lastName: lastName,
+        };
+      }
+    } catch (e) {
+      switch (e.code) {
+        case 'auth/email-already-in-use':
+          console.log('Email address already in use.');
+          break;
+        //Handle more...
+      }
+    }
+  },
+);
+
 //Considered moving this to the Persistence layer. Keeping it here for now since
 //this function is used from a presenter.
 export const registerOrLogIn = createAsyncThunk(
@@ -127,7 +180,7 @@ export const registerOrLogIn = createAsyncThunk(
     firstName,
     lastName,
   }: RegisterProps) => {
-    const auth = getAuth(firebaseApp);
+    //const auth = getAuth(firebaseApp);
     try {
       if (signUpOption) {
         const authUserData = await createUserWithEmailAndPassword(
@@ -210,7 +263,7 @@ export const selectLoggedOut = createSelector(
 export const logoutNow =
   (/* state: RootState */) => async (dispatch: AppDispatch, _) => {
     dispatch(setLoggedOut(true));
-    await signOut(getAuth(firebaseApp));
+    await signOut(auth);
   };
 
 export const {

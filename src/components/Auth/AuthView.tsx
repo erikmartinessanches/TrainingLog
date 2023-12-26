@@ -9,6 +9,7 @@ interface Props {
   setLastName: (lastName: string) => void;
   setPassword: (password: string) => void;
   onSubmitACB: () => void;
+  signUpWithGoogle: () => void;
   isSignup: boolean;
 }
 export default function AuthView(props: Props) {
@@ -29,6 +30,10 @@ export default function AuthView(props: Props) {
   function handleSubmitACB(event: React.ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     props.onSubmitACB();
+  }
+
+  function onSignUpWithGoogle() {
+    props.signUpWithGoogle();
   }
 
   return (
@@ -91,6 +96,16 @@ export default function AuthView(props: Props) {
           //disabled={loading || status === "empty"}
         >
           {props.isSignup ? 'Sign-up' : 'Log in'}
+        </Button>
+        <Button
+          variant="contained"
+          //type="submit"
+          id="sign-in-with-google"
+          //value={props.isSignup ? "Register" : "Sign in"}
+          onClick={onSignUpWithGoogle}
+          //disabled={loading || status === "empty"}
+        >
+          {props.isSignup ? 'Sign-up with Google' : 'Log in with Google'}
         </Button>
         {' or '}
         <Link to={props.isSignup ? '/login' : '/signup'}>
