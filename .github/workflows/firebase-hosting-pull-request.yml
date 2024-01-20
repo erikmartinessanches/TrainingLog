@@ -5,7 +5,7 @@ name: Deployment to staging on PR
 'on':
   pull_request:
     branches:
-      - preprod
+      - master
 env:
   VITE_APP_HELLO: ${{ secrets.VITE_APP_HELLO }}
   VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
