@@ -26,5 +26,6 @@
       { "allowConstantExport": true }
     ],
     "react/react-in-jsx-scope": 0
+    // "comma-spacing": ["error", { "after": false }]
   }
 }

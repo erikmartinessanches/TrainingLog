@@ -8956,6 +8956,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-obfuscate-email@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "react-obfuscate-email@npm:1.1.2"
+  peerDependencies:
+    react: ">=16"
+  checksum: 1e480a6a595be75aadd7e504252e4cc4b4ef8fa9be40a588138e42fc545596c8aae8474757a59d3abd65e95cecf03d228f0088d0b93ae615a0ede3d81f0296bd
+  languageName: node
+  linkType: hard
+
+"react-obfuscate@npm:^3.6.9":
+  version: 3.6.9
+  resolution: "react-obfuscate@npm:3.6.9"
+  peerDependencies:
+    prop-types: ">= 15"
+    react: ">= 16.8"
+    react-dom: ">= 16.8"
+  checksum: a184d4706bfd209bf67a14e88d62606f03dbf8f3998f540b2d4051c5dd2c9e6280d53152736ad8ffcc118630e4318864747dc1369f6624d490420feab9eff9e2
+  languageName: node
+  linkType: hard
+
 "react-redux@npm:^8.0.5":
   version: 8.1.3
   resolution: "react-redux@npm:8.1.3"
@@ -10268,6 +10288,8 @@ __metadata:
     prettier: "npm:3.1.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-obfuscate: "npm:^3.6.9"
+    react-obfuscate-email: "npm:^1.1.2"
     react-redux: "npm:^8.0.5"
     react-router-dom: "npm:^6.4.3"
     redux-devtools-extension: "npm:^2.13.9"
