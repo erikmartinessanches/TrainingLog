@@ -1,6 +1,6 @@
 [![Deployment to staging on PR](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-pull-request.yml/badge.svg)](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-pull-request.yml)[![Deploy to production on merge](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/erikmartinessanches/TrainingLog/actions/workflows/firebase-hosting-merge.yml)
 
-# Log for Training
+# My Training Tracker
 
 This is the code for my training log software. It can register and sign in users. Users are able to create exercises and save their training activity, which are persisted in the database for each user. The application uses roughly an MVP architecture (Model-View-Presenter) with persistence. It also features live-update of training data between multiple logged-in windows, offline functionality and password reset via email.
 

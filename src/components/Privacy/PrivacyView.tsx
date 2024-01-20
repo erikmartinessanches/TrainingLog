@@ -20,7 +20,7 @@ export default function PrivacyView() {
         setShowingEmail(true);
       }}
     >
-      Click for contact info
+      Click for email address
     </button>
   );
   return (
@@ -29,17 +29,19 @@ export default function PrivacyView() {
       <p>Updated at 2023-12-26</p>
       <p>
         {' '}
-        Log for Training (“we,” “our,” or “us”) is committed to protecting your
-        privacy. This Privacy Policy explains how your personal information is
-        collected, used, and disclosed by Log for Training.
+        {import.meta.env.VITE_APP_APP_NAME} (“we,” “our,” or “us”) is committed
+        to protecting your privacy. This Privacy Policy explains how your
+        personal information is collected, used, and disclosed by{' '}
+        {import.meta.env.VITE_APP_APP_NAME}.
       </p>
       <p>
         This Privacy Policy applies to our website, and its associated
-        subdomains (collectively, our “Service”) alongside our application, Log
-        for Training. By accessing or using our Service, you signify that you
-        have read, understood, and agree to our collection, storage, use, and
-        disclosure of your personal information as described in this Privacy
-        Policy and our Terms of Service. This Privacy Policy was created with{' '}
+        subdomains (collectively, our “Service”) alongside our application,{' '}
+        {import.meta.env.VITE_APP_APP_NAME}. By accessing or using our Service,
+        you signify that you have read, understood, and agree to our collection,
+        storage, use, and disclosure of your personal information as described
+        in this Privacy Policy and our Terms of Service. This Privacy Policy was
+        created with{' '}
         <a href="https://termify.io" target="_blank" rel="noreferrer">
           Termify
         </a>
@@ -57,22 +59,23 @@ export default function PrivacyView() {
         </li>
         <li>
           Company: when this policy mentions “Company,” “we,” “us,” or “our,” it
-          refers to Log for Training, that is responsible for your information
-          under this Privacy Policy.
+          refers to {import.meta.env.VITE_APP_APP_NAME}, that is responsible for
+          your information under this Privacy Policy.
         </li>
         <li>
-          Country: where Log for Training or the owners/founders of Log for
-          Training are based, in this case is Sweden
+          Country: where {import.meta.env.VITE_APP_APP_NAME} or the
+          owners/founders of {import.meta.env.VITE_APP_APP_NAME} are based, in
+          this case is Sweden.
         </li>
         <li>
           Customer: refers to the company, organization or person that signs up
-          to use the Log for Training Service to manage the relationships with
-          your consumers or service users.
+          to use the {import.meta.env.VITE_APP_APP_NAME} Service to manage the
+          relationships with your consumers or service users.
         </li>
         <li>
           Device: any internet connected device such as a phone, tablet,
-          computer or any other device that can be used to visit Log for
-          Training and use the services.
+          computer or any other device that can be used to visit{' '}
+          {import.meta.env.VITE_APP_APP_NAME} and use the services.
         </li>
         <li>
           IP address: Every device connected to the Internet is assigned a
@@ -82,8 +85,9 @@ export default function PrivacyView() {
           Internet.
         </li>
         <li>
-          Personnel: refers to those individuals who are employed by Training
-          Log or are under contract to perform a service on behalf of one of the
+          Personnel: refers to those individuals who are employed by{' '}
+          {import.meta.env.VITE_APP_APP_NAME}
+          or are under contract to perform a service on behalf of one of the
           parties.
         </li>
         <li>
@@ -93,8 +97,9 @@ export default function PrivacyView() {
           identifiability of a natural person.
         </li>
         <li>
-          Service: refers to the service provided by Log for Training as
-          described in the relative terms (if available) and on this platform.
+          Service: refers to the service provided by{' '}
+          {import.meta.env.VITE_APP_APP_NAME} as described in the relative terms
+          (if available) and on this platform.
         </li>
         <li>
           Third-party service: refers to advertisers, contest sponsors,
@@ -102,12 +107,12 @@ export default function PrivacyView() {
           or whose products or services we think may interest you.
         </li>
         <li>
-          Website: Log for Training's site, which can be accessed via this URL:
-          https://miniproject-90787.web.app
+          Website: {import.meta.env.VITE_APP_APP_NAME}'s site, which can be
+          accessed via this URL: https://www.mytrainingtracker.com
         </li>
         <li>
-          You: a person or entity that is registered with Log for Training to
-          use the Services.
+          You: a person or entity that is registered with{' '}
+          {import.meta.env.VITE_APP_APP_NAME} to use the Services.
         </li>
       </ul>
       <h1>What Information Do We Collect?</h1>
@@ -146,11 +151,13 @@ export default function PrivacyView() {
         <li>To send periodic emails</li>
       </ul>
       <h1>
-        When does Log for Training use end user information from third parties?
+        When does {import.meta.env.VITE_APP_APP_NAME} use end user information
+        from third parties?
       </h1>
       <p>
-        Log for Training will collect End User Data necessary to provide the Log
-        for Training services to our customers.
+        {import.meta.env.VITE_APP_APP_NAME} will collect End User Data necessary
+        to provide the {import.meta.env.VITE_APP_APP_NAME} services to our
+        customers.
       </p>
       <p>
         End users may voluntarily provide us with information they have made
@@ -161,17 +168,19 @@ export default function PrivacyView() {
         websites and changing your privacy settings.
       </p>
       <h1>
-        When does Log for Training use customer information from third parties?
+        When does {import.meta.env.VITE_APP_APP_NAME} use customer information
+        from third parties?
       </h1>
       <p>
         We receive some information from the third parties when you contact us.
         For example, when you submit your email address to us to show interest
-        in becoming a Log for Training customer, we receive information from a
-        third party that provides automated fraud detection services to Log for
-        Training. We also occasionally collect information that is made publicly
-        available on social media websites. You can control how much of your
-        information social media websites make public by visiting these websites
-        and changing your privacy settings.
+        in becoming a {import.meta.env.VITE_APP_APP_NAME} customer, we receive
+        information from a third party that provides automated fraud detection
+        services to {import.meta.env.VITE_APP_APP_NAME}. We also occasionally
+        collect information that is made publicly available on social media
+        websites. You can control how much of your information social media
+        websites make public by visiting these websites and changing your
+        privacy settings.
       </p>
       <h1>Do we share the information we collect with third parties?</h1>
       <p>
@@ -216,9 +225,9 @@ export default function PrivacyView() {
         Where and when is information collected from customers and end users?
       </h1>
       <p>
-        Log for Training will collect personal information that you submit to
-        us. We may also receive personal information about you from third
-        parties as described above.
+        {import.meta.env.VITE_APP_APP_NAME} will collect personal information
+        that you submit to us. We may also receive personal information about
+        you from third parties as described above.
       </p>
       <h1>How Do We Use Your Email Address?</h1>
       <p>
@@ -242,13 +251,14 @@ export default function PrivacyView() {
       </p>
       <h1>How Long Do We Keep Your Information?</h1>
       <p>
-        We keep your information only so long as we need it to provide Training
-        Log to you and fulfill the purposes described in this policy. This is
-        also the case for anyone that we share your information with and who
-        carries out services on our behalf. When we no longer need to use your
-        information and there is no need for us to keep it to comply with our
-        legal or regulatory obligations, we’ll either remove it from our systems
-        or depersonalize it so that we can't identify you.
+        We keep your information only so long as we need it to provide{' '}
+        {import.meta.env.VITE_APP_APP_NAME} to you and fulfill the purposes
+        described in this policy. This is also the case for anyone that we share
+        your information with and who carries out services on our behalf. When
+        we no longer need to use your information and there is no need for us to
+        keep it to comply with our legal or regulatory obligations, we’ll either
+        remove it from our systems or depersonalize it so that we can't identify
+        you.
       </p>
       <h1>How Do We Protect Your Information?</h1>
       <p>
@@ -262,26 +272,27 @@ export default function PrivacyView() {
         information confidential. After a transaction, your private information
         (credit cards, social security numbers, financials, etc.) is never kept
         on file. We cannot, however, ensure or warrant the absolute security of
-        any information you transmit to Log for Training or guarantee that your
-        information on the Service may not be accessed, disclosed, altered, or
-        destroyed by a breach of any of our physical, technical, or managerial
-        safeguards.
+        any information you transmit to {import.meta.env.VITE_APP_APP_NAME} or
+        guarantee that your information on the Service may not be accessed,
+        disclosed, altered, or destroyed by a breach of any of our physical,
+        technical, or managerial safeguards.
       </p>
       <h1>Could my information be transferred to other countries?</h1>
       <p>
-        Log for Training is incorporated in Sweden. Information collected via
-        our website, through direct interactions with you, or from use of our
-        help services may be transferred from time to time to our offices or
-        personnel, or to third parties, located throughout the world, and may be
-        viewed and hosted anywhere in the world, including countries that may
-        not have laws of general applicability regulating the use and transfer
-        of such data. To the fullest extent allowed by applicable law, by using
-        any of the above, you voluntarily consent to the trans-border transfer
-        and hosting of such information.
+        {import.meta.env.VITE_APP_APP_NAME} is incorporated in Sweden.
+        Information collected via our website, through direct interactions with
+        you, or from use of our help services may be transferred from time to
+        time to our offices or personnel, or to third parties, located
+        throughout the world, and may be viewed and hosted anywhere in the
+        world, including countries that may not have laws of general
+        applicability regulating the use and transfer of such data. To the
+        fullest extent allowed by applicable law, by using any of the above, you
+        voluntarily consent to the trans-border transfer and hosting of such
+        information.
       </p>
       <h1>
-        Is the information collected through the Log for Training Service
-        secure?
+        Is the information collected through the{' '}
+        {import.meta.env.VITE_APP_APP_NAME} Service secure?
       </h1>
       <p>
         We take precautions to protect the security of your information. We have
@@ -299,9 +310,10 @@ export default function PrivacyView() {
       <h1>Can I update or correct my information?</h1>
       <p>
         The rights you have to request updates or corrections to the information
-        Log for Training collects depend on your relationship with Log for
-        Training. Personnel may update or correct their information as detailed
-        in our internal company employment policies.
+        {import.meta.env.VITE_APP_APP_NAME} collects depend on your relationship
+        with {import.meta.env.VITE_APP_APP_NAME}. Personnel may update or
+        correct their information as detailed in our internal company employment
+        policies.
       </p>
       <p>
         Customers have the right to request the restriction of certain uses and
@@ -340,13 +352,13 @@ export default function PrivacyView() {
       <p>
         We reserve the right to transfer information to a third party in the
         event of a sale, merger or other transfer of all or substantially all of
-        the assets of Log for Training or any of its Corporate Affiliates (as
-        defined herein), or that portion of Log for Training or any of its
-        Corporate Affiliates to which the Service relates, or in the event that
-        we discontinue our business or file a petition or have filed against us
-        a petition in bankruptcy, reorganization or similar proceeding, provided
-        that the third party agrees to adhere to the terms of this Privacy
-        Policy.
+        the assets of {import.meta.env.VITE_APP_APP_NAME} or any of its
+        Corporate Affiliates (as defined herein), or that portion of{' '}
+        {import.meta.env.VITE_APP_APP_NAME} or any of its Corporate Affiliates
+        to which the Service relates, or in the event that we discontinue our
+        business or file a petition or have filed against us a petition in
+        bankruptcy, reorganization or similar proceeding, provided that the
+        third party agrees to adhere to the terms of this Privacy Policy.
       </p>
       <h1>Affiliates</h1>
       <p>
@@ -354,10 +366,10 @@ export default function PrivacyView() {
         to our Corporate Affiliates. For purposes of this Privacy Policy,
         "Corporate Affiliate" means any person or entity which directly or
         indirectly controls, is controlled by or is under common control with
-        Log for Training, whether by ownership or otherwise. Any information
-        relating to you that we provide to our Corporate Affiliates will be
-        treated by those Corporate Affiliates in accordance with the terms of
-        this Privacy Policy.
+        {import.meta.env.VITE_APP_APP_NAME}, whether by ownership or otherwise.
+        Any information relating to you that we provide to our Corporate
+        Affiliates will be treated by those Corporate Affiliates in accordance
+        with the terms of this Privacy Policy.
       </p>
       <h1>Governing Law</h1>
       <p>
@@ -374,13 +386,13 @@ export default function PrivacyView() {
         also be subject to other local, state, national, or international laws.
       </p>
       <p>
-        By using Log for Training or contacting us directly, you signify your
-        acceptance of this Privacy Policy. If you do not agree to this Privacy
-        Policy, you should not engage with our website, or use our services.
-        Continued use of the website, direct engagement with us, or following
-        the posting of changes to this Privacy Policy that do not significantly
-        affect the use or disclosure of your personal information will mean that
-        you accept those changes.
+        By using {import.meta.env.VITE_APP_APP_NAME} or contacting us directly,
+        you signify your acceptance of this Privacy Policy. If you do not agree
+        to this Privacy Policy, you should not engage with our website, or use
+        our services. Continued use of the website, direct engagement with us,
+        or following the posting of changes to this Privacy Policy that do not
+        significantly affect the use or disclosure of your personal information
+        will mean that you accept those changes.
       </p>
       <h1>Your Consent</h1>
       <p>
@@ -393,29 +405,31 @@ export default function PrivacyView() {
       <h1>Links to Other Websites</h1>
       <p>
         This Privacy Policy applies only to the Services. The Services may
-        contain links to other websites not operated or controlled by Training
-        Log. We are not responsible for the content, accuracy or opinions
-        expressed in such websites, and such websites are not investigated,
-        monitored or checked for accuracy or completeness by us. Please remember
-        that when you use a link to go from the Services to another website, our
-        Privacy Policy is no longer in effect. Your browsing and interaction on
-        any other website, including those that have a link on our platform, is
-        subject to that website’s own rules and policies. Such third parties may
-        use their own cookies or other methods to collect information about you.
+        contain links to other websites not operated or controlled by{' '}
+        {import.meta.env.VITE_APP_APP_NAME}. We are not responsible for the
+        content, accuracy or opinions expressed in such websites, and such
+        websites are not investigated, monitored or checked for accuracy or
+        completeness by us. Please remember that when you use a link to go from
+        the Services to another website, our Privacy Policy is no longer in
+        effect. Your browsing and interaction on any other website, including
+        those that have a link on our platform, is subject to that website’s own
+        rules and policies. Such third parties may use their own cookies or
+        other methods to collect information about you.
       </p>
       <h1>Cookies</h1>
       <p>
-        Log for Training uses "Cookies" to identify the areas of our website
-        that you have visited. A Cookie is a small piece of data stored on your
-        computer or mobile device by your web browser. We use Cookies to enhance
-        the performance and functionality of our website but are non-essential
-        to their use. However, without these cookies, certain functionality like
-        videos may become unavailable or you would be required to enter your
-        login details every time you visit the website as we would not be able
-        to remember that you had logged in previously. Most web browsers can be
-        set to disable the use of Cookies. However, if you disable Cookies, you
-        may not be able to access functionality on our website correctly or at
-        all. We never place Personally Identifiable Information in Cookies.
+        {import.meta.env.VITE_APP_APP_NAME} uses "Cookies" to identify the areas
+        of our website that you have visited. A Cookie is a small piece of data
+        stored on your computer or mobile device by your web browser. We use
+        Cookies to enhance the performance and functionality of our website but
+        are non-essential to their use. However, without these cookies, certain
+        functionality like videos may become unavailable or you would be
+        required to enter your login details every time you visit the website as
+        we would not be able to remember that you had logged in previously. Most
+        web browsers can be set to disable the use of Cookies. However, if you
+        disable Cookies, you may not be able to access functionality on our
+        website correctly or at all. We never place Personally Identifiable
+        Information in Cookies.
       </p>
       <h1>Blocking and disabling cookies and similar technologies</h1>
       <p>
@@ -458,12 +472,13 @@ export default function PrivacyView() {
         links to third-party websites or services ("Third- Party Services").
       </p>
       <p>
-        You acknowledge and agree that Log for Training shall not be responsible
-        for any Third-Party Services, including their accuracy, completeness,
-        timeliness, validity, copyright compliance, legality, decency, quality
-        or any other aspect thereof. Log for Training does not assume and shall
-        not have any liability or responsibility to you or any other person or
-        entity for any Third-Party Services.
+        You acknowledge and agree that {import.meta.env.VITE_APP_APP_NAME} shall
+        not be responsible for any Third-Party Services, including their
+        accuracy, completeness, timeliness, validity, copyright compliance,
+        legality, decency, quality or any other aspect thereof.{' '}
+        {import.meta.env.VITE_APP_APP_NAME} does not assume and shall not have
+        any liability or responsibility to you or any other person or entity for
+        any Third-Party Services.
       </p>
       <p>
         Third-Party Services and links thereto are provided solely as a
@@ -569,21 +584,22 @@ export default function PrivacyView() {
         individuals' personal data that they collect and process. It also raises
         the stakes for compliance by increasing enforcement and imposing greater
         fines for breach. Beyond these facts it's simply the right thing to do.
-        At Log for Training we strongly believe that your data privacy is very
-        important and we already have solid security and privacy practices in
-        place that go beyond the requirements of this new regulation.
+        At {import.meta.env.VITE_APP_APP_NAME} we strongly believe that your
+        data privacy is very important and we already have solid security and
+        privacy practices in place that go beyond the requirements of this new
+        regulation.
       </p>
       <h1>
         Individual Data Subject's Rights - Data Access, Portability and Deletion
       </h1>
       <p>
         We are committed to helping our customers meet the data subject rights
-        requirements of GDPR. Log for Training processes or stores all personal
-        data in fully vetted, DPA compliant vendors. We do store all
-        conversation and personal data for up to 6 years unless your account is
-        deleted. In which case, we dispose of all data in accordance with our
-        Terms of Service and Privacy Policy, but we will not hold it longer than
-        60 days.
+        requirements of GDPR. {import.meta.env.VITE_APP_APP_NAME} processes or
+        stores all personal data in fully vetted, DPA compliant vendors. We do
+        store all conversation and personal data for up to 6 years unless your
+        account is deleted. In which case, we dispose of all data in accordance
+        with our Terms of Service and Privacy Policy, but we will not hold it
+        longer than 60 days.
       </p>
       <p>
         We are aware that if you are working with EU customers, you need to be
