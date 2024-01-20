@@ -1,10 +1,10 @@
 import { useAppDispatch } from '../../utils/hooks';
 import { logoutNow } from '../../models/userSlice';
 import VerifyEmailView from './VerifyEmailView';
-import { getAuth, sendEmailVerification } from 'firebase/auth';
+import { sendEmailVerification } from 'firebase/auth';
+import { auth } from '../../persistence/firebaseModel';
 
 const VerifyEmailPresenter = () => {
-  const auth = getAuth();
   const dispatch = useAppDispatch();
   function logOutACB() {
     dispatch(logoutNow());

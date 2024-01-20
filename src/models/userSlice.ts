@@ -7,16 +7,15 @@ import {
 } from '@reduxjs/toolkit';
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
   sendEmailVerification,
 } from 'firebase/auth';
-import { firebaseApp } from '../persistence/firebaseModel';
 import produce from 'immer';
 import { RootState, AppDispatch } from './store';
 import { continuationUrlDomain } from '../utils/utils';
+import { auth } from '../persistence/firebaseModel';
 
 export const logoutAction = createAction('logoutAction');
 
@@ -127,7 +126,6 @@ export const registerOrLogIn = createAsyncThunk(
     firstName,
     lastName,
   }: RegisterProps) => {
-    const auth = getAuth(firebaseApp);
     try {
       if (signUpOption) {
         const authUserData = await createUserWithEmailAndPassword(
@@ -210,7 +208,7 @@ export const selectLoggedOut = createSelector(
 export const logoutNow =
   (/* state: RootState */) => async (dispatch: AppDispatch, _) => {
     dispatch(setLoggedOut(true));
-    await signOut(getAuth(firebaseApp));
+    await signOut(auth);
   };
 
 export const {
