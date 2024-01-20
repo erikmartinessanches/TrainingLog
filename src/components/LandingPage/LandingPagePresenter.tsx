@@ -1,7 +1,7 @@
 import './App.css';
 import LandingPageView from './LandingPageView';
 import { useNavigate } from 'react-router-dom';
-
+//My landing page.
 function App() {
   const navigate = useNavigate();
 
