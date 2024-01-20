@@ -7,4 +7,5 @@ const continuationUrlDomain = () => {
     return `https://${import.meta.env.VITE_APP_PROJECT_ID}.web.app`;
   }
 };
+
 export { continuationUrlDomain };
