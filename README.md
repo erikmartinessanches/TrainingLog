@@ -2,7 +2,7 @@
 
 # My Training Tracker
 
-This is the code for my training log software. It can register and sign in users. Users are able to create exercises and save their training activity, which are persisted in the database for each user. The application uses roughly an MVP architecture (Model-View-Presenter) with persistence. It also features live-update of training data between multiple logged-in windows, offline functionality and password reset via email.
+This is my work-in-progress training log software. It can register and sign in users. Users are able to create exercises and save their training activity, which are persisted in the database for each user. The application uses roughly an MVP architecture (Model-View-Presenter) with persistence. It also features live-update of training data between multiple logged-in windows, offline functionality, email verification and password reset via email.
 
 ## Commands
 
