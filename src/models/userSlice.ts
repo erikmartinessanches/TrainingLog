@@ -12,9 +12,6 @@ import {
   signOut,
   updateProfile,
   sendEmailVerification,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  UserCredential,
 } from 'firebase/auth';
 //import { firebaseApp } from '../persistence/firebaseModel';
 import produce from 'immer';
@@ -64,6 +61,7 @@ export const user = createSlice({
       state.modelReady = action.payload;
     },
     loginCompleted: (state, action) => {},
+    loggedInWithProvider: (state, action) => {},
     createExercise: (state, action) => {
       //debugger;
       state.user.exercises = produce(state.user.exercises, (draftState) => {
@@ -125,49 +123,9 @@ interface RegisterProps {
 
 interface ProviderProps {
   provider: string;
+  authProvider: any;
+  contents: any;
 }
-
-export const authWithProvider = createAsyncThunk(
-  'auth/authWithProvider',
-  async ({ provider }: ProviderProps) => {
-    try {
-      if (provider === 'google') {
-        const authProvider = new GoogleAuthProvider();
-
-        signInWithRedirect(auth, authProvider)
-          .then(async (result: UserCredential) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            const user = result.user;
-            debugger;
-            // IdP data available using getAdditionalUserInfo(result)
-          })
-          .catch((error: FirebaseError) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-          });
-        return {
-          uid: credential.user.uid,
-          email: credential.user.email,
-          usingAsSignUp: signUpOption,
-          firstName: firstName,
-          lastName: lastName,
-        };
-      }
-    } catch (e) {
-      switch (e.code) {
-        case 'auth/email-already-in-use':
-          console.log('Email address already in use.');
-          break;
-        //Handle more...
-      }
-    }
-  },
-);
 
 //Considered moving this to the Persistence layer. Keeping it here for now since
 //this function is used from a presenter.
@@ -180,7 +138,6 @@ export const registerOrLogIn = createAsyncThunk(
     firstName,
     lastName,
   }: RegisterProps) => {
-    //const auth = getAuth(firebaseApp);
     try {
       if (signUpOption) {
         const authUserData = await createUserWithEmailAndPassword(
@@ -275,4 +232,5 @@ export const {
   setExercises,
   createExercise,
   setLoggedOut,
+  loggedInWithProvider,
 } = user.actions;

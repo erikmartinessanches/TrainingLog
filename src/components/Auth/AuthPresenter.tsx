@@ -3,6 +3,12 @@ import AuthView from './AuthView';
 import { useLocation } from 'react-router-dom';
 import { registerOrLogIn, authWithProvider } from '../../models/userSlice';
 import { useAppDispatch } from '../../utils/hooks';
+import {
+  GoogleAuthProvider,
+  getRedirectResult,
+  signInWithRedirect,
+} from 'firebase/auth';
+import { auth } from '../../persistence/firebaseModel';
 
 export default function AuthPresenter() {
   const [signup, setSignup] = useState<boolean>(true);
@@ -30,7 +36,8 @@ export default function AuthPresenter() {
   }
 
   async function signUpWithGoogle() {
-    dispatch(authWithProvider({ provider: 'google' }));
+    const authProvider = new GoogleAuthProvider();
+    signInWithRedirect(auth, authProvider);
   }
 
   return (

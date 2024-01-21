@@ -9,7 +9,12 @@ import {
   off,
   onChildAdded,
 } from 'firebase/database';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  getRedirectResult,
+  GoogleAuthProvider,
+} from 'firebase/auth';
 import {
   setModelReady,
   setExercises,
@@ -20,6 +25,8 @@ import {
   logoutAction,
   createExercise,
   setLoggedOut,
+  loginCompleted,
+  loggedInWithProvider,
 } from '../models/userSlice';
 import {
   createListenerMiddleware,
@@ -56,6 +63,22 @@ const configureListenerMiddleware = () => {
         action?.type === 'auth/authenticateWithFirebase/fulfilled' &&
         action?.payload?.usingAsSignUp
       ) {
+        saveUserToFirebase(state).then(() => {
+          listenerApi.dispatch(setModelReady(true));
+        });
+      }
+    },
+  });
+
+  /*Application state side effect: When we have logged in with a (google) 
+  provider and I need to create database entry for the user. */
+  listenerMiddleware.startListening({
+    matcher: isAnyOf(loggedInWithProvider),
+    effect: async (action, listenerApi) => {
+      //debugger;
+      const state = listenerApi.getState();
+      if (action?.type === 'auth/loggedInWithProvider') {
+        //TODO: Only saveUserToFirebase if not already in DB!
         saveUserToFirebase(state).then(() => {
           listenerApi.dispatch(setModelReady(true));
         });
@@ -130,6 +153,23 @@ export const connectModelToFirebase = (store) => {
       store.dispatch(setLoggedOut(true));
     }
   }
+
+  /**Think of this as a similar callback to the onAuthStateChanged but for getting
+   * the result after porforming a Google login with redirect.
+   */
+  getRedirectResult(auth).then((result) => {
+    //debugger;
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const user = result.user;
+    store.dispatch(logInUser({ uid: user.uid, email: user.email })); //Needed here?
+    store.dispatch(setFirstName(result._tokenResponse.firstName));
+    store.dispatch(setLastName(result._tokenResponse.lastName));
+    store.dispatch(loggedInWithProvider({ user: user }));
+    //Now, save the user data to DB. (perhaps using the middleware listener), then
+    //we can determine in the future whether this is a login/signup for the user.
+
+    //Then try as above: readFromFirebaseWithUser(user, store.dispatch, store);
+  });
 };
 
 function modelToPersistence(state) {
