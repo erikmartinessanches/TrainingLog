@@ -90,7 +90,10 @@ const configureListenerMiddleware = () => {
     },
   });
 
-  /**Application state side effect. */
+  /**Application state side effect. TODO: Perhaps decouple setting last name from
+   * triggering this side effect and use rather another action only for this
+   * situation?
+   */
   listenerMiddleware.startListening({
     matcher: isAnyOf(setLastName),
     effect: async (action, listenerApi) => {
