@@ -55,6 +55,9 @@ auth.useDeviceLanguage();
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();
 
+  /**Application state side effect: When weMre done with our ‘registerOrLogIn’
+   * thunk, create a user DF entry if this is signup.
+   */
   listenerMiddleware.startListening({
     matcher: isAsyncThunkAction(registerOrLogIn),
     effect: async (action, listenerApi) => {
@@ -78,7 +81,8 @@ const configureListenerMiddleware = () => {
       //debugger;
       const state = listenerApi.getState();
       if (action?.type === 'auth/loggedInWithProvider') {
-        //TODO: Only saveUserToFirebase if not already in DB!
+        //TODO: Only saveUserToFirebase if not already in DB! Otherwise,
+        //subsequent logins overwrite the DB entry!
         saveUserToFirebase(state).then(() => {
           listenerApi.dispatch(setModelReady(true));
         });
@@ -86,6 +90,7 @@ const configureListenerMiddleware = () => {
     },
   });
 
+  /**Application state side effect. */
   listenerMiddleware.startListening({
     matcher: isAnyOf(setLastName),
     effect: async (action, listenerApi) => {
@@ -100,6 +105,7 @@ const configureListenerMiddleware = () => {
     },
   });
 
+  /**Application state side effect. */
   listenerMiddleware.startListening({
     matcher: isAnyOf(createExercise),
     effect: async (action, listenerApi) => {
@@ -159,7 +165,7 @@ export const connectModelToFirebase = (store) => {
    */
   getRedirectResult(auth).then((result) => {
     //debugger;
-    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const credential = GoogleAuthProvider.credentialFromResult(result); //What’s this used for?
     const user = result.user;
     store.dispatch(logInUser({ uid: user.uid, email: user.email })); //Needed here?
     store.dispatch(setFirstName(result._tokenResponse.firstName));
