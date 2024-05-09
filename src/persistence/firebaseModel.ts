@@ -165,41 +165,67 @@ export const connectModelToFirebase = (store) => {
 
   /**Think of this as a similar callback to the onAuthStateChanged but for getting
    * the result after performing a Google login with redirect. We need to call
-   * it after logging in.
+   * it after logging in. This function may not be needed, as signInWithRedirect
+   * signs in by itself. But his is a way of getting results.
    */
-  getRedirectResult(auth)
-    .then((result) => {
-      let credential;
-      if (result) {
-        credential = GoogleAuthProvider.credentialFromResult(result);
-        const user = result?.user;
-        //debugger;
-      }
-      //const credential = GoogleAuthProvider.credentialFromResult(result);
+  // getRedirectResult(auth)
+  //   .then((result) => {
+  //     let credential;
+  //     if (result) {
+  //       credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const user = result?.user;
+  //       //debugger;
+  //     }
+  //     //const credential = GoogleAuthProvider.credentialFromResult(result);
 
-      //const provider = new GoogleAuthProvider();
+  //     //const provider = new GoogleAuthProvider();
 
-      //const credential = GoogleAuthProvider.credentialFromResult(result); //What’s this used for?
-      //const user = result.user;
-      // store.dispatch(logInUser({ uid: user.uid, email: user.email })); //Needed here?
-      // store.dispatch(setFirstName(result._tokenResponse.firstName));
-      // store.dispatch(setLastName(result._tokenResponse.lastName));
-      // store.dispatch(loggedInWithProvider({ user: user }));
-      //Now, save the user data to DB. (perhaps using the middleware listener), then
-      //we can determine in the future whether this is a login/signup for the user.
-      //Then try as above: readFromFirebaseWithUser(user, store.dispatch, store);
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-    });
+  //     //const credential = GoogleAuthProvider.credentialFromResult(result); //What’s this used for?
+  //     //const user = result.user;
+  //     // store.dispatch(logInUser({ uid: user.uid, email: user.email })); //Needed here?
+  //     // store.dispatch(setFirstName(result._tokenResponse.firstName));
+  //     // store.dispatch(setLastName(result._tokenResponse.lastName));
+  //     // store.dispatch(loggedInWithProvider({ user: user }));
+  //     //Now, save the user data to DB. (perhaps using the middleware listener), then
+  //     //we can determine in the future whether this is a login/signup for the user.
+  //     //Then try as above: readFromFirebaseWithUser(user, store.dispatch, store);
+  //   })
+  //   .catch((error) => {
+  //     // Handle Errors here.
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     const email = error.customData.email;
+  //     // The AuthCredential type that was used.
+  //     const credential = GoogleAuthProvider.credentialFromError(error);
+  //     // ...
+  //   });
 };
+
+//This appears just before page reload, so use debugger to see variables (since)
+//console is cleared. This function may not be necessary, gives access to Google's
+//getRedirectResult.
+// function getResults(auth) {
+//   debugger;
+//   console.log('Here we may access google auth login user result.');
+//   getRedirectResult(auth)
+//     .then((result) => {
+//       const user = result.user;
+//       console.log('user: ' + user);
+//       debugger;
+//     })
+//     .catch((error) => {
+//       // Handle Errors here.
+//       const errorCode = error.code;
+//       const errorMessage = error.message;
+//       // The email of the user's account used.
+//       const email = error.customData.email;
+//       // The AuthCredential type that was used.
+//       const credential = GoogleAuthProvider.credentialFromError(error);
+//       // ...
+//     });
+//   //debugger;
+// }
 
 function modelToPersistence(state) {
   //Return actually useful stuff to put into persistence from model.

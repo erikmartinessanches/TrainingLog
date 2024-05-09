@@ -37,7 +37,29 @@ export default function AuthPresenter() {
 
   async function signUpWithGoogle() {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+
+    //It appears this is enough to properly sign in.
+    await signInWithRedirect(auth, provider); //Page reloads just after the next call,
+    //below.
+    //getResults(auth); //Gets results manually, but may not be necessary.
+    /*.then(() => {
+      getRedirectResult(auth)
+        .then((result) => {
+          const user = result.user;
+          console.log('user: ' + user);
+          debugger;
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+    });*/
   }
 
   return (
