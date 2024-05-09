@@ -164,21 +164,41 @@ export const connectModelToFirebase = (store) => {
   }
 
   /**Think of this as a similar callback to the onAuthStateChanged but for getting
-   * the result after porforming a Google login with redirect.
+   * the result after performing a Google login with redirect. We need to call
+   * it after logging in.
    */
-  getRedirectResult(auth).then((result) => {
-    //debugger;
-    const credential = GoogleAuthProvider.credentialFromResult(result); //What’s this used for?
-    const user = result.user;
-    store.dispatch(logInUser({ uid: user.uid, email: user.email })); //Needed here?
-    store.dispatch(setFirstName(result._tokenResponse.firstName));
-    store.dispatch(setLastName(result._tokenResponse.lastName));
-    store.dispatch(loggedInWithProvider({ user: user }));
-    //Now, save the user data to DB. (perhaps using the middleware listener), then
-    //we can determine in the future whether this is a login/signup for the user.
+  getRedirectResult(auth)
+    .then((result) => {
+      let credential;
+      if (result) {
+        credential = GoogleAuthProvider.credentialFromResult(result);
+        const user = result?.user;
+        //debugger;
+      }
+      //const credential = GoogleAuthProvider.credentialFromResult(result);
 
-    //Then try as above: readFromFirebaseWithUser(user, store.dispatch, store);
-  });
+      //const provider = new GoogleAuthProvider();
+
+      //const credential = GoogleAuthProvider.credentialFromResult(result); //What’s this used for?
+      //const user = result.user;
+      // store.dispatch(logInUser({ uid: user.uid, email: user.email })); //Needed here?
+      // store.dispatch(setFirstName(result._tokenResponse.firstName));
+      // store.dispatch(setLastName(result._tokenResponse.lastName));
+      // store.dispatch(loggedInWithProvider({ user: user }));
+      //Now, save the user data to DB. (perhaps using the middleware listener), then
+      //we can determine in the future whether this is a login/signup for the user.
+      //Then try as above: readFromFirebaseWithUser(user, store.dispatch, store);
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
 };
 
 function modelToPersistence(state) {

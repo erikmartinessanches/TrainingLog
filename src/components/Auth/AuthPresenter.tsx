@@ -36,8 +36,8 @@ export default function AuthPresenter() {
   }
 
   async function signUpWithGoogle() {
-    const authProvider = new GoogleAuthProvider();
-    signInWithRedirect(auth, authProvider);
+    const provider = new GoogleAuthProvider();
+    signInWithRedirect(auth, provider);
   }
 
   return (
