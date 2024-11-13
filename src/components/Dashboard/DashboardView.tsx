@@ -21,6 +21,10 @@ function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
     createNewACB();
   }
 
+  function onNewTrainingSession() {
+    //Call something sensible here.
+  }
+
   return (
     <div>
       <h1>Dashboard</h1>
@@ -42,6 +46,14 @@ function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
         // disabled={loading}
       >
         Create new exercise
+      </Button>
+      <Button
+        variant="contained"
+        onClick={onNewTrainingSession}
+        type="submit"
+        // disabled={loading}
+      >
+        Enter training session
       </Button>
     </div>
   );
