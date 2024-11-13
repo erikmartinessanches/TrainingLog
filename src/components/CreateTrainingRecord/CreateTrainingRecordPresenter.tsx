@@ -68,7 +68,7 @@ function CreateTrainingRecordPresenter() {
   return (
     <CreateTrainingRecordView
       saveExerciseACB={saveExerciseACB}
-      exerciseName={exercises}
+      exerciseNames={exerciseNames}
       setExerciseName={setExercises}
       exerciseType={exerciseType}
       setExerciseType={setExerciseType}
