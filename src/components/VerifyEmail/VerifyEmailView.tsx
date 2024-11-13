@@ -16,7 +16,7 @@ const VerifyEmailView = ({ logOut, resend }: Props) => {
   return (
     <div>
       <p>
-        Please verify your email address before using Log for Training. Click
+        Please verify your email address before using My Training Tracker. Click
         the link sent to your email. (If it’s not in your inbox, check spam
         folders.)
       </p>

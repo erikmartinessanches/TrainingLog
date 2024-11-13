@@ -27,6 +27,7 @@ import {
   setLoggedOut,
   loginCompleted,
   loggedInWithProvider,
+  signInWithGoogle,
 } from '../models/userSlice';
 import {
   createListenerMiddleware,
@@ -51,6 +52,7 @@ const firebaseApp = initializeApp({
 const firebaseDb = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
 auth.useDeviceLanguage();
+const provider = new GoogleAuthProvider();
 
 const configureListenerMiddleware = () => {
   const listenerMiddleware = createListenerMiddleware();
@@ -73,22 +75,39 @@ const configureListenerMiddleware = () => {
     },
   });
 
-  /*Application state side effect: When we have logged in with a (google) 
-  provider and I need to create database entry for the user. */
   listenerMiddleware.startListening({
-    matcher: isAnyOf(loggedInWithProvider),
+    matcher: isAsyncThunkAction(signInWithGoogle),
     effect: async (action, listenerApi) => {
-      //debugger;
       const state = listenerApi.getState();
-      if (action?.type === 'auth/loggedInWithProvider') {
-        //TODO: Only saveUserToFirebase if not already in DB! Otherwise,
-        //subsequent logins overwrite the DB entry!
+      if (action?.type === 'auth/signInWithGoogle/fulfilled') {
+        debugger;
+
+        //TODO, SERIOUSLY: Only saveUserToFirebase if not already in DB! Otherwise,
+        //Google signup/login overwrites the DB user data entry from previous
+        // google logins/signups!
         saveUserToFirebase(state).then(() => {
           listenerApi.dispatch(setModelReady(true));
         });
       }
     },
   });
+
+  // /*Application state side effect: When we have logged in with a (google)
+  // provider and I need to create database entry for the user. */
+  // listenerMiddleware.startListening({
+  //   matcher: isAnyOf(loggedInWithProvider),
+  //   effect: async (action, listenerApi) => {
+  //     //debugger;
+  //     const state = listenerApi.getState();
+  //     if (action?.type === 'auth/loggedInWithProvider') {
+  //       //TODO: Only saveUserToFirebase if not already in DB! Otherwise,
+  //       //subsequent logins overwrite the DB entry!
+  //       saveUserToFirebase(state).then(() => {
+  //         listenerApi.dispatch(setModelReady(true));
+  //       });
+  //     }
+  //   },
+  // });
 
   /**Application state side effect. TODO: Perhaps decouple setting last name from
    * triggering this side effect and use rather another action only for this
@@ -128,7 +147,7 @@ const configureListenerMiddleware = () => {
 
   return listenerMiddleware;
 };
-export const connectModelToFirebase = (store) => {
+export const connectModelToFirebase = async (store) => {
   onAuthStateChanged(auth, (user) => authChangedACB(user, store));
 
   function authChangedACB(user, store) {
@@ -170,18 +189,27 @@ export const connectModelToFirebase = (store) => {
    */
   // getRedirectResult(auth)
   //   .then((result) => {
-  //     let credential;
+  //     debugger;
   //     if (result) {
-  //       credential = GoogleAuthProvider.credentialFromResult(result);
-  //       const user = result?.user;
-  //       //debugger;
+  //       debugger;
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       const user = result.user;
   //     }
-  //     //const credential = GoogleAuthProvider.credentialFromResult(result);
+  // This gives you a Google Access Token. You can use it to access Google APIs.
 
-  //     //const provider = new GoogleAuthProvider();
+  // let credential;
+  // if (result) {
+  //   credential = GoogleAuthProvider.credentialFromResult(result);
+  //   const user = result?.user;
+  //   debugger;
+  // }
+  // credential = GoogleAuthProvider.credentialFromResult(result);
 
-  //     //const credential = GoogleAuthProvider.credentialFromResult(result); //What’s this used for?
-  //     //const user = result.user;
+  // const provider = new GoogleAuthProvider();
+
+  //const credential = GoogleAuthProvider.credentialFromResult(result); //What’s this used for?
+  //const user = result.user;
   //     // store.dispatch(logInUser({ uid: user.uid, email: user.email })); //Needed here?
   //     // store.dispatch(setFirstName(result._tokenResponse.firstName));
   //     // store.dispatch(setLastName(result._tokenResponse.lastName));
@@ -189,17 +217,17 @@ export const connectModelToFirebase = (store) => {
   //     //Now, save the user data to DB. (perhaps using the middleware listener), then
   //     //we can determine in the future whether this is a login/signup for the user.
   //     //Then try as above: readFromFirebaseWithUser(user, store.dispatch, store);
-  //   })
-  //   .catch((error) => {
-  //     // Handle Errors here.
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     const email = error.customData.email;
-  //     // The AuthCredential type that was used.
-  //     const credential = GoogleAuthProvider.credentialFromError(error);
-  //     // ...
-  //   });
+  // })
+  // .catch((error) => {
+  //   // Handle Errors here.
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  //   // The email of the user's account used.
+  //   const email = error.customData?.email;
+  //   // The AuthCredential type that was used.
+  //   const credential = GoogleAuthProvider.credentialFromError(error);
+  //   // ...
+  // });
 };
 
 //This appears just before page reload, so use debugger to see variables (since)
@@ -319,5 +347,6 @@ export {
   readFromFirebaseWithUser,
   auth,
   firebaseApp,
+  provider,
   configureListenerMiddleware,
 };

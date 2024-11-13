@@ -12,13 +12,18 @@ import {
   signOut,
   updateProfile,
   sendEmailVerification,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  getAuth,
+  signInWithPopup,
 } from 'firebase/auth';
 //import { firebaseApp } from '../persistence/firebaseModel';
 import produce from 'immer';
 import { RootState, AppDispatch } from './store';
 import { continuationUrlDomain } from '../utils/utils';
 
-import { auth } from '../persistence/firebaseModel';
+import { auth, provider } from '../persistence/firebaseModel';
 import { FirebaseError } from 'firebase/app';
 
 export const logoutAction = createAction('logoutAction');
@@ -110,6 +115,47 @@ export const user = createSlice({
     builder.addCase(logoutAction, () => {
       return initialState;
     });
+    builder.addCase(signInWithGoogle.pending, (state) => {
+      debugger;
+      state.firebaseAuthStatus = 'PENDING';
+    });
+    builder.addCase(signInWithGoogle.rejected, (state, action) => {
+      debugger;
+      state.firebaseAuthStatus = 'REJECTED';
+      state.firebaseAuthError = action.error.code;
+    });
+    builder.addCase(signInWithGoogle.fulfilled, (state, action) => {
+      debugger;
+      if (action.payload?.firstName) {
+        //On registration only
+        state.user.firstName = action.payload?.firstName;
+      }
+      if (action.payload?.lastName) {
+        //On registration only
+        state.user.lastName = action.payload?.lastName;
+      }
+      state.firebaseAuthStatus = 'FULFILLED';
+    });
+    // builder.addCase(handleRedirectResult.fulfilled, (state, action) => {
+    //   debugger;
+    //   if (action.payload?.firstName) {
+    //     //On registration only
+    //     state.user.firstName = action.payload?.firstName;
+    //   }
+    //   if (action.payload?.lastName) {
+    //     //On registration only
+    //state.user.firstName = action.payload.displayName;
+    //   state.firebaseAuthStatus = 'FULFILLED';
+    // });
+    // builder.addCase(handleRedirectResult.rejected, (state, action) => {
+    //   debugger;
+    //   state.firebaseAuthStatus = 'REJECTED';
+    //   state.firebaseAuthError = action?.error?.message;
+    // });
+    // builder.addCase(handleRedirectResult.pending, (state) => {
+    //   debugger;
+    //   state.firebaseAuthStatus = 'PENDING';
+    // });
   },
 });
 
@@ -222,6 +268,108 @@ export const logoutNow =
     dispatch(setLoggedOut(true));
     await signOut(auth);
   };
+
+export const signInWithGoogle = createAsyncThunk(
+  'auth/signInWithGoogle',
+  async () => {
+    console.log('Got to this thunk');
+    try {
+      const result = await signInWithPopup(auth, provider);
+      debugger;
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+      return {
+        uid: user.uid,
+        email: user.email,
+        //usingAsSignUp: signUpOption,
+        firstName: user.displayName,
+        lastName: user.displayName,
+      };
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      switch (
+        errorCode //For illustration but need not be handled here.
+      ) {
+        case 'auth/email-already-in-use':
+          console.log(errorMessage);
+          break;
+        case 'auth/invalid-login-credentials':
+          console.log(errorMessage);
+          break;
+        default:
+          console.log('error.code');
+          break;
+      }
+    }
+    // signInWithPopup(auth, provider)
+    //   .then((result) => {
+    //     debugger;
+    //     const credential = GoogleAuthProvider.credentialFromResult(result);
+    //     const token = credential.accessToken;
+    //     const user = result.user;
+
+    //     return {
+    //       uid: user.uid,
+    //       email: user.email,
+    //       //usingAsSignUp: signUpOption,
+    //       firstName: user.displayName,
+    //       lastName: user.displayName,
+    //     };
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     // The email of the user's account used.
+    //     const email = error.customData.email;
+    //     // The AuthCredential type that was used.
+    //     const credential = GoogleAuthProvider.credentialFromError(error);
+    //     switch (
+    //       errorCode //For illustration but need not be handled here.
+    //     ) {
+    //       case 'auth/email-already-in-use':
+    //         console.log(errorMessage);
+    //         break;
+    //       case 'auth/invalid-login-credentials':
+    //         console.log(errorMessage);
+    //         break;
+    //       default:
+    //         console.log('error.code');
+    //         break;
+    //     }
+    //   });
+  },
+);
+
+//Perhaps ok
+// export const handleRedirectResult = createAsyncThunk(
+//   'auth/handleRedirectResult',
+//   async () => {
+//     debugger;
+//     const result = await getRedirectResult(auth);
+//     if (result) {
+//       return { user: result.user };
+//     } else {
+//       throw new Error('No user found after redirect');
+//     }
+//   },
+// );
+
+// export const signInWithGoogle = () => async (dispatch: AppDispatch, _) => {
+//   const provider = new GoogleAuthProvider();
+//   dispatch(setModelReady(false));
+//   try {
+//     await signInWithRedirect(auth, provider); // Starts redirect
+//   } catch (error) {
+//     //dispatch(setError(error.message));
+//     console.log('error.message');
+//   }
+// };
 
 export const {
   setFirstName,
