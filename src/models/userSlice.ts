@@ -116,7 +116,6 @@ export const user = createSlice({
       return initialState;
     });
     builder.addCase(signInWithGoogle.pending, (state) => {
-      debugger;
       state.firebaseAuthStatus = 'PENDING';
     });
     builder.addCase(signInWithGoogle.rejected, (state, action) => {
@@ -272,7 +271,6 @@ export const logoutNow =
 export const signInWithGoogle = createAsyncThunk(
   'auth/signInWithGoogle',
   async () => {
-    console.log('Got to this thunk');
     try {
       const result = await signInWithPopup(auth, provider);
       debugger;
@@ -285,6 +283,8 @@ export const signInWithGoogle = createAsyncThunk(
         //usingAsSignUp: signUpOption,
         firstName: user.displayName,
         lastName: user.displayName,
+        createdAt: user.metadata.createdAt,
+        creationTime: user.metadata.creationTime,
       };
     } catch (error) {
       const errorCode = error.code;

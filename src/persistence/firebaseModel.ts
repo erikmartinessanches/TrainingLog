@@ -81,13 +81,17 @@ const configureListenerMiddleware = () => {
       const state = listenerApi.getState();
       if (action?.type === 'auth/signInWithGoogle/fulfilled') {
         debugger;
-
         //TODO, SERIOUSLY: Only saveUserToFirebase if not already in DB! Otherwise,
-        //Google signup/login overwrites the DB user data entry from previous
-        // google logins/signups!
-        saveUserToFirebase(state).then(() => {
-          listenerApi.dispatch(setModelReady(true));
-        });
+        //google signup/login overwrites the DB user data entry from previous
+        //google logins/sign-ups! I resolved the problem using the createdAt
+        //meta info already present from firebase auth.
+        if (Date.now() - action.payload.createdAt < 10000) {
+          //User created less than 10 seconds ago? Likely a new user.
+          debugger;
+          saveUserToFirebase(state).then(() => {
+            listenerApi.dispatch(setModelReady(true));
+          });
+        }
       }
     },
   });
