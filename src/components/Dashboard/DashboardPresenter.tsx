@@ -23,6 +23,10 @@ function DashboardPresenter() {
     navigate('/dashboard/create-exercise');
   }
 
+  function createNewTrainingSessionACB() {
+    navigate('/dashboard/create-training-record');
+  }
+
   //Placing it here for simplicity, consider using the "secure routes" in parent instead.
   // if (user.uid === undefined) {
   //   return <LoadingIconView />;
@@ -39,6 +43,7 @@ function DashboardPresenter() {
           logOut={logOutACB}
           //loading={loading}
           createNewACB={createNewExerciseACB}
+          createNewTrainingSessionACB={createNewTrainingSessionACB}
           user={user}
         />
       );

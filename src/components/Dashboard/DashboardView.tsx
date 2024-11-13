@@ -5,6 +5,7 @@ interface Props {
   logOut: () => void;
   //loading: boolean;
   createNewACB: () => void;
+  createNewTrainingSessionACB: () => void;
   user: {
     firstName: string | null;
     lastName: string | null;
@@ -12,7 +13,12 @@ interface Props {
   };
 }
 
-function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
+function DashboardView({
+  logOut,
+  /* loading, */ createNewACB,
+  createNewTrainingSessionACB,
+  user,
+}: Props) {
   function onLogOutClicked() {
     logOut();
   }
@@ -22,7 +28,7 @@ function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
   }
 
   function onNewTrainingSession() {
-    //Call something sensible here.
+    createNewTrainingSessionACB();
   }
 
   return (
@@ -53,7 +59,7 @@ function DashboardView({ logOut, /* loading, */ createNewACB, user }: Props) {
         type="submit"
         // disabled={loading}
       >
-        Enter training session
+        Create training record
       </Button>
     </div>
   );

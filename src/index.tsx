@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 //import reportWebVitals from './reportWebVitals';
 import SecureRoute from './utils/SecureRoute';
 import CreateRecordPresenter from './components/CreateExercise/CreateExercisePresenter';
+import CreateTrainingRecordPresenter from './components/CreateTrainingRecord/CreateTrainingRecordPresenter';
 import AuthPresenter from './components/Auth/AuthPresenter';
 import PasswordResetPresenter from './components/PasswordReset/PasswordResetPresenter';
 import store from './models/store';
@@ -77,6 +78,18 @@ const router = createBrowserRouter([
         <React.Fragment>
           <HeaderPresenter />
           <CreateRecordPresenter />
+        </React.Fragment>
+      </SecureRoute>
+    ),
+    errorElement: <ErrorView />,
+  },
+  {
+    path: '/dashboard/create-training-record',
+    element: (
+      <SecureRoute>
+        <React.Fragment>
+          <HeaderPresenter />
+          <CreateTrainingRecordPresenter />
         </React.Fragment>
       </SecureRoute>
     ),
