@@ -51,7 +51,7 @@ function DashboardView({
         type="submit"
         // disabled={loading}
       >
-        Create new exercise
+        Create exercise
       </Button>
       <Button
         variant="contained"

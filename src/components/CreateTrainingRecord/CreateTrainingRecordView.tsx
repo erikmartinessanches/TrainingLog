@@ -14,6 +14,7 @@ interface Props {
   setExerciseName: (exerciseName: string) => void;
   exerciseType: string;
   setExerciseType: (exerciseType: string) => void;
+  exerciseList: JSX.Element;
 }
 
 function CreateTrainingRecordView({
@@ -22,6 +23,7 @@ function CreateTrainingRecordView({
   setExerciseNames,
   exerciseType,
   setExerciseType,
+  exerciseList,
 }: Props) {
   function onSubmitACB(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,10 +37,7 @@ function CreateTrainingRecordView({
   return (
     <form onSubmit={onSubmitACB}>
       <Box sx={{ display: 'flex' }}>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          {/*  <InputLabel id="exercise-name-input-label">Exercise name</InputLabel> */}
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
           <InputLabel id="exercise-type-select-label">Exercise</InputLabel>
           <Select
             labelId="exercise-type-select-label"
@@ -53,9 +52,10 @@ function CreateTrainingRecordView({
               </MenuItem>
             ))}
           </Select>
+          {exerciseList}
         </FormControl>
       </Box>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
         <Button
           variant="contained"
           type="submit"

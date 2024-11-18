@@ -46,6 +46,14 @@ function CreateTrainingRecordPresenter() {
     navigate('/dashboard');
   }
 
+  const [exerciseList, setExerciseList] = useState<JSX.Element>();
+
+  function setExercise(exercise: string) {
+    setExerciseType(exercise);
+    // if (exercise === 'My Squat') {
+    setExerciseList(<h1>{exercise}</h1>);
+    // }
+  }
   /**“Rendering” means that React is calling your component, which is a
    * function. The JSX you return from that function is like a snapshot of the
    * UI in time. Its props, event handlers, and local variables were all
@@ -71,7 +79,9 @@ function CreateTrainingRecordPresenter() {
       exerciseNames={exerciseNames}
       setExerciseName={setExercises}
       exerciseType={exerciseType}
-      setExerciseType={setExerciseType}
+      //setExerciseType={setExerciseType}
+      setExerciseType={setExercise}
+      exerciseList={exerciseList}
     />
   );
 }
