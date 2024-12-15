@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 interface Props {
   saveExerciseACB: () => void;
   exerciseNames: string[];
-  setExerciseName: (exerciseName: string) => void;
-  exerciseType: string;
+  //setExerciseName: (exerciseName: string) => void;
+  //exerciseType: string;
   setExerciseType: (exerciseType: string) => void;
   exerciseList: JSX.Element;
 }
@@ -20,8 +20,8 @@ interface Props {
 function CreateTrainingRecordView({
   saveExerciseACB,
   exerciseNames,
-  setExerciseNames,
-  exerciseType,
+  //setExerciseNames,
+  //exerciseType,
   setExerciseType,
   exerciseList,
 }: Props) {
@@ -42,7 +42,7 @@ function CreateTrainingRecordView({
           <Select
             labelId="exercise-type-select-label"
             id="exercise-type-select"
-            value={exerciseType}
+            value={''}
             onChange={handleChangeExerciseTypeACB}
             required
           >

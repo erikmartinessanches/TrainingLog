@@ -119,12 +119,10 @@ export const user = createSlice({
       state.firebaseAuthStatus = 'PENDING';
     });
     builder.addCase(signInWithGoogle.rejected, (state, action) => {
-      debugger;
       state.firebaseAuthStatus = 'REJECTED';
       state.firebaseAuthError = action.error.code;
     });
     builder.addCase(signInWithGoogle.fulfilled, (state, action) => {
-      debugger;
       if (action.payload?.firstName) {
         //On registration only
         state.user.firstName = action.payload?.firstName;
@@ -236,11 +234,11 @@ export const registerOrLogIn = createAsyncThunk(
         case 'auth/email-already-in-use':
           console.log('Email address already in use.');
           break;
-        case 'auth/invalid-login-credentials':
-          console.log('Invalid login credentials.');
+        case 'auth/invalid-credential':
+          console.log(e.message);
           break;
         default:
-          console.log('error.code');
+          console.log(e.code);
           break;
       }
     }
@@ -273,7 +271,6 @@ export const signInWithGoogle = createAsyncThunk(
   async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      debugger;
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
